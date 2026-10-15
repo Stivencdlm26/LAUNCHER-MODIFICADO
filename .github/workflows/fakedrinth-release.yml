@@ -1,0 +1,69 @@
+name: FAKEDRINH release
+
+on:
+  push:
+    tags:
+      - 'fakedrinth-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.8.1
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: swatinem/rust-cache@v2
+
+      - name: Set release version from tag
+        shell: pwsh
+        run: node scripts/set-fakedrinth-release-version.mjs "${{ github.ref_name }}"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare production environment
+        shell: pwsh
+        run: Copy-Item packages/app-lib/.env.prod packages/app-lib/.env
+
+      - name: Configure FAKEDRINH updater key
+        shell: pwsh
+        env:
+          TAURI_UPDATER_PUBLIC_KEY: ${{ vars.TAURI_UPDATER_PUBLIC_KEY }}
+        run: |
+          if ([string]::IsNullOrWhiteSpace($env:TAURI_UPDATER_PUBLIC_KEY)) {
+            throw 'Set the TAURI_UPDATER_PUBLIC_KEY repository variable before publishing a release.'
+          }
+          $configPath = 'apps/app/tauri-release.conf.json'
+          $config = Get-Content $configPath -Raw
+          if (-not $config.Contains('__TAURI_UPDATER_PUBLIC_KEY__')) {
+            throw 'The updater public key placeholder was not found in tauri-release.conf.json.'
+          }
+          $config = $config.Replace('__TAURI_UPDATER_PUBLIC_KEY__', $env:TAURI_UPDATER_PUBLIC_KEY)
+          [System.IO.File]::WriteAllText($configPath, $config, [System.Text.UTF8Encoding]::new($false))
+
+      - uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          projectPath: apps/app
+          tagName: fakedrinth-v__VERSION__
+          releaseName: FAKEDRINH v__VERSION__
+          releaseBody: 'Actualización de FAKEDRINH. Descarga el instalador para actualizar.'
+          releaseDraft: false
+          prerelease: false
+          args: --config tauri-release.conf.json --bundles nsis,updater

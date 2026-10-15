@@ -1,0 +1,22 @@
+{
+	"bundle": {
+		"createUpdaterArtifacts": true
+	},
+	"build": {
+		"features": ["updater"]
+	},
+	"app": {
+		"security": {
+			"capabilities": ["ads", "core", "plugins", "updater"]
+		}
+	},
+	"plugins": {
+		"updater": {
+			"pubkey": "__TAURI_UPDATER_PUBLIC_KEY__",
+			"endpoints": ["https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO/releases/latest/download/latest.json"],
+			"windows": {
+				"installMode": "passive"
+			}
+		}
+	}
+}

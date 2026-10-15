@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 112" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="560" y2="112" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6b1824" stop-opacity=".7"/><stop offset="1" stop-color="#29151b" stop-opacity=".18"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ff5361"/><stop offset="1" stop-color="#a8162a"/>
+    </linearGradient>
+  </defs>
+  <rect width="560" height="112" rx="14" fill="url(#sky)"/>
+  <circle cx="463" cy="34" r="19" fill="#ff9b73" fill-opacity=".22"/>
+  <path d="M0 78h112v-12h42v12h54V55h52v23h71V67h42v11h75V55h46v23h66v34H0V78Z" fill="#211319"/>
+  <path d="M0 90h88V78h58v12h67V72h48v18h76V80h62v10h83V76h78v36H0V90Z" fill="#32171f"/>
+  <g opacity=".85">
+    <path d="m347 48 19-11 19 11-19 11-19-11Z" fill="#ff7580"/>
+    <path d="M347 48v22l19 11V59l-19-11Z" fill="#b61f34"/>
+    <path d="m366 59 19-11v22l-19 11V59Z" fill="url(#glow)"/>
+    <path d="m399 67 13-8 13 8-13 8-13-8Z" fill="#a9a0a0"/>
+    <path d="M399 67v15l13 8V75l-13-8Z" fill="#686064"/>
+    <path d="m412 75 13-8v15l-13 8V75Z" fill="#92858a"/>
+  </g>
+  <g fill="#ffd4d6" fill-opacity=".7">
+    <path d="M65 27h5v5h-5zM96 44h4v4h-4zM225 24h4v4h-4zM286 38h5v5h-5zM508 47h4v4h-4z"/>
+  </g>
+</svg>

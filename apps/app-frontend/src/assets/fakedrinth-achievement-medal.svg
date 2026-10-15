@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <defs>
+    <linearGradient id="medal" x1="22" y1="15" x2="73" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff8c98"/><stop offset=".48" stop-color="#f2394d"/><stop offset="1" stop-color="#9d1024"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="28" y1="61" x2="68" y2="94" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff586b"/><stop offset="1" stop-color="#a71127"/>
+    </linearGradient>
+  </defs>
+  <path d="m31 58-15 29 18-5 10 12 8-27M65 58l15 29-18-5-10 12-8-27" fill="url(#ribbon)" stroke="#ff9aa4" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="48" cy="40" r="31" fill="#49111a" stroke="#ff9aa4" stroke-width="3"/>
+  <circle cx="48" cy="40" r="25" fill="url(#medal)" stroke="#ffd1d5" stroke-width="2"/>
+  <path d="m48 19 5.8 13.2L68 34l-10.7 9.5 3 14-12.3-7.3-12.3 7.3 3-14L28 34l14.2-1.8L48 19Z" fill="#fff1d4" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+  <path d="m48 27 2.8 8 8.2 1-6.2 5.2 1.8 8-6.6-4.2-6.6 4.2 1.8-8-6.2-5.2 8.2-1L48 27Z" fill="#fff"/>
+</svg>
