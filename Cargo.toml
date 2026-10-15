@@ -327,7 +327,7 @@ opt-level = 3
 [profile.release]
 opt-level = "s"  # Optimize for binary size
 strip = true  # Remove debug symbols
-lto = true  # Enables link to optimizations
+lto = "thin"  # Enable LTO with shorter release build times
 panic = "abort"  # Strip expensive panic clean-up logic
 
 [profile.test]
