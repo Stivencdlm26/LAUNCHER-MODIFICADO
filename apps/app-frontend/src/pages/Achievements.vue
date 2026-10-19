@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useQuery } from '@tanstack/vue-query'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 import achievementMedal from '@/assets/fakedrinth-achievement-medal.svg?url'
 import beaconIcon from '@/assets/instance-icons/beacon.png'
@@ -8,7 +8,12 @@ import craftingTableIcon from '@/assets/instance-icons/crafting-table.png'
 import enderDragonIcon from '@/assets/instance-icons/ender-dragon.png'
 import pickaxeIcon from '@/assets/instance-icons/pickaxe.png'
 import swordIcon from '@/assets/instance-icons/sword.png'
-import { get_default_user_achievements } from '@/helpers/achievements'
+import {
+	get_default_user_achievements,
+	getLocalizedAdvancementText,
+	loadAchievementLocalization,
+} from '@/helpers/achievements'
+import i18n from '@/i18n.config'
 
 const achievementsQuery = useQuery({
 	queryKey: ['offline-achievements'],
@@ -17,10 +22,37 @@ const achievementsQuery = useQuery({
 	refetchInterval: 10_000,
 })
 const achievements = computed(() => achievementsQuery.data.value?.achievements ?? [])
+const locale = computed(() => i18n.global.locale.value)
+const achievementTranslations = ref<Record<string, string>>({})
+const translationsLoading = ref(true)
+watch(
+	locale,
+	async (selectedLocale) => {
+		translationsLoading.value = true
+		achievementTranslations.value = await loadAchievementLocalization(selectedLocale)
+		translationsLoading.value = false
+	},
+	{ immediate: true },
+)
 const achievementsError = computed(() => {
 	const error = achievementsQuery.error.value
 	return error instanceof Error ? error.message : error ? String(error) : ''
 })
+function achievementTitle(id: string, fallback: string): string {
+	return getLocalizedAdvancementText(id, 'title', achievementTranslations.value) || fallback
+}
+function achievementDescription(id: string): string {
+	return (
+		getLocalizedAdvancementText(id, 'description', achievementTranslations.value) ||
+		(translationsLoading.value
+			? locale.value.toLowerCase().startsWith('es')
+				? 'Cargando descripción oficial…'
+				: 'Loading official description…'
+			: locale.value.toLowerCase().startsWith('es')
+				? 'La descripción oficial no está disponible para este progreso.'
+				: 'The official description is unavailable for this advancement.')
+	)
+}
 function achievementIcon(id: string): string {
 	const key = id.toLowerCase()
 	if (/(craft|planks|table|recipe|inventory)/.test(key)) return craftingTableIcon
@@ -74,8 +106,11 @@ function achievementIcon(id: string): string {
 				</div>
 				<div>
 					<small>ÚLTIMO LOGRO CONSEGUIDO</small>
-					<strong>{{ achievements[0].name }}</strong>
+					<strong>{{ achievementTitle(achievements[0].id, achievements[0].name) }}</strong>
 					<span>{{ achievements[0].world }}</span>
+					<p class="achievement-description">
+						{{ achievementDescription(achievements[0].id) }}
+					</p>
 				</div>
 				<time v-if="achievements[0].date" :datetime="new Date(achievements[0].date).toISOString()">
 					{{ new Date(achievements[0].date).toLocaleDateString() }}
@@ -85,8 +120,11 @@ function achievementIcon(id: string): string {
 				<article v-for="achievement in achievements" :key="achievement.id" class="achievement-card">
 					<img class="achievement-card-icon" :src="achievementIcon(achievement.id)" alt="" />
 					<div>
-						<strong>{{ achievement.name }}</strong
-						><small>{{ achievement.world }}</small>
+					<strong>{{ achievementTitle(achievement.id, achievement.name) }}</strong
+					><small>{{ achievement.world }}</small>
+					<p class="achievement-description">
+						{{ achievementDescription(achievement.id) }}
+					</p>
 					</div>
 					<time v-if="achievement.date" :datetime="new Date(achievement.date).toISOString()">
 						{{ new Date(achievement.date).toLocaleDateString() }}
@@ -356,6 +394,16 @@ function achievementIcon(id: string): string {
 .latest-achievement-card time {
 	flex: none;
 }
+.achievement-description {
+	display: -webkit-box;
+	margin: 0.25rem 0 0;
+	overflow: hidden;
+	color: var(--color-secondary);
+	font-size: 0.78rem;
+	line-height: 1.35;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
 .achievements-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -364,12 +412,35 @@ function achievementIcon(id: string): string {
 .achievement-card {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 0.75rem;
 	min-width: 0;
 	padding: 0.9rem;
 	border: 1px solid var(--surface-4);
 	border-radius: 0.8rem;
 	background: var(--surface-2);
+}
+.achievement-card-locked {
+	background: var(--color-bg, #242124);
+	opacity: 0.92;
+}
+.achievement-card-locked .achievement-card-icon {
+	filter: grayscale(0.7) brightness(0.78);
+}
+.achievement-locked-label {
+	position: static;
+	display: inline-flex;
+	flex: 0 0 100%;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.35rem;
+	margin-top: -0.25rem;
+	padding: 0.25rem 0.45rem;
+	border: 1px solid var(--surface-4);
+	border-radius: 0.45rem;
+	background: var(--color-bg, #242124);
+	color: var(--color-secondary);
+	font-size: 0.72rem;
 }
 .achievement-card-icon {
 	width: 2rem;
@@ -382,6 +453,9 @@ function achievementIcon(id: string): string {
 	flex-direction: column;
 	gap: 0.25rem;
 	min-width: 0;
+}
+.achievement-card .achievement-description {
+	font-size: 0.72rem;
 }
 .achievement-card strong {
 	overflow: hidden;
@@ -435,3 +509,4 @@ function achievementIcon(id: string): string {
 	}
 }
 </style>
+

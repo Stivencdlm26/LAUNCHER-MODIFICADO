@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 24102)
+Total output lines: 3168
+
 <script setup>
 import {
 	AuthFeature,
@@ -91,7 +94,6 @@ import ModrinthAccountRequiredModal from '@/components/ui/modal/ModrinthAccountR
 import UpdateToPlayModal from '@/components/ui/modal/UpdateToPlayModal.vue'
 import NavButton from '@/components/ui/NavButton.vue'
 import OnboardingChecklist from '@/components/ui/onboarding-checklist/index.vue'
-import PrideFundraiserBanner from '@/components/ui/PrideFundraiserBanner.vue'
 import QuickInstanceSwitcher from '@/components/ui/QuickInstanceSwitcher.vue'
 import SharedInstanceInviteHandler from '@/components/ui/shared-instances/shared-instance-invite-handler/index.vue'
 import SplashScreen from '@/components/ui/SplashScreen.vue'
@@ -112,14 +114,6 @@ import { useCustomPalette } from '@/composables/use-custom-palette'
 import { isDarkTheme, useTheme } from '@/composables/use-theme.ts'
 import { config } from '@/config'
 import { getAccountAppearance, rememberAccountAppearance } from '@/helpers/account-appearance.ts'
-import {
-	hide_ads_window,
-	init_ads_window,
-	perform_ads_consent_action,
-	release_ads_window_hold,
-	should_show_ads_consent_popup,
-	take_ads_window_hold,
-} from '@/helpers/ads.js'
 import { debugAnalytics, initAnalytics, trackEvent } from '@/helpers/analytics'
 import { check_reachable } from '@/helpers/auth.js'
 import { get_default_user_achievements } from '@/helpers/achievements'
@@ -160,7 +154,6 @@ import {
 	syncedServersQueryOptions,
 } from '@/helpers/synced-options'
 import { syncedPackQueryOptions } from '@/helpers/synced-packs'
-import { hasActivePride26Midas, hasMidasBadge } from '@/helpers/user-campaigns.ts'
 import { get_user_preferences } from '@/helpers/user-preferences.ts'
 import { parse_modrinth_user_link } from '@/helpers/users'
 import {
@@ -229,31 +222,11 @@ function updateHistoryNavigationState() {
 	canNavigateForward.value = historyState?.forward != null
 }
 
-let fullscreenAdsWindowHold = false
-
-async function handleFullscreenChange() {
-	const fullscreen = document.fullscreenElement !== null
-	if (fullscreen === fullscreenAdsWindowHold) return
-
-	fullscreenAdsWindowHold = fullscreen
-	try {
-		if (fullscreen) {
-			await take_ads_window_hold()
-		} else {
-			await release_ads_window_hold()
-		}
-	} catch (error) {
-		fullscreenAdsWindowHold = !fullscreen
-		handleError(error)
-	}
-}
-
 updateHistoryNavigationState()
 
 const APP_LEFT_NAV_WIDTH = '4rem'
 const APP_SIDEBAR_WIDTH = 300
 const INTERCOM_BUBBLE_DEFAULT_PADDING = 20
-const PRIDE_FUNDRAISER_END_DATE = new Date('2026-07-01T00:00:00Z').getTime()
 const credentials = ref()
 const storedModrinthAccounts = ref([])
 let credentialsRefreshId = 0
@@ -277,9 +250,6 @@ const hostingUpdateRequired = computed(
 		hostingRouteActive.value &&
 		!!appUpdateState.availableUpdate.value &&
 		appUpdateState.updatesEnabled.value,
-)
-const prideFundraiserEnabled = computed(
-	() => appSettings.getFeatureFlag('pride_fundraiser') && Date.now() < PRIDE_FUNDRAISER_END_DATE,
 )
 const hostingIntercomIdentityKey = computed(() => {
 	const rawServerId = route.params.id
@@ -319,8 +289,6 @@ useAppEvent(
 const popupNotificationManager = new AppPopupNotificationManager()
 providePopupNotificationManager(popupNotificationManager)
 const { addPopupNotification } = popupNotificationManager
-let adsConsentPopupId = null
-useAppEvent('ads_consent_required', handleAdsConsentRequired, appEvents)
 
 const appVersion = getVersion()
 const tauriApiClient = new TauriModrinthClient({
@@ -345,12 +313,6 @@ const tauriApiClient = new TauriModrinthClient({
 	],
 })
 provideModrinthClient(tauriApiClient)
-const { data: authenticatedModrinthUser } = useQuery({
-	queryKey: computed(() => ['authenticated-user', 'campaigns', credentials.value?.user?.id]),
-	queryFn: () => tauriApiClient.labrinth.users_v3.getAuthenticated(),
-	enabled: () => !!credentials.value?.session,
-	retry: false,
-})
 useQuery({
 	queryKey: computed(() => instanceKeys.sharedEligibility(credentials.value?.user?.id)),
 	queryFn: can_current_user_use_shared_instances,
@@ -361,20 +323,10 @@ useQuery({
 	refetchOnWindowFocus: false,
 	refetchOnReconnect: false,
 })
-const hasPlus = computed(
-	() =>
-		!!credentials.value?.user &&
-		(hasMidasBadge(credentials.value.user) ||
-			hasActivePride26Midas(authenticatedModrinthUser.value?.campaigns?.pride_26)),
-)
-const showAd = computed(
-	() => sidebarVisible.value && !hasPlus.value && credentials.value !== undefined,
-)
-const adConsentAvailable = computed(() => credentials.value !== undefined && !hasPlus.value)
 providePageContext({
 	hierarchicalSidebarAvailable: ref(true),
-	showAds: showAd,
-	adConsentAvailable,
+	showAds: ref(false),
+	adConsentAvailable: ref(false),
 	floatingActionBarOffsets: {
 		left: ref(APP_LEFT_NAV_WIDTH),
 		right: computed(() => (sidebarVisible.value ? `${APP_SIDEBAR_WIDTH}px` : '0px')),
@@ -389,8 +341,6 @@ providePageContext({
 })
 provideModalBehavior({
 	noblur: computed(() => !appTheme.advancedRendering),
-	onShow: () => take_ads_window_hold(),
-	onHide: () => release_ads_window_hold(),
 })
 
 const creationIconEditorModal = ref(null)
@@ -593,16 +543,9 @@ onMounted(async () => {
 	}
 
 	await useCheckDisableMouseover()
-	try {
-		handleAdsConsentRequired(await should_show_ads_consent_popup())
-	} catch (error) {
-		handleError(error)
-	}
-
 	document.querySelector('body').addEventListener('click', handleClick)
 	document.querySelector('body').addEventListener('auxclick', handleAuxClick)
 	document.querySelector('body').addEventListener('contextmenu', handleContextMenu)
-	document.addEventListener('fullscreenchange', handleFullscreenChange)
 
 	checkUpdates()
 })
@@ -611,14 +554,9 @@ onUnmounted(async () => {
 	document.querySelector('body').removeEventListener('click', handleClick)
 	document.querySelector('body').removeEventListener('auxclick', handleAuxClick)
 	document.querySelector('body').removeEventListener('contextmenu', handleContextMenu)
-	document.removeEventListener('fullscreenchange', handleFullscreenChange)
 	unlistenEditMenu?.()
 	clearDelayedUpdatePopup()
 
-	if (fullscreenAdsWindowHold) {
-		fullscreenAdsWindowHold = false
-		await release_ads_window_hold().catch(handleError)
-	}
 	await unlistenUpdateDownload?.()
 })
 
@@ -667,27 +605,6 @@ const messages = defineMessages({
 		id: 'app.auth-servers.unreachable.body',
 		defaultMessage:
 			'Minecraft authentication servers may be down right now. Check your internet connection and try again later.',
-	},
-	adsConsentTitle: {
-		id: 'app.ads-consent.title',
-		defaultMessage: 'Your privacy and how ads support Modrinth',
-	},
-	adsConsentBody: {
-		id: 'app.ads-consent.body',
-		defaultMessage:
-			'Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance.',
-	},
-	adsConsentManage: {
-		id: 'app.ads-consent.manage',
-		defaultMessage: 'Manage preferences',
-	},
-	adsConsentReject: {
-		id: 'app.ads-consent.reject',
-		defaultMessage: 'Reject all',
-	},
-	adsConsentAccept: {
-		id: 'app.ads-consent.accept',
-		defaultMessage: 'Accept all',
 	},
 	home: {
 		id: 'app.nav.home',
@@ -742,55 +659,6 @@ const messages = defineMessages({
 	installedInstances: { id: 'app.sidebar.installed-instances', defaultMessage: 'Instances' },
 	lastPlayed: { id: 'app.sidebar.last-played', defaultMessage: 'Last played' },
 })
-
-function handleAdsConsentRequired(required) {
-	if (!required) {
-		if (adsConsentPopupId !== null) {
-			popupNotificationManager.removeNotification(adsConsentPopupId)
-			adsConsentPopupId = null
-		}
-		return
-	}
-
-	if (
-		adsConsentPopupId !== null &&
-		popupNotificationManager.getNotifications().some((item) => item.id === adsConsentPopupId)
-	) {
-		return
-	}
-
-	const notification = addPopupNotification({
-		contentType: 'standard',
-		title: formatMessage(messages.adsConsentTitle),
-		text: formatMessage(messages.adsConsentBody),
-		type: 'info',
-		hideIcon: true,
-		autoCloseMs: null,
-		dismissible: false,
-		buttons: [
-			{
-				label: formatMessage(messages.adsConsentManage),
-				action: () => perform_ads_consent_action('manage').catch(handleError),
-				color: 'standard',
-				keepOpen: true,
-			},
-			{
-				label: formatMessage(messages.adsConsentReject),
-				action: () => perform_ads_consent_action('reject').catch(handleError),
-				color: 'brand',
-				keepOpen: true,
-			},
-			{
-				label: formatMessage(messages.adsConsentAccept),
-				action: () => perform_ads_consent_action('accept').catch(handleError),
-				color: 'brand',
-				keepOpen: true,
-			},
-		],
-	})
-
-	adsConsentPopupId = notification.id
-}
 
 async function setupApp() {
 	tags.initialize()
@@ -1328,561 +1196,7 @@ watch(
 					for (const [key, stateKey] of Object.entries(featureSettings)) {
 						const value = behavior[key] ?? settings[key]
 						appSettings[stateKey] = value
-						if (settings[key] !== value) {
-							settings[key] = value
-							settingsChanged = true
-						}
-					}
-					if (typeof behavior.quick_instance_count === 'number') {
-						quickInstances.setLimit(behavior.quick_instance_count)
-					}
-
-					const showAllScreenshots = behavior.show_all_screenshots
-					if (typeof showAllScreenshots === 'boolean') {
-						const globalSyncedOptions =
-							globalSyncedOptionsQuery.data.value ??
-							(await queryClient.fetchQuery(globalSyncedOptionsQueryOptions()))
-						if (globalSyncedOptions.screenshots !== showAllScreenshots) {
-							const updatedGlobalSyncedOptions = await set_global_synced_option(
-								'screenshots',
-								showAllScreenshots,
-							)
-							queryClient.setQueryData(syncedOptionsKeys.global, updatedGlobalSyncedOptions)
-							await queryClient.invalidateQueries({ queryKey: screenshotKeys.all })
-						}
-					}
-				}
-
-				if (settingsChanged) {
-					await setSettings(settings)
-					queryClient.setQueryData(appSettingsKeys.all, settings)
-				}
-			})
-			.catch(handleError)
-	},
-	{ immediate: true },
-)
-
-async function validateSession(sessionToken) {
-	try {
-		const response = await tauriFetch(`${config.labrinthBaseUrl}/v2/user`, {
-			method: 'GET',
-			headers: { Authorization: sessionToken },
-		})
-		if (response.status === 401) return false
-		return true
-	} catch {
-		return true
-	}
-}
-
-async function fetchCredentials() {
-	const hadSession = !!credentials.value?.session
-	const refreshId = ++credentialsRefreshId
-	credentials.value = undefined
-
-	const creds = await traceStartupStep('Read stored credentials', getCreds).catch(handleError)
-	if (refreshId !== credentialsRefreshId) return
-	if (!creds && hadSession) clearLiveNotifications()
-
-	if (creds && creds.user_id) {
-		if (
-			creds.session &&
-			!(await traceStartupStep('Validate stored session', () => validateSession(creds.session)))
-		) {
-			if (refreshId !== credentialsRefreshId) return
-
-			clearLiveNotifications()
-			await removeUser(creds.user_id).catch(handleError)
-			if (refreshId !== credentialsRefreshId) return
-
-			credentials.value = null
-			liveNotificationsEnabled = false
-			await fetchStoredModrinthAccounts()
-			return
-		}
-		creds.user = await traceStartupStep('Fetch signed-in user', () =>
-			get_user(creds.user_id, 'bypass'),
-		).catch(handleError)
-		if (refreshId !== credentialsRefreshId) return
-	}
-	credentials.value = creds ?? null
-	liveNotificationsEnabled = !!creds?.session
-	await traceStartupStep('Load stored account profiles', fetchStoredModrinthAccounts)
-}
-
-async function signIn(flow = 'sign-in', addAccount = false) {
-	try {
-		await login(flow, addAccount)
-		await fetchCredentials()
-	} catch (error) {
-		if (
-			typeof error === 'object' &&
-			typeof error['message'] === 'string' &&
-			error.message.includes('Login canceled')
-		) {
-			// user closed the login window
-		} else {
-			handleError(error)
-		}
-	}
-}
-
-async function requestSignIn(flow = 'sign-in', addAccount = false) {
-	await modrinthLoginModal.value?.showSigningIn(flow, addAccount)
-}
-
-async function requestModrinthAuth(flow = 'sign-in', addAccount = false) {
-	await signIn(flow, addAccount)
-	return !!credentials.value?.session
-}
-
-async function logOut() {
-	if (!credentials.value?.user) return
-	await completeAccountSwitch(() => logout())
-}
-
-async function fetchStoredModrinthAccounts() {
-	const all = (await getAllCreds().catch(handleError)) ?? []
-	const ids = all.map((account) => account.user_id)
-	const users = ids.length ? ((await get_user_many(ids).catch(handleError)) ?? []) : []
-	const usersById = new Map(users.map((user) => [user.id, user]))
-
-	storedModrinthAccounts.value = all.map((account) => ({
-		...account,
-		user: usersById.get(account.user_id) ?? {
-			id: account.user_id,
-			username: account.user_id,
-			avatar_url: null,
-			role: 'developer',
-		},
-	}))
-}
-
-const accountSwitcherAccounts = computed(() => {
-	const currentId = credentials.value?.session ? credentials.value.user_id : null
-
-	return storedModrinthAccounts.value.map((account) => ({
-		...account,
-		optionId: `account-${account.user_id}`,
-		current: account.user_id === currentId,
-	}))
-})
-
-const profileButtonTooltip = computed(() => {
-	if (credentials.value === undefined) return formatMessage(messages.loadingProfile)
-	if (credentials.value?.user) return formatMessage(messages.modrinthAccount)
-	return formatMessage(messages.signInToModrinthAccount)
-})
-
-const accountSwitcherOptions = computed(() => [
-	...accountSwitcherAccounts.value.map((account) => ({
-		id: account.optionId,
-		label: account.user.username,
-		selected: account.current,
-		action: () => switchModrinthAccount(account),
-		trailingAction: {
-			label: formatMessage(messages.removeAccount),
-			icon: XIcon,
-			color: 'red',
-			action: () => forgetModrinthAccount(account.user_id),
-		},
-	})),
-])
-
-const isSwitchingAccount = ref(false)
-
-async function persistAppearanceTheme(appearance) {
-	const selectedTheme = appearance.auto ? 'system' : appearance.theme
-	appTheme.applyAccountAppearance(appearance)
-	const settings = await getSettings()
-	if (settings.theme !== selectedTheme) {
-		settings.theme = selectedTheme
-		await setSettings(settings)
-	}
-}
-
-async function completeAccountSwitch(task) {
-	isSwitchingAccount.value = true
-	await nextTick()
-	try {
-		await task()
-		window.location.reload()
-	} catch (error) {
-		isSwitchingAccount.value = false
-		handleError(error)
-	}
-}
-
-async function switchModrinthAccount(account) {
-	if (account.current) return
-
-	const cached = getAccountAppearance(account.user_id)
-	if (cached) await persistAppearanceTheme(cached)
-	await nextTick()
-
-	await completeAccountSwitch(async () => {
-		await setActive(account.user_id)
-		if (cached) return
-
-		try {
-			const preferences = await get_user_preferences(account.user_id)
-			rememberAccountAppearance(account.user_id, preferences.appearance)
-			await persistAppearanceTheme(preferences.appearance)
-			await nextTick()
-		} catch {
-			// no saved appearance for this account
-		}
-	})
-}
-
-async function forgetModrinthAccount(userId) {
-	const isCurrent = credentials.value?.user_id === userId && !!credentials.value?.session
-	if (isCurrent) {
-		await completeAccountSwitch(() => removeUser(userId))
-		return
-	}
-
-	await removeUser(userId).catch(handleError)
-	await fetchStoredModrinthAccounts()
-}
-
-const modrinthAccountMenuOptions = computed(() => [
-	{
-		id: 'view-profile',
-		label: formatMessage(messages.viewProfile),
-		icon: UserIcon,
-		action: () => router.push(`/user/${encodeURIComponent(credentials.value.user.username)}`),
-	},
-	{
-		id: 'flags',
-		label: formatMessage(commonSettingsMessages.featureFlags),
-		icon: ToggleRightIcon,
-		shown: appSettings.devMode,
-		action: () => appSettingsModal.value?.showFeatureFlags(),
-	},
-	{
-		type: 'divider',
-	},
-	{
-		id: 'switch-account',
-		label: formatMessage(messages.switchAccount),
-		icon: ArrowLeftRightIcon,
-		type: 'submenu',
-		options: accountSwitcherOptions.value,
-	},
-	{
-		id: 'sign-out',
-		label: formatMessage(commonMessages.signOutButton),
-		icon: LogOutIcon,
-		tone: 'red',
-		action: () => logOut(),
-	},
-])
-
-async function fetchIntercomToken() {
-	const creds = await getCreds()
-	if (!creds?.session) {
-		throw new Error('Not authenticated')
-	}
-
-	const params = new URLSearchParams()
-	const rawServerId = route.params.id
-	const serverId = Array.isArray(rawServerId) ? rawServerId[0] : rawServerId
-	if (route.path.startsWith('/hosting/manage/') && typeof serverId === 'string') {
-		params.set('server_id', serverId)
-	}
-	const query = params.size > 0 ? `?${params.toString()}` : ''
-
-	const response = await tauriFetch(`${config.siteUrl}/api/intercom/messenger-jwt${query}`, {
-		method: 'GET',
-		headers: {
-			Authorization: `Bearer ${creds.session}`,
-		},
-	})
-	if (!response.ok) {
-		throw new Error(`Failed to fetch Intercom token: ${response.status}`)
-	}
-	return await response.json()
-}
-
-watch(
-	[stateInitialized, showAd, adConsentAvailable],
-	async ([ready, showAds, canManageConsent]) => {
-		if (!ready) return
-
-		if (showAds) {
-			await init_ads_window(true)
-			return
-		}
-
-		await hide_ads_window(true)
-		if (canManageConsent) {
-			await init_ads_window()
-		}
-	},
-	{ immediate: true },
-)
-
-onMounted(() => {
-	invoke('show_window')
-
-	error.setErrorModal(errorModal.value)
-	error.setMinecraftAuthErrorModal(minecraftAuthErrorModal.value)
-	error.setMinecraftRequiredModal(minecraftRequiredModal.value)
-
-	setContentIncompatibilityWarningModal(incompatibilityWarningModal.value)
-	setContentInstallModal(modInstallModal.value)
-	setContentInstallModpackAlreadyInstalledModal(contentInstallModpackAlreadyInstalledModal.value)
-	setModpackAlreadyInstalledModal(modpackAlreadyInstalledModal.value)
-	setServerAddServerToInstanceModal(addServerToInstanceModal.value)
-	setServerInstallToPlayModal(installToPlayModal.value)
-	setServerUpdateToPlayModal(updateToPlayModal.value)
-})
-
-const accounts = ref(null)
-provide('accountsCard', accounts)
-const isOfflineMinecraftAccount = computed(() =>
-	accounts.value ? Boolean(accounts.value.isOfflineAccount?.()) : undefined,
-)
-const activeGameInstanceIds = ref(new Set())
-const gameIsRunning = computed(() => activeGameInstanceIds.value.size > 0)
-const processEventRevision = ref(0)
-const sidebarAchievementsQuery = useQuery({
-	queryKey: ['offline-achievements', 'sidebar'],
-	queryFn: get_default_user_achievements,
-	enabled: computed(() => stateInitialized.value && isOfflineMinecraftAccount.value === true),
-	staleTime: 0,
-	// Reading advancement files across every world every 5 seconds causes
-	// avoidable filesystem and CPU work while Minecraft is running.
-	refetchInterval: computed(() => (gameIsRunning.value ? 15_000 : false)),
-})
-const latestSidebarAchievement = computed(
-	() => sidebarAchievementsQuery.data.value?.achievements[0],
-)
-
-let achievementsOverlayWindow
-let achievementsOverlayReady = false
-let pendingAchievementToast
-let achievementToastHideTimer
-
-async function dispatchAchievementToast(achievement) {
-	if (!achievementsOverlayWindow) return
-	await achievementsOverlayWindow.emit('fakedrinth-achievement-toast', achievement)
-	await achievementsOverlayWindow.show()
-	window.clearTimeout(achievementToastHideTimer)
-	achievementToastHideTimer = window.setTimeout(() => {
-		void achievementsOverlayWindow?.hide()
-	}, 6500)
-}
-
-async function showAchievementToast(achievement) {
-	pendingAchievementToast = achievement
-	if (!achievementsOverlayWindow) {
-		const monitor = await primaryMonitor()
-		const scale = monitor?.scaleFactor ?? 1
-		const width = 390
-		const height = 128
-		const x = monitor ? (monitor.position.x + monitor.size.width) / scale - width - 24 : 24
-		const y = monitor ? monitor.position.y / scale + 24 : 24
-		achievementsOverlayWindow = new WebviewWindow('achievement-overlay', {
-			url: 'achievement-overlay.html',
-			width,
-			height,
-			x,
-			y,
-			decorations: false,
-			transparent: true,
-			alwaysOnTop: true,
-			focus: false,
-			focusable: false,
-			resizable: false,
-			visible: false,
-			skipTaskbar: true,
-			shadow: false,
-		})
-		void achievementsOverlayWindow.once('tauri://created', () => {
-			void achievementsOverlayWindow?.setIgnoreCursorEvents(true)
-		})
-		void achievementsOverlayWindow.once('fakedrinth-achievement-overlay-ready', () => {
-			achievementsOverlayReady = true
-			if (pendingAchievementToast) {
-				void dispatchAchievementToast(pendingAchievementToast)
-				pendingAchievementToast = undefined
-			}
-		})
-		void achievementsOverlayWindow.once('tauri://error', () => {
-			achievementsOverlayWindow = undefined
-			achievementsOverlayReady = false
-		})
-	}
-	if (achievementsOverlayReady) {
-		void dispatchAchievementToast(achievement)
-	}
-}
-
-let knownAchievementIds = new Set()
-let hasAchievementBaseline = false
-watch(
-	() => sidebarAchievementsQuery.data.value?.achievements,
-	(achievements) => {
-		if (!achievements) return
-		const nextIds = new Set(achievements.map((achievement) => achievement.id))
-		if (!hasAchievementBaseline) {
-			knownAchievementIds = nextIds
-			hasAchievementBaseline = true
-			return
-		}
-		const newlyEarned = achievements.filter(
-			(achievement) => !knownAchievementIds.has(achievement.id),
-		)
-		knownAchievementIds = nextIds
-		if (gameIsRunning.value)
-			newlyEarned.forEach((achievement) => void showAchievementToast(achievement))
-	},
-)
-watch(isOfflineMinecraftAccount, (isOffline) => {
-	if (isOffline) {
-		hasAchievementBaseline = false
-		void sidebarAchievementsQuery.refetch()
-	} else {
-		void achievementsOverlayWindow?.hide()
-	}
-})
-function refreshOfflineAchievements() {
-	hasAchievementBaseline = false
-	if (isOfflineMinecraftAccount.value) void sidebarAchievementsQuery.refetch()
-}
-useAppEvent('process', (event) => {
-	processEventRevision.value++
-	const next = new Set(activeGameInstanceIds.value)
-	if (event.event === 'launched') next.add(event.instance_id)
-	else next.delete(event.instance_id)
-	activeGameInstanceIds.value = next
-}, appEvents)
-useAppEvent('instance', (event) => {
-	if (event.event === 'screenshots_updated') {
-		void queryClient.invalidateQueries({ queryKey: ['screenshots', 'sidebar-banner'] })
-	}
-}, appEvents)
-watch(
-	localInstancesQuery.data,
-	async (instances) => {
-		if (!instances?.length) return
-		const revision = processEventRevision.value
-		const active = await Promise.all(
-			instances.map(async (instance) => ({
-				id: instance.id,
-				processes: await get_by_instance_id(instance.id).catch(() => []),
-			})),
-		)
-		if (revision === processEventRevision.value) {
-			activeGameInstanceIds.value = new Set(
-				active.filter((entry) => entry.processes.length > 0).map((entry) => entry.id),
-			)
-		}
-	},
-	{ immediate: true },
-)
-watch(isOfflineMinecraftAccount, (isOfflineAccount) => {
-	if (isOfflineAccount && route.path === '/skins') {
-		void router.replace('/achievements')
-	} else if (isOfflineAccount === false && route.path === '/achievements') {
-		void router.replace('/skins')
-	}
-})
-
-useAppEvent('command', handleCommand, appEvents)
-useAppEvent('notification', handleLiveNotification, appEvents)
-
-async function markLiveNotificationRead(notification) {
-	try {
-		await tauriApiClient.labrinth.notifications_v2.markAsRead(notification.id)
-	} catch (error) {
-		if (error instanceof ModrinthApiError && error.statusCode === 404) {
-			console.warn(`notification ${notification.id} could not be marked as read`, error)
-			return
-		}
-		throw error
-	}
-}
-
-async function respondToServerInvite(notification, action) {
-	const serverId = notification.body?.server_id
-	if (typeof serverId !== 'string') {
-		throw new Error('Missing server ID for invite notification.')
-	}
-
-	await tauriApiClient.request(`/servers/${serverId}/invites/${action}`, {
-		api: 'archon',
-		version: 1,
-		method: 'POST',
-	})
-	await markLiveNotificationRead(notification)
-
-	return serverId
-}
-
-async function acceptServerInviteNotification(notification) {
-	try {
-		const serverId = await respondToServerInvite(notification, 'accept')
-		await router.push(`/hosting/manage/${encodeURIComponent(serverId)}`)
-		queryClient.invalidateQueries({ queryKey: ['servers'] })
-	} catch (error) {
-		handleError(error)
-	}
-}
-
-async function declineServerInviteNotification(notification) {
-	try {
-		await respondToServerInvite(notification, 'decline')
-	} catch (error) {
-		handleError(error)
-	}
-}
-
-function openServerInviteInviterProfile(inviterName) {
-	if (!inviterName) return
-	void router.push(`/user/${encodeURIComponent(inviterName)}`)
-}
-
-async function handleLiveNotification(notification) {
-	if (!liveNotificationsEnabled || !notification?.body || notification.read) return
-	if (await sharedInstanceInviteHandler.value?.handleNotification(notification)) return
-
-	if (notification.body.type === 'server_invite') {
-		if (displayedServerInviteNotifications.has(notification.id)) return
-
-		const generation = liveNotificationGeneration
-		displayedServerInviteNotifications.add(notification.id)
-
-		const serverName =
-			typeof notification.body.server_name === 'string' ? notification.body.server_name : 'a server'
-		const inviterId = notification.body.invited_by
-		const invitedBy =
-			typeof inviterId === 'string' ? await get_user(inviterId, 'bypass').catch(() => null) : null
-		if (generation !== liveNotificationGeneration) return
-
-		const popupNotification = addPopupNotification({
-			contentType: 'toast',
-			title: serverName,
-			type: 'server-invite',
-			actorName: invitedBy?.username ?? null,
-			actorAvatarUrl: invitedBy?.avatar_url ?? null,
-			entityName: serverName,
-			autoCloseMs: null,
-			onAccept: () => acceptServerInviteNotification(notification),
-			onDecline: () => declineServerInviteNotification(notification),
-			onOpenActor: () => openServerInviteInviterProfile(invitedBy?.username ?? null),
-		})
-		serverInvitePopupNotificationIds.add(popupNotification.id)
-	}
-}
-
-function clearLiveNotifications() {
-	liveNotificationGeneration++
-	liveNotificationsEnabled = false
-	for (const id of serverInvitePopupNotificationIds) {
+						if (settings[key] !== value) …4102 tokens truncated…t id of serverInvitePopupNotificationIds) {
 		popupNotificationManager.removeNotification(id)
 	}
 	displayedServerInviteNotifications.clear()
@@ -2640,12 +1954,10 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 		</div>
 		<div
 			class="app-sidebar mt-px shrink-0 flex flex-col border-0 border-l-[1px] border-[--brand-gradient-border] border-solid"
-			:class="{ 'has-plus': hasPlus }"
 		>
 			<div
 				v-overlay-scrollbars="sidebarOverlayScrollbarsOptions"
 				class="app-sidebar-scrollable flex-grow shrink relative"
-				:class="{ 'pb-12': !hasPlus }"
 				data-overlayscrollbars-initialize
 			>
 				<OnboardingChecklist @create-instance="installationModal?.show()" />
@@ -2724,10 +2036,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 							<small v-else>Aún no hay logros guardados</small>
 						</span>
 					</RouterLink>
-					<PrideFundraiserBanner
-						v-if="prideFundraiserEnabled"
-						class="p-4 border-0 border-b-[1px] border-[--brand-gradient-border] border-solid"
-					/>
 				</div>
 			</div>
 		</div>
@@ -3174,21 +2482,6 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 	--color-divider-dark: var(--brand-gradient-border);
 }
 
-.app-sidebar::after {
-	content: '';
-	position: absolute;
-	bottom: 250px;
-	left: 0;
-	right: 0;
-	height: 5rem;
-	background: var(--brand-gradient-fade-out-color);
-	pointer-events: none;
-}
-
-.app-sidebar.has-plus::after {
-	display: none;
-}
-
 .disable-advanced-rendering {
 	.app-sidebar::before {
 		box-shadow: none;
@@ -3339,3 +2632,4 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 	}
 }
 </style>
+

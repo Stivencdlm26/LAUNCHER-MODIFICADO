@@ -20,6 +20,56 @@ export type LocalAchievements = {
 
 type Advancement = { done?: boolean; criteria?: Record<string, string> }
 
+const advancementLocalizationCache = new Map<string, Promise<Record<string, string>>>()
+
+export function loadAchievementLocalization(locale: string): Promise<Record<string, string>> {
+	const minecraftLocale = locale.toLowerCase().replace('-', '_')
+	let pending = advancementLocalizationCache.get(minecraftLocale)
+	if (!pending) {
+		let cachedTranslations: Record<string, string> = {}
+		try {
+			cachedTranslations = JSON.parse(
+				localStorage.getItem(`fakedrinth-minecraft-language-${minecraftLocale}`) ?? '{}',
+			) as Record<string, string>
+		} catch {
+			cachedTranslations = {}
+		}
+		pending = fetch(
+			`https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.21.11/assets/minecraft/lang/${minecraftLocale}.json`,
+		)
+			.then((response) => {
+				if (!response.ok) throw new Error(`Minecraft language file unavailable: ${response.status}`)
+				return response.json() as Promise<Record<string, string>>
+			})
+			.then((translations) => {
+				try {
+					localStorage.setItem(
+						`fakedrinth-minecraft-language-${minecraftLocale}`,
+						JSON.stringify(translations),
+					)
+				} catch {
+					return translations
+				}
+				return translations
+			})
+			.catch(() => {
+				advancementLocalizationCache.delete(minecraftLocale)
+				return cachedTranslations
+			})
+		advancementLocalizationCache.set(minecraftLocale, pending)
+	}
+	return pending
+}
+
+export function getLocalizedAdvancementText(
+	id: string,
+	field: 'title' | 'description',
+	translations: Record<string, string>,
+): string {
+	const advancementId = id.replace(/^[^:]+:/, '')
+	return translations[`advancements.${advancementId}.${field}`] ?? ''
+}
+
 export async function get_default_user_achievements(): Promise<LocalAchievements> {
 	const userId = await get_default_user()
 	const accountList = await users()
@@ -74,3 +124,4 @@ export async function get_default_user_achievements(): Promise<LocalAchievements
 	)
 	return { achievements, worldCount: worlds.length, isOffline: true }
 }
+
