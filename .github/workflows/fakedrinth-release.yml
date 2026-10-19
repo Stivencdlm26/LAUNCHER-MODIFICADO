@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'fakedrinth-v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version de FAKEDRINH que se va a publicar, por ejemplo 1.0.4
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -29,7 +35,9 @@ jobs:
 
       - name: Set release version from tag
         shell: pwsh
-        run: node scripts/set-fakedrinth-release-version.mjs "${{ github.ref_name }}"
+        env:
+          RELEASE_TAG: ${{ github.event_name == 'workflow_dispatch' && format('fakedrinth-v{0}', inputs.version) || github.ref_name }}
+        run: node scripts/set-fakedrinth-release-version.mjs "$env:RELEASE_TAG"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -67,3 +75,4 @@ jobs:
           releaseDraft: false
           prerelease: false
           args: --config tauri-release.conf.json --bundles nsis,updater
+
