@@ -59,7 +59,7 @@ export default new createRouter({
 		},
 		{
 			path: '/achievements',
-			name: 'Offline achievements',
+			name: 'Achievements',
 			component: () => import('@/pages/Achievements.vue'),
 		},
 		{

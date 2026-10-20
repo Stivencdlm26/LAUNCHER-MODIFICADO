@@ -76,6 +76,7 @@ export default defineConfig({
 	server: {
 		port: 1421,
 		strictPort: true,
+		open: false,
 		headers: {
 			'content-security-policy': Object.entries(tauriConf.app.security.csp)
 				.map(([directive, sources]) => {

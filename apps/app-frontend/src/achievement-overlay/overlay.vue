@@ -3,18 +3,25 @@ import { emit, listen } from '@tauri-apps/api/event'
 import { onMounted, onUnmounted, ref } from 'vue'
 import achievementMedal from '@/assets/fakedrinth-achievement-medal.svg?url'
 
-type AchievementToast = { name: string; world: string; id: string }
+type AchievementToast = {
+	name: string
+	description: string
+	world: string
+	id: string
+	unlockedLabel: string
+}
 
 const achievement = ref<AchievementToast | null>(null)
 const visible = ref(false)
 let hideTimer: number | undefined
 let unlisten: (() => void) | undefined
 
-function playChime() {
+async function playChime() {
 	try {
 		const AudioContextConstructor = window.AudioContext
 		if (!AudioContextConstructor) return
 		const audioContext = new AudioContextConstructor()
+		if (audioContext.state === 'suspended') await audioContext.resume()
 		const start = audioContext.currentTime
 		for (const [index, frequency] of [587.33, 783.99, 1174.66].entries()) {
 			const oscillator = audioContext.createOscillator()
@@ -54,7 +61,7 @@ onMounted(async () => {
 	unlisten = await listen<AchievementToast>('fakedrinth-achievement-toast', (event) => {
 		achievement.value = event.payload
 		visible.value = true
-		playChime()
+		void playChime()
 		window.clearTimeout(hideTimer)
 		hideTimer = window.setTimeout(() => (visible.value = false), 6200)
 	})
@@ -77,9 +84,9 @@ onUnmounted(() => {
 				><i class="spark spark-three"></i>
 			</div>
 			<div class="toast-copy">
-				<p>¡LOGRO DESBLOQUEADO!</p>
+			<p>{{ achievement.unlockedLabel }}</p>
 				<strong>{{ achievement.name }}</strong>
-				<small>{{ achievement.world }}</small>
+			<small>{{ achievement.description }}</small>
 			</div>
 		</article>
 	</Transition>
@@ -180,18 +187,13 @@ body,
 	letter-spacing: 0.12em;
 }
 .toast-copy strong {
-	overflow: hidden;
 	font-size: 1.12rem;
-	text-overflow: ellipsis;
-	text-transform: capitalize;
-	white-space: nowrap;
+	line-height: 1.15;
 }
 .toast-copy small {
-	overflow: hidden;
 	color: #d9b9bd;
 	font-size: 0.78rem;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	line-height: 1.2;
 }
 .achievement-toast-enter-active,
 .achievement-toast-leave-active {

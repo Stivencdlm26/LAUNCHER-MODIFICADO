@@ -59,8 +59,12 @@ import {
 } from '@modrinth/ui'
 import { renderString } from '@modrinth/utils/parse'
 import fakeDrinhLogo from '@/assets/fakedrinth-logo.svg?url'
-import achievementMedal from '@/assets/fakedrinth-achievement-medal.svg?url'
 import statsVoxelArt from '@/assets/stats-voxel-art.svg?url'
+import sidebarAchievementFallback from '@/assets/instance-icons/crafting-table.png'
+import sidebarAchievementBeacon from '@/assets/instance-icons/beacon.png'
+import sidebarAchievementDragon from '@/assets/instance-icons/ender-dragon.png'
+import sidebarAchievementPickaxe from '@/assets/instance-icons/pickaxe.png'
+import sidebarAchievementSword from '@/assets/instance-icons/sword.png'
 import { useQueries, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
@@ -113,7 +117,12 @@ import { config } from '@/config'
 import { getAccountAppearance, rememberAccountAppearance } from '@/helpers/account-appearance.ts'
 import { debugAnalytics, initAnalytics, trackEvent } from '@/helpers/analytics'
 import { check_reachable } from '@/helpers/auth.js'
-import { get_default_user_achievements } from '@/helpers/achievements'
+import {
+	getAchievementDescription,
+	getAchievementIconUrl,
+	getAchievementName,
+	get_default_user_achievements,
+} from '@/helpers/achievements'
 import { get_user, get_user_many, get_version } from '@/helpers/cache.js'
 import { gameSettingsQueryOptions } from '@/helpers/game-options'
 import { install_create_modpack_instance, install_get_modpack_preview } from '@/helpers/install'
@@ -1353,6 +1362,12 @@ const accountSwitcherOptions = computed(() => [
 			action: () => forgetModrinthAccount(account.user_id),
 		},
 	})),
+	{
+		id: 'add-account',
+		label: formatMessage(messages.addAccount),
+		icon: LogInIcon,
+		action: () => requestSignIn('sign-in', true),
+	},
 ])
 
 const isSwitchingAccount = ref(false)
@@ -1489,6 +1504,7 @@ onMounted(() => {
 
 const accounts = ref(null)
 provide('accountsCard', accounts)
+const hasMinecraftAccount = computed(() => Boolean(accounts.value?.hasAccount?.()))
 const isOfflineMinecraftAccount = computed(() =>
 	accounts.value ? Boolean(accounts.value.isOfflineAccount?.()) : undefined,
 )
@@ -1496,43 +1512,91 @@ const activeGameInstanceIds = ref(new Set())
 const gameIsRunning = computed(() => activeGameInstanceIds.value.size > 0)
 const processEventRevision = ref(0)
 const sidebarAchievementsQuery = useQuery({
-	queryKey: ['offline-achievements', 'sidebar'],
+	queryKey: ['minecraft-achievements', 'sidebar'],
 	queryFn: get_default_user_achievements,
-	enabled: computed(() => stateInitialized.value && isOfflineMinecraftAccount.value === true),
+	enabled: computed(() => stateInitialized.value && hasMinecraftAccount.value),
 	staleTime: 0,
 	// Reading advancement files across every world every 5 seconds causes
 	// avoidable filesystem and CPU work while Minecraft is running.
 	refetchInterval: computed(() => (gameIsRunning.value ? 15_000 : false)),
 })
 const latestSidebarAchievement = computed(
-	() => sidebarAchievementsQuery.data.value?.achievements[0],
+	() => sidebarAchievementsQuery.data.value?.achievements.find((achievement) => achievement.unlocked),
 )
+function localSidebarAchievementIcon(id) {
+	if (/(dragon|elytra|end_city|end\/|shulker)/i.test(id)) return sidebarAchievementDragon
+	if (/(nether|beacon|wither|blaze)/i.test(id)) return sidebarAchievementBeacon
+	if (/(mine|stone|ore|iron|diamond|pickaxe|deepslate)/i.test(id)) return sidebarAchievementPickaxe
+	if (/(combat|sword|monster|kill|raid|skeleton|zombie)/i.test(id)) return sidebarAchievementSword
+	return sidebarAchievementFallback
+}
+function sidebarAchievementIcon(id) {
+	return getAchievementIconUrl(id) || localSidebarAchievementIcon(id)
+}
+function fallbackSidebarAchievementIcon(event, id) {
+	const image = event.currentTarget
+	if (!(image instanceof HTMLImageElement)) return
+	image.onerror = null
+	image.src = localSidebarAchievementIcon(id)
+}
+let gameSessionStartedAt
 
 let achievementsOverlayWindow
 let achievementsOverlayReady = false
-let pendingAchievementToast
+let achievementsOverlayCreating = false
+let unlistenAchievementOverlayReady
+let pendingAchievementToasts = []
+let isFlushingAchievementToasts = false
 let achievementToastHideTimer
 
 async function dispatchAchievementToast(achievement) {
 	if (!achievementsOverlayWindow) return
-	await achievementsOverlayWindow.emit('fakedrinth-achievement-toast', achievement)
-	await achievementsOverlayWindow.show()
-	window.clearTimeout(achievementToastHideTimer)
-	achievementToastHideTimer = window.setTimeout(() => {
-		void achievementsOverlayWindow?.hide()
-	}, 6500)
+	try {
+		await achievementsOverlayWindow.show()
+		await nextTick()
+		await achievementsOverlayWindow.emit('fakedrinth-achievement-toast', achievement)
+		window.clearTimeout(achievementToastHideTimer)
+		achievementToastHideTimer = window.setTimeout(() => {
+			void achievementsOverlayWindow?.hide()
+		}, 6500)
+	} catch (error) {
+		console.error('Could not show the Minecraft achievement notification:', error)
+	}
 }
 
 async function showAchievementToast(achievement) {
-	pendingAchievementToast = achievement
-	if (!achievementsOverlayWindow) {
-		const monitor = await primaryMonitor()
+	const locale = i18n.global.locale.value
+	pendingAchievementToasts.push({
+		...achievement,
+		name: getAchievementName(achievement.id, locale),
+		description: getAchievementDescription(achievement.id, locale),
+		unlockedLabel: locale.toLowerCase().startsWith('es') ? '¡LOGRO DESBLOQUEADO!' : 'ACHIEVEMENT UNLOCKED!',
+	})
+	if (achievementsOverlayReady) {
+		void flushAchievementToasts()
+		return
+	}
+	if (achievementsOverlayWindow || achievementsOverlayCreating) return
+
+	achievementsOverlayCreating = true
+	try {
+		unlistenAchievementOverlayReady = await listen(
+			'fakedrinth-achievement-overlay-ready',
+			() => {
+				unlistenAchievementOverlayReady?.()
+				unlistenAchievementOverlayReady = undefined
+				achievementsOverlayReady = true
+				achievementsOverlayCreating = false
+				void flushAchievementToasts()
+			},
+		)
+		const monitor = await primaryMonitor().catch(() => null)
 		const scale = monitor?.scaleFactor ?? 1
-		const width = 390
-		const height = 128
+		const width = 420
+		const height = 148
 		const x = monitor ? (monitor.position.x + monitor.size.width) / scale - width - 24 : 24
 		const y = monitor ? monitor.position.y / scale + 24 : 24
-		achievementsOverlayWindow = new WebviewWindow('achievement-overlay', {
+		const overlay = new WebviewWindow('achievement-overlay', {
 			url: 'achievement-overlay.html',
 			width,
 			height,
@@ -1548,64 +1612,97 @@ async function showAchievementToast(achievement) {
 			skipTaskbar: true,
 			shadow: false,
 		})
-		void achievementsOverlayWindow.once('tauri://created', () => {
-			void achievementsOverlayWindow?.setIgnoreCursorEvents(true)
+		achievementsOverlayWindow = overlay
+		void overlay.once('tauri://created', () => {
+			void overlay.setIgnoreCursorEvents(true)
 		})
-		void achievementsOverlayWindow.once('fakedrinth-achievement-overlay-ready', () => {
-			achievementsOverlayReady = true
-			if (pendingAchievementToast) {
-				void dispatchAchievementToast(pendingAchievementToast)
-				pendingAchievementToast = undefined
-			}
-		})
-		void achievementsOverlayWindow.once('tauri://error', () => {
+		void overlay.once('tauri://error', (error) => {
+			console.error('Could not create the achievement notification window:', error)
+			unlistenAchievementOverlayReady?.()
+			unlistenAchievementOverlayReady = undefined
 			achievementsOverlayWindow = undefined
 			achievementsOverlayReady = false
+			achievementsOverlayCreating = false
 		})
-	}
-	if (achievementsOverlayReady) {
-		void dispatchAchievementToast(achievement)
+	} catch (error) {
+		console.error('Could not create the achievement notification window:', error)
+		unlistenAchievementOverlayReady?.()
+		unlistenAchievementOverlayReady = undefined
+		achievementsOverlayCreating = false
 	}
 }
 
-let knownAchievementIds = new Set()
+async function flushAchievementToasts() {
+	if (isFlushingAchievementToasts || !achievementsOverlayReady) return
+	isFlushingAchievementToasts = true
+	try {
+		while (pendingAchievementToasts.length && achievementsOverlayReady) {
+			const achievement = pendingAchievementToasts.shift()
+			await dispatchAchievementToast(achievement)
+			if (pendingAchievementToasts.length) {
+				await new Promise((resolve) => window.setTimeout(resolve, 6500))
+			}
+		}
+	} finally {
+		isFlushingAchievementToasts = false
+	}
+}
+
+let knownAchievementDates = new Map()
 let hasAchievementBaseline = false
 watch(
 	() => sidebarAchievementsQuery.data.value?.achievements,
 	(achievements) => {
 		if (!achievements) return
-		const nextIds = new Set(achievements.map((achievement) => achievement.id))
+		const unlockedAchievements = achievements.filter((achievement) => achievement.unlocked)
+		const nextDates = new Map(
+			unlockedAchievements.map((achievement) => [achievement.id, achievement.date ?? 0]),
+		)
 		if (!hasAchievementBaseline) {
-			knownAchievementIds = nextIds
+			knownAchievementDates = nextDates
 			hasAchievementBaseline = true
+			if (gameIsRunning.value) {
+				const startedAt = gameSessionStartedAt ?? Date.now()
+				unlockedAchievements
+					.filter((achievement) => (achievement.date ?? 0) >= startedAt - 30_000)
+					.forEach((achievement) => void showAchievementToast(achievement))
+			}
 			return
 		}
-		const newlyEarned = achievements.filter(
-			(achievement) => !knownAchievementIds.has(achievement.id),
-		)
-		knownAchievementIds = nextIds
+		const newlyEarned = unlockedAchievements.filter((achievement) => {
+			const previousDate = knownAchievementDates.get(achievement.id)
+			const currentDate = achievement.date ?? 0
+			return previousDate === undefined || currentDate > previousDate
+		})
+		knownAchievementDates = nextDates
 		if (gameIsRunning.value)
 			newlyEarned.forEach((achievement) => void showAchievementToast(achievement))
 	},
 )
-watch(isOfflineMinecraftAccount, (isOffline) => {
-	if (isOffline) {
+watch(hasMinecraftAccount, (hasAccount) => {
+	if (hasAccount) {
 		hasAchievementBaseline = false
 		void sidebarAchievementsQuery.refetch()
 	} else {
+		unlistenAchievementOverlayReady?.()
+		unlistenAchievementOverlayReady = undefined
 		void achievementsOverlayWindow?.hide()
 	}
 })
-function refreshOfflineAchievements() {
+function refreshAchievements() {
 	hasAchievementBaseline = false
-	if (isOfflineMinecraftAccount.value) void sidebarAchievementsQuery.refetch()
+	if (hasMinecraftAccount.value) void sidebarAchievementsQuery.refetch()
 }
 useAppEvent('process', (event) => {
 	processEventRevision.value++
 	const next = new Set(activeGameInstanceIds.value)
-	if (event.event === 'launched') next.add(event.instance_id)
-	else next.delete(event.instance_id)
+	if (event.event === 'launched') {
+		if (next.size === 0) gameSessionStartedAt = Date.now()
+		next.add(event.instance_id)
+		void sidebarAchievementsQuery.refetch()
+	} else next.delete(event.instance_id)
 	activeGameInstanceIds.value = next
+	if (next.size === 0) gameSessionStartedAt = undefined
 }, appEvents)
 useAppEvent('instance', (event) => {
 	if (event.event === 'screenshots_updated') {
@@ -1624,9 +1721,15 @@ watch(
 			})),
 		)
 		if (revision === processEventRevision.value) {
-			activeGameInstanceIds.value = new Set(
+			const runningIds = new Set(
 				active.filter((entry) => entry.processes.length > 0).map((entry) => entry.id),
 			)
+			if (runningIds.size > 0 && activeGameInstanceIds.value.size === 0) {
+				gameSessionStartedAt = Date.now()
+			} else if (runningIds.size === 0) {
+				gameSessionStartedAt = undefined
+			}
+			activeGameInstanceIds.value = runningIds
 		}
 	},
 	{ immediate: true },
@@ -1634,8 +1737,6 @@ watch(
 watch(isOfflineMinecraftAccount, (isOfflineAccount) => {
 	if (isOfflineAccount && route.path === '/skins') {
 		void router.replace('/achievements')
-	} else if (isOfflineAccount === false && route.path === '/achievements') {
-		void router.replace('/skins')
 	}
 })
 
@@ -2280,7 +2381,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 				<ShirtIcon />
 			</NavButton>
 			<NavButton
-				v-if="appSettings.showSkinSelectorInSidebar && isOfflineMinecraftAccount"
+				v-if="hasMinecraftAccount"
 				v-tooltip.right="'Logros'"
 				to="/achievements"
 			>
@@ -2310,72 +2411,87 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			>
 				<SettingsIcon />
 			</NavButton>
-			<IconButton
-				v-if="credentials === undefined"
-				v-tooltip.right="profileButtonTooltip"
-				type="quiet"
-				size="xl"
-				disabled
-				class="pointer-events-none"
-				:label="formatMessage(messages.loadingProfile)"
-			>
-				<SpinnerIcon class="animate-spin" />
-			</IconButton>
-			<TeleportOverflowMenu
-				v-else-if="credentials?.user"
-				v-tooltip.right="profileButtonTooltip"
-				type="quiet"
-				size="xl"
-				:label="formatMessage(messages.modrinthAccount)"
-				:options="modrinthAccountMenuOptions"
-				placement="right-end"
-				:distance="4"
-				class="brightness-100 hover:!brightness-100 focus-visible:!brightness-100"
-			>
-				<Avatar
-					:src="credentials?.user?.avatar_url"
-					alt=""
-					size="32px"
-					circle
-					no-shadow
-					class="pointer-events-none !size-8"
-				/>
-				<template
-					v-for="account in accountSwitcherAccounts"
-					:key="account.user_id"
-					#[account.optionId]
-				>
-					<Avatar :src="account.user.avatar_url" size="1.25rem" aria-hidden="true" circle />
-					{{ account.user.username }}
-					<UserRoleIcon :role="account.user.role" />
-				</template>
-			</TeleportOverflowMenu>
-			<TeleportOverflowMenu
-				v-else-if="accountSwitcherAccounts.length > 0"
-				v-tooltip.right="profileButtonTooltip"
-				type="quiet"
-				size="xl"
-				:label="formatMessage(messages.signInToModrinthAccount)"
-				:options="accountSwitcherOptions"
-				placement="right-end"
-				:distance="4"
-			>
-				<LogInIcon class="!text-brand" />
-				<template
-					v-for="account in accountSwitcherAccounts"
-					:key="account.user_id"
-					#[account.optionId]
-				>
-					<Avatar :src="account.user.avatar_url" size="1.25rem" aria-hidden="true" circle />
-					{{ account.user.username }}
-					<UserRoleIcon :role="account.user.role" />
-				</template>
-			</TeleportOverflowMenu>
 		</div>
 		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">
-			<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden p-2">
-				<img :src="fakeDrinhLogo" alt="FAKEDRINH" class="h-7 w-7 shrink-0 pointer-events-none" />
-				<span class="text-contrast font-bold pointer-events-none">FAKEDRINH</span>
+			<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden gap-2 p-2">
+				<div class="flex h-full shrink-0 items-center justify-center">
+					<IconButton
+						v-if="credentials === undefined"
+						v-tooltip.bottom="profileButtonTooltip"
+						type="quiet"
+						size="md"
+						disabled
+						class="pointer-events-none !size-9"
+						:label="formatMessage(messages.loadingProfile)"
+					>
+						<SpinnerIcon class="animate-spin" />
+					</IconButton>
+					<TeleportOverflowMenu
+						v-else-if="credentials?.user"
+						v-tooltip.bottom="profileButtonTooltip"
+						type="quiet"
+						size="md"
+						:label="formatMessage(messages.modrinthAccount)"
+						:options="modrinthAccountMenuOptions"
+						placement="bottom-start"
+						:distance="4"
+						class="!size-9 brightness-100 hover:!brightness-100 focus-visible:!brightness-100"
+					>
+						<Avatar
+							:src="credentials?.user?.avatar_url"
+							alt=""
+							size="32px"
+							circle
+							no-shadow
+							class="pointer-events-none !size-8"
+						/>
+						<template
+							v-for="account in accountSwitcherAccounts"
+							:key="account.user_id"
+							#[account.optionId]
+						>
+							<Avatar :src="account.user.avatar_url" size="1.25rem" aria-hidden="true" circle />
+							{{ account.user.username }}
+							<UserRoleIcon :role="account.user.role" />
+						</template>
+					</TeleportOverflowMenu>
+					<TeleportOverflowMenu
+						v-else-if="accountSwitcherAccounts.length > 0"
+						v-tooltip.bottom="profileButtonTooltip"
+						type="quiet"
+						size="md"
+						:label="formatMessage(messages.signInToModrinthAccount)"
+						:options="accountSwitcherOptions"
+						placement="bottom-start"
+						:distance="4"
+					>
+						<LogInIcon class="!text-brand" />
+						<template
+							v-for="account in accountSwitcherAccounts"
+							:key="account.user_id"
+							#[account.optionId]
+						>
+							<Avatar :src="account.user.avatar_url" size="1.25rem" aria-hidden="true" circle />
+							{{ account.user.username }}
+							<UserRoleIcon :role="account.user.role" />
+						</template>
+					</TeleportOverflowMenu>
+					<IconButton
+						v-else
+						v-tooltip.bottom="profileButtonTooltip"
+						type="quiet"
+						size="md"
+						class="!size-9"
+						:label="formatMessage(messages.signInToModrinthAccount)"
+						@click="requestSignIn('sign-in')"
+					>
+						<LogInIcon class="!text-brand" />
+					</IconButton>
+				</div>
+				<div data-tauri-drag-region class="flex shrink-0 items-center gap-1">
+					<img :src="fakeDrinhLogo" alt="FAKEDRINH" class="h-7 w-7 pointer-events-none" />
+					<span class="text-contrast font-bold pointer-events-none">FAKEDRINH</span>
+				</div>
 				<div data-tauri-drag-region class="ml-2 flex shrink-0 items-center gap-2">
 					<IconButton
 						type="outlined"
@@ -2501,7 +2617,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 							{{ formatMessage(messages.playingAs) }}
 						</h3>
 						<suspense>
-							<AccountsCard ref="accounts" @change="refreshOfflineAchievements" />
+						<AccountsCard ref="accounts" @change="refreshAchievements" />
 						</suspense>
 					</div>
 					<section class="game-stats-panel m-3 p-4 rounded-xl border border-solid">
@@ -2552,14 +2668,18 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 						<span><strong>Capturas del juego</strong><small>Explora tus screenshots</small></span>
 					</RouterLink>
 					<RouterLink
-						v-if="isOfflineMinecraftAccount"
+						v-if="hasMinecraftAccount"
 						to="/achievements"
 						class="sidebar-latest-achievement"
 					>
-						<img :src="achievementMedal" alt="" />
+						<img
+							:src="latestSidebarAchievement ? sidebarAchievementIcon(latestSidebarAchievement.id) : sidebarAchievementFallback"
+							alt=""
+							@error="fallbackSidebarAchievementIcon($event, latestSidebarAchievement?.id ?? '')"
+						/>
 						<span>
-							<strong>Último logro</strong>
-							<small v-if="latestSidebarAchievement">{{ latestSidebarAchievement.name }}</small>
+							<strong>Último progreso</strong>
+							<small v-if="latestSidebarAchievement">{{ getAchievementName(latestSidebarAchievement.id, i18n.global.locale.value) }}</small>
 							<small v-else-if="sidebarAchievementsQuery.isError.value"
 								>No se pudieron leer los logros</small
 							>
@@ -2921,6 +3041,8 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 	flex: none;
 	width: 2rem;
 	height: 2rem;
+	object-fit: contain;
+	image-rendering: pixelated;
 }
 .sidebar-latest-achievement > span {
 	display: flex;
@@ -3165,4 +3287,3 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 	}
 }
 </style>
-

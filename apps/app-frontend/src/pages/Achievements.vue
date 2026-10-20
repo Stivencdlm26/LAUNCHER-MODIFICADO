@@ -1,85 +1,92 @@
 <script setup lang="ts">
+import { LockIcon } from '@modrinth/assets'
 import { useQuery } from '@tanstack/vue-query'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
-import achievementMedal from '@/assets/fakedrinth-achievement-medal.svg?url'
 import beaconIcon from '@/assets/instance-icons/beacon.png'
 import craftingTableIcon from '@/assets/instance-icons/crafting-table.png'
 import enderDragonIcon from '@/assets/instance-icons/ender-dragon.png'
 import pickaxeIcon from '@/assets/instance-icons/pickaxe.png'
 import swordIcon from '@/assets/instance-icons/sword.png'
 import {
+	getAchievementDescription,
+	getAchievementIconUrl,
+	getAchievementName,
 	get_default_user_achievements,
-	getLocalizedAdvancementText,
-	loadAchievementLocalization,
+	type LocalAchievement,
 } from '@/helpers/achievements'
 import i18n from '@/i18n.config'
 
 const achievementsQuery = useQuery({
-	queryKey: ['offline-achievements'],
+	queryKey: ['minecraft-achievements', 'sidebar'],
 	queryFn: get_default_user_achievements,
 	staleTime: 30_000,
-	refetchInterval: 10_000,
 })
 const achievements = computed(() => achievementsQuery.data.value?.achievements ?? [])
+const selectedAchievement = ref<LocalAchievement | null>(null)
 const locale = computed(() => i18n.global.locale.value)
-const achievementTranslations = ref<Record<string, string>>({})
-const translationsLoading = ref(true)
-watch(
-	locale,
-	async (selectedLocale) => {
-		translationsLoading.value = true
-		achievementTranslations.value = await loadAchievementLocalization(selectedLocale)
-		translationsLoading.value = false
-	},
-	{ immediate: true },
+const lockedLabel = computed(() => (locale.value.toLowerCase().startsWith('es') ? 'Bloqueado' : 'Locked'))
+const notYetEarnedLabel = computed(() =>
+	locale.value.toLowerCase().startsWith('es') ? 'Aún no conseguido' : 'Not earned yet',
 )
+const unlockedAchievements = computed(() =>
+	achievements.value.filter((achievement) => achievement.unlocked),
+)
+const lockedAchievements = computed(() =>
+	achievements.value.filter((achievement) => !achievement.unlocked),
+)
+const latestAchievement = computed(() => unlockedAchievements.value[0])
 const achievementsError = computed(() => {
 	const error = achievementsQuery.error.value
 	return error instanceof Error ? error.message : error ? String(error) : ''
 })
-function achievementTitle(id: string, fallback: string): string {
-	return getLocalizedAdvancementText(id, 'title', achievementTranslations.value) || fallback
-}
-function achievementDescription(id: string): string {
-	return (
-		getLocalizedAdvancementText(id, 'description', achievementTranslations.value) ||
-		(translationsLoading.value
-			? locale.value.toLowerCase().startsWith('es')
-				? 'Cargando descripción oficial…'
-				: 'Loading official description…'
-			: locale.value.toLowerCase().startsWith('es')
-				? 'La descripción oficial no está disponible para este progreso.'
-				: 'The official description is unavailable for this advancement.')
-	)
-}
 function achievementIcon(id: string): string {
+	const minecraftIcon = getAchievementIconUrl(id)
+	if (minecraftIcon) return minecraftIcon
+	return localAchievementIcon(id)
+}
+function localAchievementIcon(id: string): string {
 	const key = id.toLowerCase()
 	if (/(craft|planks|table|recipe|inventory)/.test(key)) return craftingTableIcon
 	if (/(mine|stone|ore|iron|diamond|pickaxe|deepslate)/.test(key)) return pickaxeIcon
 	if (/(dragon|elytra|end_city|end\/|shulker)/.test(key)) return enderDragonIcon
 	if (/(nether|beacon|wither|blaze)/.test(key)) return beaconIcon
 	if (/(combat|sword|monster|kill|raid|skeleton|zombie)/.test(key)) return swordIcon
-	return achievementMedal
+	return craftingTableIcon
+}
+function fallbackAchievementIcon(event: Event, id: string): void {
+	const image = event.currentTarget
+	if (!(image instanceof HTMLImageElement)) return
+	image.onerror = null
+	image.src = localAchievementIcon(id)
+}
+function achievementName(id: string): string {
+	return getAchievementName(id, locale.value)
+}
+function achievementDescription(id: string): string {
+	return getAchievementDescription(id, locale.value)
 }
 </script>
 
 <template>
 	<main class="achievements-page">
 		<header class="achievements-header">
-			<div class="achievements-icon"><img :src="achievementMedal" alt="" /></div>
+			<div class="achievements-icon"><img :src="craftingTableIcon" alt="" /></div>
 			<div>
-				<p>PERFIL OFFLINE</p>
-				<h1>Logros del juego</h1>
-				<span>Logros guardados localmente en tus mundos de Minecraft.</span>
+				<p>PROGRESOS LOCALES · JAVA EDITION</p>
+				<h1>Progresos de Minecraft Java</h1>
+				<span>Se revisan tus mundos guardados al abrir el launcher. No necesitas iniciar una instancia.</span>
 			</div>
 		</header>
 		<div class="achievement-stage" aria-hidden="true">
-			<div class="achievement-loader-art"><i></i><i></i><i></i><i></i></div>
+			<div class="achievement-stage-caption">
+				<img :src="craftingTableIcon" alt="" />
+				<span>Progresos oficiales de Java<small>Conseguidos y pendientes en tus mundos</small></span>
+			</div>
 			<div class="achievement-scene-art">
 				<span class="scene-star star-a"></span><span class="scene-star star-b"></span>
 				<span class="scene-star star-c"></span><span class="scene-star star-d"></span>
-				<div class="scene-trophy"><i></i><b></b></div>
+				<img class="scene-item" :src="enderDragonIcon" alt="" />
 			</div>
 		</div>
 
@@ -95,49 +102,105 @@ function achievementIcon(id: string): string {
 		</div>
 		<template v-else>
 			<div class="achievements-summary">
-				<strong>{{ achievements.length }}</strong
-				><span>logros obtenidos</span>
+				<strong>{{ unlockedAchievements.length }}</strong
+				><span>obtenidos</span>
+				<strong>{{ lockedAchievements.length }}</strong
+				><span>bloqueados</span>
 				<strong>{{ achievementsQuery.data.value?.worldCount ?? 0 }}</strong
 				><span>mundos revisados</span>
 			</div>
-			<article v-if="achievements[0]" class="latest-achievement-card">
+			<article v-if="latestAchievement" class="latest-achievement-card">
 				<div class="latest-achievement-emblem">
-					<img :src="achievementIcon(achievements[0].id)" alt="" />
+					<img
+						:src="achievementIcon(latestAchievement.id)"
+						alt=""
+						@error="fallbackAchievementIcon($event, latestAchievement.id)"
+					/>
 				</div>
 				<div>
 					<small>ÚLTIMO LOGRO CONSEGUIDO</small>
-					<strong>{{ achievementTitle(achievements[0].id, achievements[0].name) }}</strong>
-					<span>{{ achievements[0].world }}</span>
-					<p class="achievement-description">
-						{{ achievementDescription(achievements[0].id) }}
-					</p>
+					<strong>{{ achievementName(latestAchievement.id) }}</strong>
+					<span>{{ latestAchievement.world }}</span>
 				</div>
-				<time v-if="achievements[0].date" :datetime="new Date(achievements[0].date).toISOString()">
-					{{ new Date(achievements[0].date).toLocaleDateString() }}
+				<time
+					v-if="latestAchievement.date"
+					:datetime="new Date(latestAchievement.date).toISOString()"
+				>
+					{{ new Date(latestAchievement.date).toLocaleDateString() }}
 				</time>
 			</article>
 			<div v-if="achievements.length" class="achievements-grid">
-				<article v-for="achievement in achievements" :key="achievement.id" class="achievement-card">
-					<img class="achievement-card-icon" :src="achievementIcon(achievement.id)" alt="" />
+				<article
+					v-for="achievement in achievements"
+					:key="achievement.id"
+					class="achievement-card"
+					:class="{ 'achievement-card-locked': !achievement.unlocked }"
+				>
+					<img
+						class="achievement-card-icon"
+						:src="achievementIcon(achievement.id)"
+						alt=""
+						@error="fallbackAchievementIcon($event, achievement.id)"
+					/>
 					<div>
-					<strong>{{ achievementTitle(achievement.id, achievement.name) }}</strong
-					><small>{{ achievement.world }}</small>
-					<p class="achievement-description">
-						{{ achievementDescription(achievement.id) }}
-					</p>
+						<strong>{{ achievementName(achievement.id) }}</strong
+						><small>{{ achievement.world || lockedLabel }}</small>
+						<button
+							type="button"
+							class="achievement-reference"
+							:aria-label="`Ver nombre y descripción: ${achievementName(achievement.id)}`"
+							@click="selectedAchievement = achievement"
+						>
+							<img
+								:src="achievementIcon(achievement.id)"
+								alt=""
+								@error="fallbackAchievementIcon($event, achievement.id)"
+							/>
+							<span>Ver logro y descripción</span>
+						</button>
 					</div>
-					<time v-if="achievement.date" :datetime="new Date(achievement.date).toISOString()">
+					<span v-if="!achievement.unlocked" class="achievement-locked-label">
+						<LockIcon /> {{ lockedLabel }}
+					</span>
+					<time
+						v-else-if="achievement.date"
+						:datetime="new Date(achievement.date).toISOString()"
+					>
 						{{ new Date(achievement.date).toLocaleDateString() }}
 					</time>
 				</article>
 			</div>
 			<div v-else class="achievements-state">
 				<strong>Aún no hay logros registrados</strong>
-				<span
-					>Juega en un mundo local y vuelve aquí para ver los avances de esta cuenta offline.</span
-				>
+				<span>El launcher ya revisó todos los mundos guardados de esta cuenta y todavía no encontró avances.</span>
 			</div>
 		</template>
+		<div
+			v-if="selectedAchievement"
+			class="achievement-dialog-backdrop"
+			@click.self="selectedAchievement = null"
+			@keydown.esc="selectedAchievement = null"
+		>
+			<section class="achievement-dialog" role="dialog" aria-modal="true">
+				<button
+					type="button"
+					class="achievement-dialog-close"
+					aria-label="Cerrar detalle del logro"
+					@click="selectedAchievement = null"
+				>
+					×
+				</button>
+				<img
+					:src="achievementIcon(selectedAchievement.id)"
+					alt=""
+					@error="fallbackAchievementIcon($event, selectedAchievement.id)"
+				/>
+				<p>LOGRO DE MINECRAFT</p>
+				<h2>{{ achievementName(selectedAchievement.id) }}</h2>
+				<span>{{ achievementDescription(selectedAchievement.id) }}</span>
+				<small>{{ selectedAchievement.world || notYetEarnedLabel }}</small>
+			</section>
+		</div>
 	</main>
 </template>
 
@@ -206,30 +269,28 @@ function achievementIcon(id: string): string {
 		),
 		linear-gradient(100deg, var(--surface-2), var(--surface-1));
 }
-.achievement-loader-art {
+.achievement-stage-caption {
 	position: relative;
 	display: flex;
 	align-items: center;
-	gap: 0.45rem;
+	gap: 0.75rem;
 	height: 100%;
-	padding: 0 2.5rem;
+	padding: 0 1.5rem;
 }
-.achievement-loader-art i {
-	width: 0.55rem;
-	height: 0.55rem;
-	border-radius: 2px;
-	background: var(--fakedrinth-accent, #ff5361);
-	opacity: 0.3;
-	animation: loading-cubes 0.9s ease-in-out infinite alternate;
+.achievement-stage-caption img {
+	width: 2.75rem;
+	height: 2.75rem;
 }
-.achievement-loader-art i:nth-child(2) {
-	animation-delay: 0.15s;
+.achievement-stage-caption span {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+	font-weight: 700;
 }
-.achievement-loader-art i:nth-child(3) {
-	animation-delay: 0.3s;
-}
-.achievement-loader-art i:nth-child(4) {
-	animation-delay: 0.45s;
+.achievement-stage-caption small {
+	color: var(--color-secondary);
+	font-size: 0.75rem;
+	font-weight: 400;
 }
 .achievement-scene-art {
 	position: relative;
@@ -237,56 +298,15 @@ function achievementIcon(id: string): string {
 	height: 100%;
 	margin-right: 3rem;
 }
-.scene-trophy {
+.scene-item {
 	position: absolute;
 	right: 2.5rem;
-	bottom: 1.35rem;
-	width: 3rem;
-	height: 2.6rem;
-	border: 3px solid #ffd18b;
-	border-radius: 0.35rem 0.35rem 1rem 1rem;
-	background: linear-gradient(140deg, #ffcc65, #d12a41 70%);
-	box-shadow: 0 0 1.8rem color-mix(in srgb, var(--fakedrinth-accent, #ff5361) 55%, transparent);
-	animation: trophy-bob 2.3s ease-in-out infinite;
-}
-.scene-trophy::before,
-.scene-trophy::after {
-	position: absolute;
-	top: 0.35rem;
-	width: 0.65rem;
-	height: 0.9rem;
-	border: 3px solid #ffd18b;
-	content: '';
-}
-.scene-trophy::before {
-	left: -0.82rem;
-	border-right: 0;
-	border-radius: 0.5rem 0 0 0.5rem;
-}
-.scene-trophy::after {
-	right: -0.82rem;
-	border-left: 0;
-	border-radius: 0 0.5rem 0.5rem 0;
-}
-.scene-trophy i {
-	position: absolute;
-	bottom: -0.7rem;
-	left: 50%;
-	width: 1.15rem;
-	height: 0.45rem;
-	transform: translateX(-50%);
-	border-radius: 0 0 0.3rem 0.3rem;
-	background: #ffd18b;
-}
-.scene-trophy b {
-	position: absolute;
-	bottom: -1rem;
-	left: 50%;
-	width: 2.1rem;
-	height: 0.25rem;
-	transform: translateX(-50%);
-	border-radius: 1rem;
-	background: #ffd18b;
+	bottom: 0.45rem;
+	width: 5.5rem;
+	height: 5.5rem;
+	object-fit: contain;
+	image-rendering: pixelated;
+	filter: drop-shadow(0 0 1.2rem color-mix(in srgb, var(--fakedrinth-accent, #ff5361) 55%, transparent));
 }
 .scene-star {
 	position: absolute;
@@ -394,16 +414,6 @@ function achievementIcon(id: string): string {
 .latest-achievement-card time {
 	flex: none;
 }
-.achievement-description {
-	display: -webkit-box;
-	margin: 0.25rem 0 0;
-	overflow: hidden;
-	color: var(--color-secondary);
-	font-size: 0.78rem;
-	line-height: 1.35;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-}
 .achievements-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -412,35 +422,12 @@ function achievementIcon(id: string): string {
 .achievement-card {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
 	gap: 0.75rem;
 	min-width: 0;
 	padding: 0.9rem;
 	border: 1px solid var(--surface-4);
 	border-radius: 0.8rem;
 	background: var(--surface-2);
-}
-.achievement-card-locked {
-	background: var(--color-bg, #242124);
-	opacity: 0.92;
-}
-.achievement-card-locked .achievement-card-icon {
-	filter: grayscale(0.7) brightness(0.78);
-}
-.achievement-locked-label {
-	position: static;
-	display: inline-flex;
-	flex: 0 0 100%;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 0.35rem;
-	margin-top: -0.25rem;
-	padding: 0.25rem 0.45rem;
-	border: 1px solid var(--surface-4);
-	border-radius: 0.45rem;
-	background: var(--color-bg, #242124);
-	color: var(--color-secondary);
-	font-size: 0.72rem;
 }
 .achievement-card-icon {
 	width: 2rem;
@@ -454,9 +441,6 @@ function achievementIcon(id: string): string {
 	gap: 0.25rem;
 	min-width: 0;
 }
-.achievement-card .achievement-description {
-	font-size: 0.72rem;
-}
 .achievement-card strong {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -468,10 +452,104 @@ function achievementIcon(id: string): string {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.achievement-reference {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	width: fit-content;
+	margin-top: 0.2rem;
+	padding: 0.2rem 0.4rem;
+	border: 1px solid var(--surface-4);
+	border-radius: 0.4rem;
+	background: var(--surface-1);
+	color: var(--fakedrinth-accent, #ff5361);
+	font: inherit;
+	font-size: 0.68rem;
+	cursor: pointer;
+}
+.achievement-reference img {
+	width: 1.65rem;
+	height: 1.65rem;
+	image-rendering: pixelated;
+}
+.achievement-reference:hover {
+	border-color: var(--fakedrinth-accent, #ff5361);
+}
+.achievement-dialog-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1000;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	background: rgb(0 0 0 / 68%);
+}
+.achievement-dialog {
+	position: relative;
+	display: flex;
+	width: min(28rem, 100%);
+	flex-direction: column;
+	align-items: center;
+	gap: 0.7rem;
+	padding: 2rem;
+	border: 1px solid color-mix(in srgb, var(--fakedrinth-accent, #ff5361) 50%, transparent);
+	border-radius: 1rem;
+	background: var(--surface-2);
+	box-shadow: 0 1rem 4rem rgb(0 0 0 / 45%);
+	text-align: center;
+}
+.achievement-dialog > img {
+	width: 5rem;
+	height: 5rem;
+	image-rendering: pixelated;
+}
+.achievement-dialog p {
+	margin: 0.5rem 0 0;
+	color: var(--fakedrinth-accent, #ff5361);
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+}
+.achievement-dialog h2 {
+	margin: 0;
+}
+.achievement-dialog > span,
+.achievement-dialog > small {
+	color: var(--color-secondary);
+}
+.achievement-dialog-close {
+	position: absolute;
+	top: 0.6rem;
+	right: 0.7rem;
+	border: 0;
+	background: transparent;
+	color: var(--color-secondary);
+	font-size: 1.6rem;
+	cursor: pointer;
+}
 .achievement-card time {
 	flex: none;
 	color: var(--color-secondary);
 	font-size: 0.75rem;
+}
+.achievement-card-locked {
+	opacity: 0.58;
+	filter: grayscale(0.7);
+}
+.achievement-card-locked .achievement-card-icon {
+	filter: grayscale(1) brightness(0.7);
+}
+.achievement-locked-label {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: 0.3rem;
+	color: var(--color-secondary);
+	font-size: 0.72rem;
+}
+.achievement-locked-label :deep(svg) {
+	width: 0.9rem;
+	height: 0.9rem;
 }
 .achievements-state {
 	display: flex;
@@ -491,17 +569,6 @@ function achievementIcon(id: string): string {
 	color: var(--fakedrinth-text, white);
 	cursor: pointer;
 }
-@keyframes loading-cubes {
-	to {
-		opacity: 1;
-		transform: translateY(-0.4rem) scale(1.2);
-	}
-}
-@keyframes trophy-bob {
-	50% {
-		transform: translateY(-0.35rem) rotate(3deg);
-	}
-}
 @keyframes scene-sparkle {
 	to {
 		opacity: 0.2;
@@ -509,4 +576,3 @@ function achievementIcon(id: string): string {
 	}
 }
 </style>
-

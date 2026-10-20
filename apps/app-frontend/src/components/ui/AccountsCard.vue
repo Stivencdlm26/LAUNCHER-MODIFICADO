@@ -4,6 +4,10 @@
 		class="flex flex-col gap-3 bg-button-bg border border-solid border-surface-5 rounded-xl p-3 mt-2"
 	>
 		<span>{{ formatMessage(messages.notSignedIn) }}</span>
+		<Button type="outlined" :disabled="loginDisabled" @click="login()">
+			<PlusIcon />
+			{{ formatMessage(messages.addAccount) }}
+		</Button>
 		<Button type="outlined" :disabled="loginDisabled" @click="openOfflineAccountModal()">
 			<PlusIcon />
 			{{ formatMessage(messages.addOfflineAccount) }}
@@ -245,6 +249,7 @@ defineExpose({
 	refreshValues,
 	setEquippedSkin,
 	setLoginDisabled,
+	hasAccount: () => Boolean(selectedAccount.value),
 	isOfflineAccount: () => Boolean(selectedAccount.value?.offline),
 	login,
 	openOfflineAccountModal,
