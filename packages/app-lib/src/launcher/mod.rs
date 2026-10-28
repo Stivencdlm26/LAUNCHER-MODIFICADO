@@ -973,8 +973,7 @@ pub async fn launch_minecraft(
     let _ =
         download_log_config(&state, &version_info, None, false, None).await?;
 
-    let java_version =
-        get_java_version_from_launch_context(context, &version_info)
+    let java_version = get_java_version_from_launch_context(context, &version_info)
             .await?
             .ok_or_else(|| {
                 crate::ErrorKind::LauncherError(

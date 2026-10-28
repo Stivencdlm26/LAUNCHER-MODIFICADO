@@ -139,21 +139,15 @@
 </template>
 
 <script setup lang="ts">
-import {
-	PlusIcon,
-	RadioButtonCheckedIcon,
-	RadioButtonIcon,
-	SpinnerIcon,
-	TrashIcon,
-} from '@modrinth/assets'
+import { PlusIcon, RadioButtonCheckedIcon, RadioButtonIcon, TrashIcon } from '@modrinth/assets'
 import {
 	Accordion,
 	Avatar,
 	Button,
 	defineMessages,
 	IconButton,
-	Input,
 	injectNotificationManager,
+	Input,
 	NewModal,
 	useVIntl,
 } from '@modrinth/ui'

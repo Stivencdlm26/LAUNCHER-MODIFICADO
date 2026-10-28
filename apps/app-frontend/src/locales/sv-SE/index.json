@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "Visa loggar"
   },
-  "app.ads-consent.accept": {
-    "message": "Godkänn alla"
-  },
-  "app.ads-consent.body": {
-    "message": "Annonser gör Modrinth möjligt och finansierar utbetalningar till skapare. Våra partner kan lagra eller komma åt kakor i appen för att rikta annonser och mäta statistik."
-  },
-  "app.ads-consent.manage": {
-    "message": "Hantera inställningar"
-  },
-  "app.ads-consent.reject": {
-    "message": "Avvisa alla"
-  },
-  "app.ads-consent.title": {
-    "message": "Din integritet och hur annonser stödjer Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "Visa biblioteksinstanser i en kompakt radlayout."
   },
@@ -1361,9 +1346,6 @@
   "app.nav.modrinth-account": {
     "message": "Modrinth-konto"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "Ta bort konto"
   },
@@ -1375,9 +1357,6 @@
   },
   "app.nav.switch-account": {
     "message": "Byt konto"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Uppgradera till Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "Visa profil"
@@ -1393,12 +1372,6 @@
   },
   "app.navigation.next-image": {
     "message": "Nästa bild"
-  },
-  "app.news.title": {
-    "message": "Nyheter"
-  },
-  "app.news.view-all": {
-    "message": "Se alla nyheter"
   },
   "app.notification.warning": {
     "message": "Varning"
@@ -1620,7 +1593,7 @@
     "message": "Äldst"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Miljövariabler som anges när en instans startas."
@@ -2438,9 +2411,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Annonser gör Modrinth möjligt och finansierar utbetalningar till skapare. Våra partner kan lagra eller komma åt kakor i appen för att rikta annonser och mäta statistik. Du kan välja bort eller hantera dina inställningar nedan."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Visa Modrinth App som din nuvarande aktivitet på Discord. Detta påverkar inte Rich Presence som lagts till i instanser av moddar. Kräver en app omstart."
   },
@@ -3007,9 +2977,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} är tillgänglig. Använd din pakethanterare för att uppdatera och få tillgång till de senaste funktionerna och buggfixarna!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} är nu tillgänglig! Eftersom du använder ett nätverk med datatrafikbegränsningar har vi inte laddat ner det automatiskt."
   },
   "app.update-popup.changelog": {
     "message": "Ändringslogg"
@@ -3923,9 +3890,6 @@
   "minecraft-account.select-account": {
     "message": "Välj konto"
   },
-  "minecraft-account.sign-in": {
-    "message": "Logga in till Minecraft"
-  },
   "minecraft-required.description": {
     "message": "Du behöver ett Microsoft-konto som äger Minecraft innan du kan köra och spela."
   },
@@ -3982,12 +3946,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "Skapa först en instans"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Logga på Minecraft"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "Logga in på Modrinth"
   },
   "onboarding-checklist.title": {
     "message": "Kom igång"

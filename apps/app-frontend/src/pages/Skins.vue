@@ -190,7 +190,8 @@ const messages = defineMessages({
 	},
 	offlineSkinNotice: {
 		id: 'app.skins.offline-profile.notice',
-		defaultMessage: 'Skin changes require a Microsoft account, so skin editing is disabled for offline profiles.',
+		defaultMessage:
+			'Skin changes require a Microsoft account, so skin editing is disabled for offline profiles.',
 	},
 	earsFeatureNotice: {
 		id: 'app.skins.ears-feature-notice',
@@ -354,7 +355,9 @@ const skinNametag = computed(() => (appSettings.hideNametagSkinsPage ? undefined
 const isSkinManagementReadOnly = computed(
 	() =>
 		!!currentUser.value &&
-		(currentUser.value.offline === true || offline.value || (authServerQuery.isError.value && !authServerQuery.isLoading.value)),
+		(currentUser.value.offline === true ||
+			offline.value ||
+			(authServerQuery.isError.value && !authServerQuery.isLoading.value)),
 )
 const hasPendingSkinChange = computed(
 	() => !skinsMatch(selectedSkin.value, originalSelectedSkin.value),

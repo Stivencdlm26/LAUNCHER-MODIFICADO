@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-	defineMessages,
-	Toggle,
-	useVIntl,
-} from '@modrinth/ui'
+import { defineMessages, Toggle, useVIntl } from '@modrinth/ui'
 import { ref, watch } from 'vue'
 
 import { analyticsAvailable, optInAnalytics, optOutAnalytics } from '@/helpers/analytics'
@@ -73,4 +69,3 @@ watch(
 		<Toggle id="disable-discord-rpc" v-model="settings.discord_rpc" />
 	</div>
 </template>
-

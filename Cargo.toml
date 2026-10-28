@@ -22,7 +22,7 @@ members = [
 [workspace.package]
 edition = "2024"
 rust-version = "1.90.0"
-repository = "https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO"
+repository = "https://github.com/modrinth/code"
 
 [workspace.dependencies]
 actix-cors = "0.7.1"
@@ -312,13 +312,13 @@ name = "modrinth-rust"
 # Pin the upstream Tao 0.36 upgrade until a Tauri release includes the Windows input deadlock fix.
 # https://github.com/tauri-apps/tauri/pull/15307
 [patch.crates-io]
-tauri = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-build = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-codegen = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-macros = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-runtime = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-runtime-wry = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
-tauri-utils = { git = "https://github.com/tauri-apps/tauri", rev = "f6c1eb2533a0445e081c334931d67fee3e354c6f" }
+tauri = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-build = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-codegen = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-macros = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-runtime = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-runtime-wry = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
+tauri-utils = { git = "https://github.com/tauri-apps/tauri", rev = "7cc68e74ff6981f5c50a52a67d56c5eb2d227188" }
 
 [profile.dev.package.sqlx-macros]
 opt-level = 3
@@ -327,7 +327,7 @@ opt-level = 3
 [profile.release]
 opt-level = "s"  # Optimize for binary size
 strip = true  # Remove debug symbols
-lto = "thin"  # Enable LTO with shorter release build times
+lto = true  # Enables link to optimizations
 panic = "abort"  # Strip expensive panic clean-up logic
 
 [profile.test]

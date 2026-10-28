@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "Xem nhật ký"
   },
-  "app.ads-consent.accept": {
-    "message": "Chấp nhận tất cả"
-  },
-  "app.ads-consent.body": {
-    "message": "Quảng cáo giúp Modrinth duy trì hoạt động và chi trả cho nhà sáng tạo. Các đối tác của chúng tôi có thể lưu trữ hoặc truy cập cookie trong ứng dụng để cá nhân hóa quảng cáo và đo lường hiệu quả."
-  },
-  "app.ads-consent.manage": {
-    "message": "Quản lý tùy chọn"
-  },
-  "app.ads-consent.reject": {
-    "message": "Từ chối tất cả"
-  },
-  "app.ads-consent.title": {
-    "message": "Quyền riêng tư của bạn và cách quảng cáo hỗ trợ Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "Hiển thị các bản cài đặt trong thư viện theo bố cục hàng thu gọn."
   },
@@ -1364,9 +1349,6 @@
   "app.nav.modrinth-account": {
     "message": "Tài khoản Modrinth"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "Xóa tài khoản"
   },
@@ -1378,9 +1360,6 @@
   },
   "app.nav.switch-account": {
     "message": "Chuyển tài khoản"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Nâng cấp lên Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "Xem hồ sơ"
@@ -1396,12 +1375,6 @@
   },
   "app.navigation.next-image": {
     "message": "Ảnh tiếp theo"
-  },
-  "app.news.title": {
-    "message": "Tin tức"
-  },
-  "app.news.view-all": {
-    "message": "Xem tất cả tin tức"
   },
   "app.notification.warning": {
     "message": "Cảnh báo"
@@ -1626,7 +1599,7 @@
     "message": "Cũ nhất"
   },
   "app.settings.app-version": {
-    "message": "Ứng dụng Modrinth {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Các biến môi trường được thiết lập khi khởi chạy một bản cài đặt."
@@ -2735,9 +2708,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Quảng cáo giúp Modrinth duy trì hoạt động và chi trả cho nhà sáng tạo. Các đối tác của chúng tôi có thể lưu trữ hoặc truy cập cookie trong ứng dụng để cá nhân hóa quảng cáo và đo lường hiệu quả. Bạn có thể từ chối hoặc quản lý tùy chọn bên dưới."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Hiển thị Ứng dụng Modrinth là hoạt động hiện tại của bạn trên Discord. Tùy chọn này không ảnh hưởng đến Rich Presence do mod thêm vào bản cài đặt. Cần khởi động lại ứng dụng."
   },
@@ -3448,9 +3418,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Ứng dụng Modrinth v{version} đã có sẵn. Hãy dùng trình quản lý gói để cập nhật và nhận các tính năng cùng bản sửa lỗi mới nhất!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Ứng dụng Modrinth v{version} hiện đã có sẵn! Vì bạn đang dùng mạng tính phí theo lưu lượng nên chúng tôi không tự động tải xuống."
   },
   "app.update-popup.changelog": {
     "message": "Nhật ký thay đổi"
@@ -4466,9 +4433,6 @@
   "minecraft-account.select-account": {
     "message": "Chọn tài khoản"
   },
-  "minecraft-account.sign-in": {
-    "message": "Đăng nhập Minecraft"
-  },
   "minecraft-required.description": {
     "message": "Bạn cần tài khoản Microsoft sở hữu Minecraft trước khi có thể khởi chạy và chơi."
   },
@@ -4525,12 +4489,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "Tạo bản cài đặt đầu tiên"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Đăng nhập Minecraft"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "Đăng nhập Modrinth"
   },
   "onboarding-checklist.title": {
     "message": "Bắt đầu"

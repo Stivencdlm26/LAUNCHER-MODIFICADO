@@ -56,7 +56,7 @@ useRootBreadcrumb({
 const instancesQuery = useQuery(instanceListQueryOptions())
 const instances = computed(() => instancesQuery.data.value ?? [])
 if (hasCreatedInstance.value) {
-	await traceStartupStep('Load library instances', () => instancesQuery.suspense()).catch(
+	void traceStartupStep('Load library instances', () => instancesQuery.suspense()).catch(
 		handleError,
 	)
 }

@@ -77,12 +77,6 @@
   "app.action-bar.view-logs": {
     "message": "ดู Log"
   },
-  "app.ads-consent.accept": {
-    "message": "ยอมรับทั้งหมด"
-  },
-  "app.ads-consent.reject": {
-    "message": "ปฏิเสธทั้งหมด"
-  },
   "app.appearance-settings.default-landing-page.home": {
     "message": "หน้าหลัก"
   },
@@ -407,9 +401,6 @@
   "app.update-popup.body.linux": {
     "message": "Modrinth v{version} พร้อมให้อัปเดตแล้ว โปรดไปที่การจัดการแพ็กเกจของคุณสำหรับการอัปเดตคุณสมบัติใหม่และการแก้ไขต่าง ๆ"
   },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth v{version} พร้อมให้บริการแล้ว! แต่เนื่องจากคุณเปิดโหมดจำกัดปริมาณการใช้ข้อมูลเครือข่าย เราจึงไม่ได้อัปเดตเนื้อหาโดยอัตโนมัติ"
-  },
   "app.update-popup.changelog": {
     "message": "บันทึกการเปลี่ยนแปลง"
   },
@@ -718,9 +709,6 @@
   },
   "minecraft-account.select-account": {
     "message": "เลือกบัญชี"
-  },
-  "minecraft-account.sign-in": {
-    "message": "ลงชื่อเข้าใช้ Minecraft"
   },
   "search.filter.locked.instance": {
     "message": "โปรแกรมเป็นผู้กำหนด"

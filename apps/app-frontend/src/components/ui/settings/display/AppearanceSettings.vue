@@ -11,10 +11,10 @@ import { platform } from '@tauri-apps/plugin-os'
 import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue'
 
 import { useAppSettings } from '@/composables/use-app-settings.ts'
+import { useCustomPalette } from '@/composables/use-custom-palette'
 import { type ColorTheme, isDarkTheme, useTheme } from '@/composables/use-theme.ts'
 import { type AppSettings, get, set } from '@/helpers/settings.ts'
 import { appSettingsModalContextKey } from '@/providers/app-settings-modal'
-import { useCustomPalette } from '@/composables/use-custom-palette'
 
 const theme = useTheme()
 const appSettings = useAppSettings()

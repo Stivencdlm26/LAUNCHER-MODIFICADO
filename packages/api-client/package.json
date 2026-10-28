@@ -22,13 +22,13 @@
 	"sideEffects": false,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO.git",
+		"url": "https://github.com/modrinth/code.git",
 		"directory": "packages/api-client"
 	},
 	"bugs": {
-		"url": "https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO/issues"
+		"url": "https://github.com/modrinth/code/issues"
 	},
-	"homepage": "https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO/tree/main/packages/api-client#readme",
+	"homepage": "https://github.com/modrinth/code/tree/main/packages/api-client#readme",
 	"publishConfig": {
 		"access": "public"
 	},

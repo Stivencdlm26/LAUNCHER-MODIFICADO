@@ -32,7 +32,6 @@ import {
 	AccountSwitchOverlay,
 	Admonition,
 	Avatar,
-	ButtonLink,
 	commonMessages,
 	commonSettingsMessages,
 	ContentInstallModal,
@@ -58,13 +57,6 @@ import {
 	useVIntl,
 } from '@modrinth/ui'
 import { renderString } from '@modrinth/utils/parse'
-import fakeDrinhLogo from '@/assets/fakedrinth-logo.svg?url'
-import statsVoxelArt from '@/assets/stats-voxel-art.svg?url'
-import sidebarAchievementFallback from '@/assets/instance-icons/crafting-table.png'
-import sidebarAchievementBeacon from '@/assets/instance-icons/beacon.png'
-import sidebarAchievementDragon from '@/assets/instance-icons/ender-dragon.png'
-import sidebarAchievementPickaxe from '@/assets/instance-icons/pickaxe.png'
-import sidebarAchievementSword from '@/assets/instance-icons/sword.png'
 import { useQueries, useQuery, useQueryClient } from '@tanstack/vue-query'
 import { getVersion } from '@tauri-apps/api/app'
 import { convertFileSrc, invoke } from '@tauri-apps/api/core'
@@ -78,9 +70,17 @@ import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state'
 import { computed, nextTick, onMounted, onUnmounted, provide, ref, watch } from 'vue'
 import { RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 
+import fakeDrinhLogo from '@/assets/fakedrinth-logo.svg?url'
+import sidebarAchievementBeacon from '@/assets/instance-icons/beacon.png'
+import sidebarAchievementFallback from '@/assets/instance-icons/crafting-table.png'
+import sidebarAchievementDragon from '@/assets/instance-icons/ender-dragon.png'
+import sidebarAchievementPickaxe from '@/assets/instance-icons/pickaxe.png'
+import sidebarAchievementSword from '@/assets/instance-icons/sword.png'
+import statsVoxelArt from '@/assets/stats-voxel-art.svg?url'
 import AccountsCard from '@/components/ui/AccountsCard.vue'
 import AppActionBar from '@/components/ui/AppActionBar.vue'
 import Breadcrumbs from '@/components/ui/Breadcrumbs.vue'
+import DebugConsole from '@/components/ui/DebugConsole.vue'
 import ErrorModal from '@/components/ui/ErrorModal.vue'
 import HostingUpdateRequired from '@/components/ui/HostingUpdateRequired.vue'
 import AddServerToInstanceModal from '@/components/ui/install_flow/AddServerToInstanceModal.vue'
@@ -108,33 +108,39 @@ import WindowControls from '@/components/ui/WindowControls.vue'
 import { useCheckDisableMouseover } from '@/composables/macCssFix.js'
 import { useAppEvent } from '@/composables/use-app-event'
 import { useAppSettings } from '@/composables/use-app-settings.ts'
+import { useCustomPalette } from '@/composables/use-custom-palette'
 import { useError } from '@/composables/use-error.js'
 import { useInstanceMetadataRefresh } from '@/composables/use-instance-metadata-refresh'
 import { useQuickInstanceLimit } from '@/composables/use-quick-instance-limit.ts'
-import { useCustomPalette } from '@/composables/use-custom-palette'
 import { isDarkTheme, useTheme } from '@/composables/use-theme.ts'
 import { config } from '@/config'
 import { getAccountAppearance, rememberAccountAppearance } from '@/helpers/account-appearance.ts'
-import { debugAnalytics, initAnalytics, trackEvent } from '@/helpers/analytics'
-import { check_reachable } from '@/helpers/auth.js'
 import {
+	get_default_user_achievements,
 	getAchievementDescription,
 	getAchievementIconUrl,
 	getAchievementName,
-	get_default_user_achievements,
 } from '@/helpers/achievements'
+import { debugAnalytics, initAnalytics, trackEvent } from '@/helpers/analytics'
+import { check_reachable } from '@/helpers/auth.js'
 import { get_user, get_user_many, get_version } from '@/helpers/cache.js'
 import { gameSettingsQueryOptions } from '@/helpers/game-options'
 import { install_create_modpack_instance, install_get_modpack_preview } from '@/helpers/install'
 import {
 	can_current_user_use_shared_instances,
 	get as getInstance,
+	get_required_java_version,
 	list_all_screenshots,
 	run,
 	set_global_synced_option,
 } from '@/helpers/instance'
-import { maxMemoryQueryOptions } from '@/helpers/jre.js'
-import { get_by_instance_id } from '@/helpers/process.js'
+import {
+	auto_install_java,
+	get_java_versions,
+	get_jre,
+	maxMemoryQueryOptions,
+	set_java_version,
+} from '@/helpers/jre.js'
 import {
 	get as getCreds,
 	getAll as getAllCreds,
@@ -143,6 +149,7 @@ import {
 	removeUser,
 	setActive,
 } from '@/helpers/mr_auth.ts'
+import { get_by_instance_id } from '@/helpers/process.js'
 import { mergeUrlQuery, parseModrinthLink } from '@/helpers/project-links.ts'
 import {
 	appSettingsKeys,
@@ -374,7 +381,7 @@ const {
 	(iconPath) =>
 		creationGeneratedIcon.value?.path === iconPath ? creationGeneratedIcon.value.config : null,
 )
-const { hasLoggedIntoMinecraft, hasLoggedIntoModrinth, showChecklist } = onboardingChecklist
+const { hasLoggedIntoMinecraft } = onboardingChecklist
 
 async function randomizeCreationIcon() {
 	const generated = await creationIconEditorModal.value?.randomizeAndSave()
@@ -433,6 +440,39 @@ const localInstancesQuery = useQuery({
 	...instanceListQueryOptions(),
 	enabled: computed(() => stateInitialized.value),
 })
+let javaPrefetchStarted = false
+watch(
+	[localInstancesQuery.data, stateInitialized],
+	([instances, ready]) => {
+		if (javaPrefetchStarted || !ready || !instances) return
+		javaPrefetchStarted = true
+		void (async () => {
+			const requiredVersions = new Set()
+			for (const instance of instances) {
+				if (instance.install_stage !== 'installed' || instance.java_path) continue
+				try {
+					requiredVersions.add(await get_required_java_version(instance.id))
+				} catch (error) {
+					console.error(`[Java prefetch] Could not determine Java for ${instance.name}`, error)
+				}
+			}
+
+			if (!requiredVersions.size) return
+			const installedVersions = await get_java_versions()
+			for (const majorVersion of requiredVersions) {
+				if (installedVersions?.[majorVersion]?.path) continue
+				try {
+					const path = await auto_install_java(majorVersion)
+					const javaVersion = await get_jre(path)
+					if (javaVersion) await set_java_version(javaVersion)
+				} catch (error) {
+					console.error(`[Java prefetch] Could not install Java ${majorVersion}`, error)
+				}
+			}
+		})().catch((error) => console.error('[Java prefetch] Startup check failed', error))
+	},
+	{ immediate: true },
+)
 const localGameStats = computed(() => {
 	const instances = localInstancesQuery.data.value ?? []
 	const totalSeconds = instances.reduce(
@@ -1520,8 +1560,8 @@ const sidebarAchievementsQuery = useQuery({
 	// avoidable filesystem and CPU work while Minecraft is running.
 	refetchInterval: computed(() => (gameIsRunning.value ? 15_000 : false)),
 })
-const latestSidebarAchievement = computed(
-	() => sidebarAchievementsQuery.data.value?.achievements.find((achievement) => achievement.unlocked),
+const latestSidebarAchievement = computed(() =>
+	sidebarAchievementsQuery.data.value?.achievements.find((achievement) => achievement.unlocked),
 )
 function localSidebarAchievementIcon(id) {
 	if (/(dragon|elytra|end_city|end\/|shulker)/i.test(id)) return sidebarAchievementDragon
@@ -1545,7 +1585,7 @@ let achievementsOverlayWindow
 let achievementsOverlayReady = false
 let achievementsOverlayCreating = false
 let unlistenAchievementOverlayReady
-let pendingAchievementToasts = []
+const pendingAchievementToasts = []
 let isFlushingAchievementToasts = false
 let achievementToastHideTimer
 
@@ -1570,7 +1610,9 @@ async function showAchievementToast(achievement) {
 		...achievement,
 		name: getAchievementName(achievement.id, locale),
 		description: getAchievementDescription(achievement.id, locale),
-		unlockedLabel: locale.toLowerCase().startsWith('es') ? '¡LOGRO DESBLOQUEADO!' : 'ACHIEVEMENT UNLOCKED!',
+		unlockedLabel: locale.toLowerCase().startsWith('es')
+			? '¡LOGRO DESBLOQUEADO!'
+			: 'ACHIEVEMENT UNLOCKED!',
 	})
 	if (achievementsOverlayReady) {
 		void flushAchievementToasts()
@@ -1580,16 +1622,13 @@ async function showAchievementToast(achievement) {
 
 	achievementsOverlayCreating = true
 	try {
-		unlistenAchievementOverlayReady = await listen(
-			'fakedrinth-achievement-overlay-ready',
-			() => {
-				unlistenAchievementOverlayReady?.()
-				unlistenAchievementOverlayReady = undefined
-				achievementsOverlayReady = true
-				achievementsOverlayCreating = false
-				void flushAchievementToasts()
-			},
-		)
+		unlistenAchievementOverlayReady = await listen('fakedrinth-achievement-overlay-ready', () => {
+			unlistenAchievementOverlayReady?.()
+			unlistenAchievementOverlayReady = undefined
+			achievementsOverlayReady = true
+			achievementsOverlayCreating = false
+			void flushAchievementToasts()
+		})
 		const monitor = await primaryMonitor().catch(() => null)
 		const scale = monitor?.scaleFactor ?? 1
 		const width = 420
@@ -1693,22 +1732,30 @@ function refreshAchievements() {
 	hasAchievementBaseline = false
 	if (hasMinecraftAccount.value) void sidebarAchievementsQuery.refetch()
 }
-useAppEvent('process', (event) => {
-	processEventRevision.value++
-	const next = new Set(activeGameInstanceIds.value)
-	if (event.event === 'launched') {
-		if (next.size === 0) gameSessionStartedAt = Date.now()
-		next.add(event.instance_id)
-		void sidebarAchievementsQuery.refetch()
-	} else next.delete(event.instance_id)
-	activeGameInstanceIds.value = next
-	if (next.size === 0) gameSessionStartedAt = undefined
-}, appEvents)
-useAppEvent('instance', (event) => {
-	if (event.event === 'screenshots_updated') {
-		void queryClient.invalidateQueries({ queryKey: ['screenshots', 'sidebar-banner'] })
-	}
-}, appEvents)
+useAppEvent(
+	'process',
+	(event) => {
+		processEventRevision.value++
+		const next = new Set(activeGameInstanceIds.value)
+		if (event.event === 'launched') {
+			if (next.size === 0) gameSessionStartedAt = Date.now()
+			next.add(event.instance_id)
+			void sidebarAchievementsQuery.refetch()
+		} else next.delete(event.instance_id)
+		activeGameInstanceIds.value = next
+		if (next.size === 0) gameSessionStartedAt = undefined
+	},
+	appEvents,
+)
+useAppEvent(
+	'instance',
+	(event) => {
+		if (event.event === 'screenshots_updated') {
+			void queryClient.invalidateQueries({ queryKey: ['screenshots', 'sidebar-banner'] })
+		}
+	},
+	appEvents,
+)
 watch(
 	localInstancesQuery.data,
 	async (instances) => {
@@ -2325,6 +2372,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</div>
 		</Transition>
 		<AppSettingsModal ref="appSettingsModal" />
+		<DebugConsole />
 		<SyncInstancesUpdateModal ref="syncInstancesUpdateModal" />
 		<Suspense>
 			<ModrinthAccountRequiredModal ref="modrinthLoginModal" :request-auth="requestModrinthAuth" />
@@ -2380,11 +2428,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			>
 				<ShirtIcon />
 			</NavButton>
-			<NavButton
-				v-if="hasMinecraftAccount"
-				v-tooltip.right="'Logros'"
-				to="/achievements"
-			>
+			<NavButton v-if="hasMinecraftAccount" v-tooltip.right="'Logros'" to="/achievements">
 				<BadgeCheckIcon />
 			</NavButton>
 			<NavButton
@@ -2413,7 +2457,10 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 			</NavButton>
 		</div>
 		<div data-tauri-drag-region class="app-grid-statusbar bg-bg-raised h-[--top-bar-height] flex">
-			<div data-tauri-drag-region class="flex min-w-0 flex-1 items-center overflow-hidden gap-2 p-2">
+			<div
+				data-tauri-drag-region
+				class="flex min-w-0 flex-1 items-center overflow-hidden gap-2 p-2"
+			>
 				<div class="flex h-full shrink-0 items-center justify-center">
 					<IconButton
 						v-if="credentials === undefined"
@@ -2617,7 +2664,7 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 							{{ formatMessage(messages.playingAs) }}
 						</h3>
 						<suspense>
-						<AccountsCard ref="accounts" @change="refreshAchievements" />
+							<AccountsCard ref="accounts" @change="refreshAchievements" />
 						</suspense>
 					</div>
 					<section class="game-stats-panel m-3 p-4 rounded-xl border border-solid">
@@ -2673,13 +2720,19 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 						class="sidebar-latest-achievement"
 					>
 						<img
-							:src="latestSidebarAchievement ? sidebarAchievementIcon(latestSidebarAchievement.id) : sidebarAchievementFallback"
+							:src="
+								latestSidebarAchievement
+									? sidebarAchievementIcon(latestSidebarAchievement.id)
+									: sidebarAchievementFallback
+							"
 							alt=""
 							@error="fallbackSidebarAchievementIcon($event, latestSidebarAchievement?.id ?? '')"
 						/>
 						<span>
 							<strong>Último progreso</strong>
-							<small v-if="latestSidebarAchievement">{{ getAchievementName(latestSidebarAchievement.id, i18n.global.locale.value) }}</small>
+							<small v-if="latestSidebarAchievement">{{
+								getAchievementName(latestSidebarAchievement.id, i18n.global.locale.value)
+							}}</small>
 							<small v-else-if="sidebarAchievementsQuery.isError.value"
 								>No se pudieron leer los logros</small
 							>

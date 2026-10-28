@@ -217,4 +217,3 @@ onMounted(async () => {
 	transform: translateY(10rem) scale(0.8) scaleY(1.6);
 }
 </style>
-

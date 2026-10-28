@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "查看日志"
   },
-  "app.ads-consent.accept": {
-    "message": "全部接受"
-  },
-  "app.ads-consent.body": {
-    "message": "​广告维持着 Modrinth 的持续运营，并为创作者收益提供资金支持。我们的合作伙伴可能会在应用中存储或读取 Cookie，以提供个性化广告并评估广告效果。"
-  },
-  "app.ads-consent.manage": {
-    "message": "管理偏好设置"
-  },
-  "app.ads-consent.reject": {
-    "message": "全部拒绝"
-  },
-  "app.ads-consent.title": {
-    "message": "您的隐私以及广告如何支持 Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "用紧凑行式布局显示库实例。"
   },
@@ -1364,9 +1349,6 @@
   "app.nav.modrinth-account": {
     "message": "Modrinth账户"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "移除账户"
   },
@@ -1378,9 +1360,6 @@
   },
   "app.nav.switch-account": {
     "message": "切换账户"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "升级至Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "查看个人主页"
@@ -1396,12 +1375,6 @@
   },
   "app.navigation.next-image": {
     "message": "下一张图片"
-  },
-  "app.news.title": {
-    "message": "新闻"
-  },
-  "app.news.view-all": {
-    "message": "查看所有新闻"
   },
   "app.notification.warning": {
     "message": "警告"
@@ -1626,7 +1599,7 @@
     "message": "从旧到新"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "启动实例时设置的环境变量。"
@@ -2735,9 +2708,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "广告使 Modrinth 得以运营，并为创作者报酬提供资金支持。我们的合作伙伴可能会在应用中存储或访问 Cookie，以便实现广告个性化和效果衡量。您可以在下方选择退出或管理您的偏好设置。"
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "在 Discord 上将 Modrinth App 显示为您当前的活动。这不会影响模组为游戏实例添加的 Rich Presence。需要重启应用生效。"
   },
@@ -3448,9 +3418,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} 现已发布。请使用你的软件包管理器进行更新，获取最新功能与修复！"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} 现已发布！由于你正在使用按流量计费的网络，该更新未自动下载。"
   },
   "app.update-popup.changelog": {
     "message": "更新日志"
@@ -4466,9 +4433,6 @@
   "minecraft-account.select-account": {
     "message": "选择账户"
   },
-  "minecraft-account.sign-in": {
-    "message": "登录 Minecraft"
-  },
   "minecraft-required.description": {
     "message": "你需要先登录拥有 Minecraft 的 Microsoft 账户，然后才能启动游戏。"
   },
@@ -4525,12 +4489,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "创建第一个实例"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "登录 Minecraft 账号"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "登录 Modrinth 账号"
   },
   "onboarding-checklist.title": {
     "message": "新手引导"

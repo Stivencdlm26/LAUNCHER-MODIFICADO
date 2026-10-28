@@ -2,7 +2,9 @@
 	<Transition name="splash-fade" @after-leave="onAfterLeave">
 		<div v-if="!doneLoading" class="splash-screen" :class="`${theme.active}-mode`">
 			<div class="app-logo-wrapper" data-tauri-drag-region>
-				<img :src="fakeDrinhLogo" alt="FAKEDRINH" class="app-logo" /><strong class="splash-wordmark">FAKEDRINH</strong>
+				<img :src="fakeDrinhLogo" alt="FAKEDRINH" class="app-logo" /><strong class="splash-wordmark"
+					>FAKEDRINH</strong
+				>
 				<ProgressBar class="loading-bar" :progress="Math.min(loadingProgress, 100)" />
 				<span v-if="message">{{ message }}</span>
 			</div>
@@ -17,8 +19,8 @@
 import { injectLoadingState } from '@modrinth/ui'
 import { onMounted, ref, watch } from 'vue'
 
-import ProgressBar from '@/components/ui/ProgressBar.vue'
 import fakeDrinhLogo from '@/assets/fakedrinth-logo.svg?url'
+import ProgressBar from '@/components/ui/ProgressBar.vue'
 import { useAppEvent } from '@/composables/use-app-event'
 import { useTheme } from '@/composables/use-theme.ts'
 import { debugStartup } from '@/helpers/startup-debug'

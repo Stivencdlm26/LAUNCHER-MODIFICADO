@@ -110,8 +110,8 @@
 							{{ formatMessage(messages.invitedYouTo) }}
 						</p>
 						<p class="m-0 flex items-center gap-1">
-							<Avatar :src="fakedrinthSmpIcon" size="1.25rem" no-shadow />
-							<span class="font-medium text-contrast">FAKEDRINH SMP</span>
+							<Avatar :src="modrinthSmpIcon" size="1.25rem" no-shadow />
+							<span class="font-medium text-contrast">Modrinth SMP</span>
 							<span>{{ formatMessage(messages.serverSuffix) }}</span>
 						</p>
 					</div>
@@ -146,7 +146,7 @@ import geometricallyAvatar from '#ui/assets/servers/server-list-empty/geometrica
 import imb11Avatar from '#ui/assets/servers/server-list-empty/imb11.png'
 import joshAvatar from '#ui/assets/servers/server-list-empty/josh.png'
 import michaelAvatar from '#ui/assets/servers/server-list-empty/michael.png'
-import fakedrinthSmpIcon from '#ui/assets/servers/server-list-empty/fakedrinth-server.svg?url'
+import modrinthSmpIcon from '#ui/assets/servers/server-list-empty/modrinth-smp.png'
 import prospectorAvatar from '#ui/assets/servers/server-list-empty/prospector.png'
 import sayaAvatar from '#ui/assets/servers/server-list-empty/saya.png'
 import trumanAvatar from '#ui/assets/servers/server-list-empty/truman.png'

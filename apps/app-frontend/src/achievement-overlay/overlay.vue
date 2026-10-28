@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { emit, listen } from '@tauri-apps/api/event'
 import { onMounted, onUnmounted, ref } from 'vue'
+
 import achievementMedal from '@/assets/fakedrinth-achievement-medal.svg?url'
 
 type AchievementToast = {
@@ -84,9 +85,9 @@ onUnmounted(() => {
 				><i class="spark spark-three"></i>
 			</div>
 			<div class="toast-copy">
-			<p>{{ achievement.unlockedLabel }}</p>
+				<p>{{ achievement.unlockedLabel }}</p>
 				<strong>{{ achievement.name }}</strong>
-			<small>{{ achievement.description }}</small>
+				<small>{{ achievement.description }}</small>
 			</div>
 		</article>
 	</Transition>

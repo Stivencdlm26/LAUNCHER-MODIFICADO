@@ -13,3 +13,7 @@ See [NOTICE.md](NOTICE.md), [COPYING.md](COPYING.md), and the package-level lice
 ## Build
 
 This project uses the upstream Modrinth monorepo toolchain. See the desktop app's package files and workflow for the supported build process. Local development requires Node.js, pnpm, Rust, and Tauri system prerequisites.
+
+## Releases and updates
+
+The GitHub Actions workflow builds a signed Windows release when a `fakedrinth-vX.Y.Z` tag is pushed. Before publishing, configure `TAURI_UPDATER_PUBLIC_KEY` as a repository variable and configure the matching signing key and password as repository secrets. The private signing key must never be committed to this repository.

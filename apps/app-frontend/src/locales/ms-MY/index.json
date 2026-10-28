@@ -419,9 +419,6 @@
   "app.navigation.home": {
     "message": "Laman utama"
   },
-  "app.news.title": {
-    "message": "Berita"
-  },
   "app.project.install-button.already-installed": {
     "message": "Projek ini sudah dipasang"
   },
@@ -1610,9 +1607,6 @@
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} tersedia. Gunakan pengurus pakej anda untuk mengemas kini dan mendapatkan ciri-ciri dan pembetulan terkini!"
   },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} kini tersedia! Memandangkan anda sedang menggunakan rangkaian bermeter, kami tidak memuat turunnya secara automatik."
-  },
   "app.update-popup.changelog": {
     "message": "Log perubahan"
   },
@@ -1999,9 +1993,6 @@
   },
   "minecraft-account.select-account": {
     "message": "Pilih akaun"
-  },
-  "minecraft-account.sign-in": {
-    "message": "Daftar masuk ke dalam Minecraft"
   },
   "search.filter.locked.instance": {
     "message": "Disediakan oleh pemasangan ini"

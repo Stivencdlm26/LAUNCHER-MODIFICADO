@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "로그 보기"
   },
-  "app.ads-consent.accept": {
-    "message": "모두 수락"
-  },
-  "app.ads-consent.body": {
-    "message": "광고는 Modrinth가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 저희의 파트너는 개인에 맞는 광고를 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다."
-  },
-  "app.ads-consent.manage": {
-    "message": "환경 설정 관리"
-  },
-  "app.ads-consent.reject": {
-    "message": "모두 거절"
-  },
-  "app.ads-consent.title": {
-    "message": "개인정보와 광고가 Modrinth를 지원하는 방식"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "라이브러리 인스턴스를 간결한 행 형태의 레이아웃으로 표시합니다."
   },
@@ -1364,9 +1349,6 @@
   "app.nav.modrinth-account": {
     "message": "Modrinth 계정"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth 호스팅"
-  },
   "app.nav.remove-account": {
     "message": "계정 제거"
   },
@@ -1378,9 +1360,6 @@
   },
   "app.nav.switch-account": {
     "message": "계정 변경"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Modrinth+ 로 업그레이드"
   },
   "app.nav.view-profile": {
     "message": "프로필 보기"
@@ -1396,12 +1375,6 @@
   },
   "app.navigation.next-image": {
     "message": "다음 이미지"
-  },
-  "app.news.title": {
-    "message": "뉴스"
-  },
-  "app.news.view-all": {
-    "message": "모든 뉴스 보기"
   },
   "app.notification.warning": {
     "message": "경고"
@@ -1626,7 +1599,7 @@
     "message": "오래됨"
   },
   "app.settings.app-version": {
-    "message": "Modrinth 앱 {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "인스턴스를 실행할 때 설정되는 환경 변수입니다."
@@ -2735,9 +2708,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "광고는 Modrinth가 운영될 수 있도록 하며, 크리에이터에게 지급되는 보상을 지원합니다. 우리의 파트너는 앱에서 광고를 개인 맞춤으로 제공하고 성과를 측정하기 위해 쿠키를 저장하거나 접근할 수 있습니다. 아래에서 거부하거나 환경 설정을 관리할 수 있습니다."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Discord의 현재 활동 상태에 Modrinth App을 표시합니다. 모드가 인스턴스에 추가한 Rich Presence에는 영향을 미치지 않습니다. 앱 재시작이 필요합니다."
   },
@@ -3448,9 +3418,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Modrinth 앱 v{version}을 사용할 수 있습니다. 최신 기능과 오류 수정을 적용하려면 패키지 관리자를 통해 업데이트하세요!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth 앱 v{version}을 지금 사용할 수 있습니다! 데이터 통신 연결을 사용 중이므로, 자동으로 다운로드하지 않았습니다."
   },
   "app.update-popup.changelog": {
     "message": "변경 내역"
@@ -4466,9 +4433,6 @@
   "minecraft-account.select-account": {
     "message": "계정 선택"
   },
-  "minecraft-account.sign-in": {
-    "message": "마인크래프트 계정으로 로그인"
-  },
   "minecraft-required.description": {
     "message": "게임을 실행하고 플레이하려면 마인크래프트를 보유한 Microsoft 계정이 필요합니다."
   },
@@ -4525,12 +4489,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "첫 인스턴스 생성"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Minecraft에 로그인"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "Modrinth에 로그인"
   },
   "onboarding-checklist.title": {
     "message": "시작하기"

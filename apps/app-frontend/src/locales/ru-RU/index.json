@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "Посмотреть журнал"
   },
-  "app.ads-consent.accept": {
-    "message": "Принять всё"
-  },
-  "app.ads-consent.body": {
-    "message": "Реклама обеспечивает работу Modrinth и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки."
-  },
-  "app.ads-consent.manage": {
-    "message": "Настроить"
-  },
-  "app.ads-consent.reject": {
-    "message": "Отклонить всё"
-  },
-  "app.ads-consent.title": {
-    "message": "Конфиденциальность и реклама на Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "Отображать сборки в библиотеке компактным списком."
   },
@@ -1346,9 +1331,6 @@
   "app.nav.modrinth-account": {
     "message": "Аккаунт Modrinth"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "Удалить аккаунт"
   },
@@ -1360,9 +1342,6 @@
   },
   "app.nav.switch-account": {
     "message": "Сменить аккаунт"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Перейти на Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "Посмотреть профиль"
@@ -1378,12 +1357,6 @@
   },
   "app.navigation.next-image": {
     "message": "Следующее изображение"
-  },
-  "app.news.title": {
-    "message": "Новости"
-  },
-  "app.news.view-all": {
-    "message": "Посмотреть все новости"
   },
   "app.notification.warning": {
     "message": "Внимание"
@@ -1605,7 +1578,7 @@
     "message": "Сначала старые"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Переменные среды при запуске игры."
@@ -2714,9 +2687,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Реклама обеспечивает работу Modrinth и выплаты авторам. Для персонализации и анализа рекламы наши партнёры могут использовать куки. Отказаться и настроить куки можно ниже."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Показывать Modrinth App в текущей активности Discord. Не влияет на Rich Presence модов. Требуется перезапуск."
   },
@@ -3427,9 +3397,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Доступна версия Modrinth App {version}. Обновите приложение через менеджер пакетов, чтобы получить последние улучшения и исправления!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Версия Modrinth App {version} доступна для скачивания! Используется сеть с лимитным тарифным планом, поэтому скачивание не началось автоматически."
   },
   "app.update-popup.changelog": {
     "message": "Список изменений"
@@ -4442,9 +4409,6 @@
   "minecraft-account.select-account": {
     "message": "Выберите аккаунт"
   },
-  "minecraft-account.sign-in": {
-    "message": "Войти в Minecraft"
-  },
   "minecraft-required.description": {
     "message": "Для запуска и игры требуется аккаунт Microsoft с приобретённым Minecraft."
   },
@@ -4501,12 +4465,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "Создайте сборку"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Войдите в Minecraft"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "Войдите в Modrinth"
   },
   "onboarding-checklist.title": {
     "message": "Начало работы"

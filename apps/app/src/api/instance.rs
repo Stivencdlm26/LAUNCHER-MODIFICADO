@@ -46,6 +46,7 @@ pub fn init<R: tauri::Runtime>() -> tauri::plugin::TauriPlugin<R> {
             instance_get_linked_modpack_info,
             instance_get_linked_modpack_content,
             instance_get_optimal_jre_key,
+            instance_get_required_java_version,
             instance_get_full_path,
             instance_get_mod_full_path,
             instance_list_screenshots,
@@ -1136,6 +1137,13 @@ pub async fn instance_get_optimal_jre_key(
     instance_id: &str,
 ) -> Result<Option<JavaVersion>> {
     Ok(theseus::instance::get_optimal_jre_key(instance_id).await?)
+}
+
+#[tauri::command]
+pub async fn instance_get_required_java_version(
+    instance_id: &str,
+) -> Result<u32> {
+    Ok(theseus::instance::get_required_java_version(instance_id).await?)
 }
 
 #[tauri::command]

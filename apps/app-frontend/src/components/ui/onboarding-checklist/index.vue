@@ -10,11 +10,7 @@ const emit = defineEmits<{
 }>()
 
 const { formatMessage } = useVIntl()
-const {
-	hasCreatedInstance,
-	isReady,
-	showChecklist,
-} = injectOnboardingChecklist()
+const { hasCreatedInstance, isReady, showChecklist } = injectOnboardingChecklist()
 const collapsedCornersVisible = ref(false)
 let collapseTimer: ReturnType<typeof setTimeout> | undefined
 

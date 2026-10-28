@@ -28,7 +28,10 @@ nether/all_effects nether/all_potions nether/brew_potion nether/charge_respawn_a
 end/dragon_breath end/dragon_egg end/elytra end/enter_end_gateway end/find_end_city end/kill_dragon end/levitate end/respawn_dragon
 husbandry/allay_deliver_cake_to_note_block husbandry/allay_deliver_item_to_player husbandry/axolotl_in_a_bucket husbandry/balanced_diet husbandry/bred_all_animals husbandry/breed_an_animal husbandry/complete_catalogue husbandry/feed_snifflet husbandry/fishy_business husbandry/froglights husbandry/kill_axolotl_target husbandry/leash_all_frog_variants husbandry/make_a_sign_glow husbandry/obtain_netherite_hoe husbandry/obtain_sniffer_egg husbandry/place_dried_ghast_in_water husbandry/plant_any_sniffer_seed husbandry/plant_seed husbandry/remove_wolf_armor husbandry/repair_wolf_armor husbandry/ride_a_boat_with_a_goat husbandry/safely_harvest_honey husbandry/silk_touch_nest husbandry/tactical_fishing husbandry/tadpole_in_a_bucket husbandry/tame_an_animal husbandry/wax_off husbandry/wax_on husbandry/whole_pack
 adventure/adventuring_time adventure/arbalistic adventure/avoid_vibration adventure/blowback adventure/brush_armadillo adventure/bullseye adventure/craft_decorated_pot_using_only_sherds adventure/crafters_crafting_crafters adventure/fall_from_world_height adventure/heart_transplanter adventure/hero_of_the_village adventure/honey_block_slide adventure/kill_a_mob adventure/kill_all_mobs adventure/kill_mob_near_sculk_catalyst adventure/lighten_up adventure/lightning_rod_with_villager_no_fire adventure/minecraft_trials_edition adventure/ol_betsy adventure/overoverkill adventure/play_jukebox_in_meadows adventure/read_power_of_chiseled_bookshelf adventure/revaulting adventure/salvage_sherd adventure/shoot_arrow adventure/sleep_in_bed adventure/sniper_duel adventure/spear_many_mobs adventure/spyglass_at_dragon adventure/spyglass_at_ghast adventure/spyglass_at_parrot adventure/summon_iron_golem adventure/throw_trident adventure/totem_of_undying adventure/trade adventure/trade_at_world_height adventure/trim_with_all_exclusive_armor_patterns adventure/trim_with_any_armor_pattern adventure/two_birds_one_arrow adventure/under_lock_and_key adventure/use_lodestone adventure/very_very_frightening adventure/voluntary_exile adventure/walk_on_powder_snow_with_leather_boots adventure/who_needs_rockets adventure/whos_the_pillager_now
-`.trim().split(/\s+/).map((path) => `minecraft:${path}`)
+`
+	.trim()
+	.split(/\s+/)
+	.map((path) => `minecraft:${path}`)
 
 const advancementIconItems: Record<string, string> = {
 	'story/cure_zombie_villager': 'golden_apple',
@@ -271,36 +274,72 @@ const advancementDescriptions = new Map<string, [string, string]>([
 	['story/mine_stone', ['Consigue piedra picando roca con un pico.', 'Mine stone with a pickaxe.']],
 	['story/upgrade_tools', ['Fabrica un pico de mejor calidad.', 'Construct a better pickaxe.']],
 	['story/smelt_iron', ['Funde hierro para obtener un lingote.', 'Smelt an iron ingot.']],
-	['story/obtain_armor', ['Ponte una pieza de armadura de hierro.', 'Put on a piece of iron armor.']],
+	[
+		'story/obtain_armor',
+		['Ponte una pieza de armadura de hierro.', 'Put on a piece of iron armor.'],
+	],
 	['story/lava_bucket', ['Llena un cubo con lava.', 'Fill a bucket with lava.']],
 	['story/iron_tools', ['Fabrica un pico de hierro.', 'Upgrade your pickaxe.']],
-	['story/deflect_arrow', ['Bloquea un proyectil con un escudo.', 'Deflect a projectile with a shield.']],
+	[
+		'story/deflect_arrow',
+		['Bloquea un proyectil con un escudo.', 'Deflect a projectile with a shield.'],
+	],
 	['story/form_obsidian', ['Consigue obsidiana.', 'Obtain a block of obsidian.']],
 	['story/mine_diamond', ['Consigue diamantes.', 'Acquire diamonds.']],
 	['story/enter_the_nether', ['Entra en el Nether.', 'Enter the Nether.']],
-	['story/shiny_gear', ['Consigue una pieza de armadura de diamante.', 'Obtain a piece of diamond armor.']],
-	['story/enchant_item', ['Encanta un objeto en una mesa de encantamientos.', 'Enchant an item at an enchanting table.']],
+	[
+		'story/shiny_gear',
+		['Consigue una pieza de armadura de diamante.', 'Obtain a piece of diamond armor.'],
+	],
+	[
+		'story/enchant_item',
+		['Encanta un objeto en una mesa de encantamientos.', 'Enchant an item at an enchanting table.'],
+	],
 	['story/cure_zombie_villager', ['Cura a un aldeano zombi.', 'Cure a zombie villager.']],
-	['story/follow_ender_eye', ['Sigue un ojo de ender hasta una fortaleza.', 'Follow an Eye of Ender to a stronghold.']],
+	[
+		'story/follow_ender_eye',
+		['Sigue un ojo de ender hasta una fortaleza.', 'Follow an Eye of Ender to a stronghold.'],
+	],
 	['story/enter_the_end', ['Entra en la dimensión del End.', 'Enter the End dimension.']],
-	['nether/return_to_sender', ['Destruye un ghast con una bola de fuego.', 'Destroy a Ghast with a fireball.']],
+	[
+		'nether/return_to_sender',
+		['Destruye un ghast con una bola de fuego.', 'Destroy a Ghast with a fireball.'],
+	],
 	['nether/find_bastion', ['Entra en un bastión del Nether.', 'Enter a Bastion Remnant.']],
 	['nether/obtain_ancient_debris', ['Funde escombros ancestrales.', 'Smelt Ancient Debris.']],
-	['nether/netherite_armor', ['Consigue una armadura de netherita.', 'Obtain a full set of Netherite armor.']],
+	[
+		'nether/netherite_armor',
+		['Consigue una armadura de netherita.', 'Obtain a full set of Netherite armor.'],
+	],
 	['nether/summon_wither', ['Invoca al Wither.', 'Summon the Wither.']],
 	['nether/create_beacon', ['Construye y activa una baliza.', 'Construct and activate a Beacon.']],
-	['nether/create_full_beacon', ['Construye una baliza con una pirámide completa.', 'Create a Beacon with a full pyramid.']],
+	[
+		'nether/create_full_beacon',
+		['Construye una baliza con una pirámide completa.', 'Create a Beacon with a full pyramid.'],
+	],
 	['end/kill_dragon', ['Derrota al dragón del End.', 'Defeat the Ender Dragon.']],
 	['end/dragon_egg', ['Consigue el huevo de dragón.', 'Obtain the Dragon Egg.']],
 	['end/elytra', ['Consigue unas élitras.', 'Find Elytra.']],
 	['adventure/kill_a_mob', ['Mata a cualquier criatura hostil.', 'Kill any hostile monster.']],
 	['adventure/trade', ['Intercambia con un aldeano.', 'Successfully trade with a Villager.']],
-	['adventure/sleep_in_bed', ['Duerme en una cama para cambiar el punto de reaparición.', 'Sleep in a Bed to change your respawn point.']],
-	['adventure/hero_of_the_village', ['Defiende una aldea de una incursión.', 'Successfully defend a village from a raid.']],
+	[
+		'adventure/sleep_in_bed',
+		[
+			'Duerme en una cama para cambiar el punto de reaparición.',
+			'Sleep in a Bed to change your respawn point.',
+		],
+	],
+	[
+		'adventure/hero_of_the_village',
+		['Defiende una aldea de una incursión.', 'Successfully defend a village from a raid.'],
+	],
 	['husbandry/breed_an_animal', ['Cría una pareja de animales.', 'Breed a pair of animals.']],
 	['husbandry/tame_an_animal', ['Domestica un animal.', 'Tame an animal.']],
 	['husbandry/fishy_business', ['Pesca un pez.', 'Catch a fish.']],
-	['husbandry/balanced_diet', ['Come todos los alimentos que aportan progreso al logro.', 'Eat everything that is edible.']],
+	[
+		'husbandry/balanced_diet',
+		['Come todos los alimentos que aportan progreso al logro.', 'Eat everything that is edible.'],
+	],
 ])
 
 function advancementKey(id: string): string {
@@ -314,7 +353,9 @@ export function getAchievementName(id: string, locale = 'en-US'): string {
 		: englishAdvancementTitles.get(key)
 	if (knownTitle) return knownTitle
 	const lastSegment = key.split('/').pop() ?? key
-	return lastSegment.replaceAll('_', ' ').replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase())
+	return lastSegment
+		.replaceAll('_', ' ')
+		.replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase())
 }
 
 export function getAchievementDescription(id: string, locale = 'en-US'): string {
@@ -387,7 +428,8 @@ export async function get_default_user_achievements(): Promise<LocalAchievements
 						!id.includes(':') ||
 						id.endsWith('/root') ||
 						/(?:^|:)recipes\//.test(id)
-					) continue
+					)
+						continue
 					const timestamps = Object.values(advancement.criteria ?? {})
 						.map((timestamp) => Date.parse(timestamp))
 						.filter(Number.isFinite)

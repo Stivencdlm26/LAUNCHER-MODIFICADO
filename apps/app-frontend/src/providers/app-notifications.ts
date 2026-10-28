@@ -15,6 +15,11 @@ export class AppNotificationManager extends AbstractWebNotificationManager {
 		this.locationState = ref<NotificationPanelLocation>('right')
 	}
 
+	public handleError = (error: Error): void => {
+		if (isExpectedCancellation(error)) return
+		super.handleError(error)
+	}
+
 	public getNotificationLocation(): NotificationPanelLocation {
 		return this.locationState.value
 	}
@@ -45,4 +50,17 @@ export class AppNotificationManager extends AbstractWebNotificationManager {
 	protected clearAllNotificationsFromStorage(): void {
 		this.state.value.splice(0)
 	}
+}
+
+function isExpectedCancellation(error: Error): boolean {
+	const errorName = error.name || error.constructor?.name
+	if (
+		errorName === 'CancelledError' ||
+		errorName === 'CanceledError' ||
+		errorName === 'AbortError'
+	) {
+		return true
+	}
+
+	return /^(?:cancelled|canceled)(?:error)?$/i.test(error.message.trim())
 }

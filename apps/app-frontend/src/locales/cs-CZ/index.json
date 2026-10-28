@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "Zobrazit logy"
   },
-  "app.ads-consent.accept": {
-    "message": "Přijmout vše"
-  },
-  "app.ads-consent.body": {
-    "message": "Reklamy umožňují Modrint a vyplatí finanční prostředky partnerům. Naši partneři mohou ukládat nebo přistupovat k cookies v aplikaci, aby přizpůsobili reklamy a změřili výkon."
-  },
-  "app.ads-consent.manage": {
-    "message": "Spravovat preference"
-  },
-  "app.ads-consent.reject": {
-    "message": "Odmítnout vše"
-  },
-  "app.ads-consent.title": {
-    "message": "Vaše soukromí a způsob, jakým reklamy podporují Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "Zobrazit instanční knihovny v kompaktních řádcích."
   },
@@ -1256,9 +1241,6 @@
   "app.nav.modrinth-account": {
     "message": "Modrinth účet"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "Odebrat účet"
   },
@@ -1270,9 +1252,6 @@
   },
   "app.nav.switch-account": {
     "message": "Změnit účet"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Upgradovat na Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "Zobrazit profil"
@@ -1288,12 +1267,6 @@
   },
   "app.navigation.next-image": {
     "message": "Další obrázek"
-  },
-  "app.news.title": {
-    "message": "Novinky"
-  },
-  "app.news.view-all": {
-    "message": "Zobrazit všechny novinky"
   },
   "app.notification.warning": {
     "message": "Varování"
@@ -1503,7 +1476,7 @@
     "message": "Nejstarší"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Nastavení proměnného prostředí při spuštění instance."
@@ -1831,9 +1804,6 @@
   },
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} je k dispozici. Aktualizujte ji pomocí svého správce balíčků, abyste získali nejnovější funkce a opravy!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} je nyní k dispozici! Protože jste v měřené síti, nebyla stažena automaticky."
   },
   "app.update-popup.changelog": {
     "message": "Seznam změn"
@@ -2536,9 +2506,6 @@
   },
   "minecraft-account.select-account": {
     "message": "Zvolte účet"
-  },
-  "minecraft-account.sign-in": {
-    "message": "Přihlásit se do Minecraftu"
   },
   "minecraft-required.description-header": {
     "message": "Přihlaste se k účtu Microsoft"

@@ -9,10 +9,10 @@ import enderDragonIcon from '@/assets/instance-icons/ender-dragon.png'
 import pickaxeIcon from '@/assets/instance-icons/pickaxe.png'
 import swordIcon from '@/assets/instance-icons/sword.png'
 import {
+	get_default_user_achievements,
 	getAchievementDescription,
 	getAchievementIconUrl,
 	getAchievementName,
-	get_default_user_achievements,
 	type LocalAchievement,
 } from '@/helpers/achievements'
 import i18n from '@/i18n.config'
@@ -25,7 +25,9 @@ const achievementsQuery = useQuery({
 const achievements = computed(() => achievementsQuery.data.value?.achievements ?? [])
 const selectedAchievement = ref<LocalAchievement | null>(null)
 const locale = computed(() => i18n.global.locale.value)
-const lockedLabel = computed(() => (locale.value.toLowerCase().startsWith('es') ? 'Bloqueado' : 'Locked'))
+const lockedLabel = computed(() =>
+	locale.value.toLowerCase().startsWith('es') ? 'Bloqueado' : 'Locked',
+)
 const notYetEarnedLabel = computed(() =>
 	locale.value.toLowerCase().startsWith('es') ? 'Aún no conseguido' : 'Not earned yet',
 )
@@ -75,13 +77,18 @@ function achievementDescription(id: string): string {
 			<div>
 				<p>PROGRESOS LOCALES · JAVA EDITION</p>
 				<h1>Progresos de Minecraft Java</h1>
-				<span>Se revisan tus mundos guardados al abrir el launcher. No necesitas iniciar una instancia.</span>
+				<span
+					>Se revisan tus mundos guardados al abrir el launcher. No necesitas iniciar una
+					instancia.</span
+				>
 			</div>
 		</header>
 		<div class="achievement-stage" aria-hidden="true">
 			<div class="achievement-stage-caption">
 				<img :src="craftingTableIcon" alt="" />
-				<span>Progresos oficiales de Java<small>Conseguidos y pendientes en tus mundos</small></span>
+				<span
+					>Progresos oficiales de Java<small>Conseguidos y pendientes en tus mundos</small></span
+				>
 			</div>
 			<div class="achievement-scene-art">
 				<span class="scene-star star-a"></span><span class="scene-star star-b"></span>
@@ -103,10 +110,8 @@ function achievementDescription(id: string): string {
 		<template v-else>
 			<div class="achievements-summary">
 				<strong>{{ unlockedAchievements.length }}</strong
-				><span>obtenidos</span>
-				<strong>{{ lockedAchievements.length }}</strong
-				><span>bloqueados</span>
-				<strong>{{ achievementsQuery.data.value?.worldCount ?? 0 }}</strong
+				><span>obtenidos</span> <strong>{{ lockedAchievements.length }}</strong
+				><span>bloqueados</span> <strong>{{ achievementsQuery.data.value?.worldCount ?? 0 }}</strong
 				><span>mundos revisados</span>
 			</div>
 			<article v-if="latestAchievement" class="latest-achievement-card">
@@ -162,17 +167,17 @@ function achievementDescription(id: string): string {
 					<span v-if="!achievement.unlocked" class="achievement-locked-label">
 						<LockIcon /> {{ lockedLabel }}
 					</span>
-					<time
-						v-else-if="achievement.date"
-						:datetime="new Date(achievement.date).toISOString()"
-					>
+					<time v-else-if="achievement.date" :datetime="new Date(achievement.date).toISOString()">
 						{{ new Date(achievement.date).toLocaleDateString() }}
 					</time>
 				</article>
 			</div>
 			<div v-else class="achievements-state">
 				<strong>Aún no hay logros registrados</strong>
-				<span>El launcher ya revisó todos los mundos guardados de esta cuenta y todavía no encontró avances.</span>
+				<span
+					>El launcher ya revisó todos los mundos guardados de esta cuenta y todavía no encontró
+					avances.</span
+				>
 			</div>
 		</template>
 		<div
@@ -306,7 +311,9 @@ function achievementDescription(id: string): string {
 	height: 5.5rem;
 	object-fit: contain;
 	image-rendering: pixelated;
-	filter: drop-shadow(0 0 1.2rem color-mix(in srgb, var(--fakedrinth-accent, #ff5361) 55%, transparent));
+	filter: drop-shadow(
+		0 0 1.2rem color-mix(in srgb, var(--fakedrinth-accent, #ff5361) 55%, transparent)
+	);
 }
 .scene-star {
 	position: absolute;

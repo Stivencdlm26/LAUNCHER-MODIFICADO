@@ -131,21 +131,6 @@
   "app.action-bar.view-logs": {
     "message": "View logs"
   },
-  "app.ads-consent.accept": {
-    "message": "Accept all"
-  },
-  "app.ads-consent.body": {
-    "message": "Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance."
-  },
-  "app.ads-consent.manage": {
-    "message": "Manage preferences"
-  },
-  "app.ads-consent.reject": {
-    "message": "Reject all"
-  },
-  "app.ads-consent.title": {
-    "message": "Your privacy and how ads support Modrinth"
-  },
   "app.appearance-settings.compact-mode.description": {
     "message": "Display library instances in a compact row layout."
   },
@@ -1376,9 +1361,6 @@
   "app.nav.modrinth-account": {
     "message": "Modrinth account"
   },
-  "app.nav.modrinth-hosting": {
-    "message": "Modrinth Hosting"
-  },
   "app.nav.remove-account": {
     "message": "Remove account"
   },
@@ -1390,9 +1372,6 @@
   },
   "app.nav.switch-account": {
     "message": "Switch account"
-  },
-  "app.nav.upgrade-to-modrinth-plus": {
-    "message": "Upgrade to Modrinth+"
   },
   "app.nav.view-profile": {
     "message": "View profile"
@@ -1408,12 +1387,6 @@
   },
   "app.navigation.next-image": {
     "message": "Next image"
-  },
-  "app.news.title": {
-    "message": "News"
-  },
-  "app.news.view-all": {
-    "message": "View all news"
   },
   "app.notification.warning": {
     "message": "Warning"
@@ -1638,7 +1611,7 @@
     "message": "Oldest"
   },
   "app.settings.app-version": {
-    "message": "Modrinth App {version}"
+    "message": "FAKEDRINH {version}"
   },
   "app.settings.default-instance-options.environment-variables.description": {
     "message": "Environment variables set when launching an instance."
@@ -2747,9 +2720,6 @@
   "app.settings.operating-system.macos": {
     "message": "macOS"
   },
-  "app.settings.privacy.ads-consent.intro": {
-    "message": "Ads make Modrinth possible and fund creator payouts. Our partners may store or access cookies in the app to personalize ads and measure performance. You can opt out or manage your preferences below."
-  },
   "app.settings.privacy.discord-rich-presence.description": {
     "message": "Show Modrinth App as your current activity on Discord. This does not affect Rich Presence added to instances by mods. Requires an app restart."
   },
@@ -3146,8 +3116,20 @@
   "app.settings.tabs.synced-options": {
     "message": "Synced settings"
   },
+  "app.sidebar.game-stats": {
+    "message": "Latest game stats"
+  },
+  "app.sidebar.installed-instances": {
+    "message": "Instances"
+  },
+  "app.sidebar.last-played": {
+    "message": "Last played"
+  },
   "app.sidebar.playing-as": {
     "message": "Playing as"
+  },
+  "app.sidebar.total-playtime": {
+    "message": "Total playtime"
   },
   "app.skins.add-button": {
     "message": "Add skin"
@@ -3238,6 +3220,9 @@
   },
   "app.skins.modal.upload-skin-first-tooltip": {
     "message": "Upload a skin first!"
+  },
+  "app.skins.offline-profile.notice": {
+    "message": "Skin changes require a Microsoft account, so skin editing is disabled for offline profiles."
   },
   "app.skins.preview.edit-button": {
     "message": "Edit skin"
@@ -3464,14 +3449,14 @@
   "app.synced-packs.resource-packs.title": {
     "message": "Synced resource packs"
   },
+  "app.update-popup.body.available": {
+    "message": "FAKEDRINH v{version} is available. Download it when you’re ready."
+  },
   "app.update-popup.body.download-complete": {
     "message": "Modrinth App v{version} has finished downloading. Reload to update now, or automatically when you close Modrinth App."
   },
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} is available. Use your package manager to update for the latest features and fixes!"
-  },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} is available now! Since you're on a metered network, we didn't automatically download it."
   },
   "app.update-popup.changelog": {
     "message": "Changelog"
@@ -3486,7 +3471,7 @@
     "message": "Reload to update"
   },
   "app.update-popup.title": {
-    "message": "Update available"
+    "message": "FAKEDRINH update available"
   },
   "app.update.complete-toast.text": {
     "message": "Click here to view the changelog."
@@ -4475,20 +4460,38 @@
   "minecraft-account.add-account": {
     "message": "Add account"
   },
+  "minecraft-account.add-offline": {
+    "message": "Add offline account"
+  },
+  "minecraft-account.create-offline": {
+    "message": "Create profile"
+  },
   "minecraft-account.label": {
     "message": "Minecraft account"
   },
   "minecraft-account.not-signed-in": {
     "message": "Not signed in"
   },
+  "minecraft-account.offline-cancel": {
+    "message": "Cancel"
+  },
+  "minecraft-account.offline-description": {
+    "message": "Offline profiles work in single-player and on servers that allow offline-mode players. They do not authenticate with Microsoft."
+  },
+  "minecraft-account.offline-profile": {
+    "message": "Offline profile"
+  },
+  "minecraft-account.offline-username": {
+    "message": "Player name"
+  },
+  "minecraft-account.offline-username-placeholder": {
+    "message": "Enter a Minecraft username"
+  },
   "minecraft-account.remove-account": {
     "message": "Remove account"
   },
   "minecraft-account.select-account": {
     "message": "Select account"
-  },
-  "minecraft-account.sign-in": {
-    "message": "Sign in to Minecraft"
   },
   "minecraft-required.description": {
     "message": "You need a Microsoft account that owns Minecraft before you can launch and play."
@@ -4546,12 +4549,6 @@
   },
   "onboarding-checklist.create-instance": {
     "message": "Create first instance"
-  },
-  "onboarding-checklist.login-minecraft": {
-    "message": "Sign in to Minecraft"
-  },
-  "onboarding-checklist.login-modrinth": {
-    "message": "Sign in to Modrinth"
   },
   "onboarding-checklist.title": {
     "message": "Getting started"

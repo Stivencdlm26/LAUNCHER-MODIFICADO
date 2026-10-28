@@ -1,5 +1,5 @@
-# Labrinth API Source
+![labrinth banner](/.github/assets/api_cover.png)
 
-This directory contains the upstream API service source retained by the desktop launcher monorepo. FAKEDRINH does not operate or deploy this service.
+## Modrinth's laboratory for its backend service & API!
 
-See the root README and package-level copying notices for project attribution and license terms.
+For contributing information, please see the labrinth section of the [Modrinth contributing guide](https://docs.modrinth.com/contributing/labrinth/). For documentation on the API itself, see the [API Spec](https://docs.modrinth.com/api/).

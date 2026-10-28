@@ -125,18 +125,6 @@
   "app.action-bar.view-logs": {
     "message": "Lihat catatan"
   },
-  "app.ads-consent.accept": {
-    "message": "Terima semua"
-  },
-  "app.ads-consent.manage": {
-    "message": "Kelola preferensi"
-  },
-  "app.ads-consent.reject": {
-    "message": "Tolak semua"
-  },
-  "app.ads-consent.title": {
-    "message": "Privasi anda dan bagaimana iklan mendukung Modrinth"
-  },
   "app.appearance-settings.compact-mode.title": {
     "message": "Mode ringkas"
   },
@@ -689,9 +677,6 @@
   "app.update-popup.body.linux": {
     "message": "Modrinth App v{version} tersedia. Gunakan pengelola paket Anda untuk memperbarui dan mendapatkan fitur-fitur dan perbaikan terbaru!"
   },
-  "app.update-popup.body.metered": {
-    "message": "Modrinth App v{version} sudah tersedia! Karena Anda saat ini sedang berada dalam jaringan terukur, kami tidak mengunduhnya secara otomatis."
-  },
   "app.update-popup.changelog": {
     "message": "Catatan perubahan"
   },
@@ -1036,9 +1021,6 @@
   },
   "minecraft-account.select-account": {
     "message": "Pilih akun"
-  },
-  "minecraft-account.sign-in": {
-    "message": "Masuk ke Minecraft"
   },
   "search.filter.locked.instance": {
     "message": "Disediakan oleh instans"

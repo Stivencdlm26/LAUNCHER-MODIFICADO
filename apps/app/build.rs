@@ -91,6 +91,7 @@ fn main() {
                         "logs_get_latest_log_cursor",
                         "logs_get_live_log_buffer",
                         "logs_clear_live_log_buffer",
+                        "logs_get_launcher_log_tail",
                         "logs_log_webview",
                     ])
                     .default_permission(
@@ -222,6 +223,7 @@ fn main() {
                         "instance_get_linked_modpack_info",
                         "instance_get_linked_modpack_content",
                         "instance_get_optimal_jre_key",
+                        "instance_get_required_java_version",
                         "instance_get_full_path",
                         "instance_get_mod_full_path",
                         "instance_list_screenshots",
