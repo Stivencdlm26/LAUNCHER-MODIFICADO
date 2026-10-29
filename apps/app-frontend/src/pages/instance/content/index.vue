@@ -493,6 +493,7 @@ const managedContent = computed<ManagedContentData | null>(() => {
 					: undefined,
 			},
 			summary: managedContentSummary.value,
+			updateAvailable: !!linkedModpackUpdateVersionId.value,
 			versionNumber: linkedModpackVersion.value?.version_number,
 			versionLink:
 				linkedModpackProject.value && linkedModpackVersion.value

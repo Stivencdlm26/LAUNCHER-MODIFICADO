@@ -1,9 +1,10 @@
 <template>
 	<Button
 		v-if="showUpdatePill"
-		type="outlined"
+		type="colored"
+		color="brand"
 		native-type="button"
-		class="!h-[34px] text-sm !transition-[opacity,transform,background-color,color,filter] !duration-200 ease-out !text-brand [&>svg]:!text-inherit !shadow-[inset_0_0_0_1px_var(--color-brand)] hover:!bg-brand focus-visible:!bg-brand hover:!text-[var(--color-accent-contrast)] focus-visible:!text-[var(--color-accent-contrast)]"
+		class="!h-[38px] text-sm !font-semibold !transition-[opacity,transform,background-color,color,filter] !duration-200 ease-out !bg-brand !text-[var(--color-accent-contrast)] [&>svg]:!text-inherit !shadow-[0_0_0_2px_var(--color-brand-shadow),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!outline-none focus-visible:!ring-4 focus-visible:!ring-brand-shadow"
 		:class="{
 			'opacity-0 scale-[0.96]': finishedDownloading && !animateReadyPill,
 			'opacity-100 scale-100': finishedDownloading && animateReadyPill,

@@ -151,6 +151,7 @@ interface ManagedContentCardBase {
 export type ManagedContentCardData =
 	| (ManagedContentCardBase & {
 			kind: 'modpack'
+			updateAvailable?: boolean
 			versionNumber?: string
 			versionLink?: string | RouteLocationRaw
 			updatedAt?: string

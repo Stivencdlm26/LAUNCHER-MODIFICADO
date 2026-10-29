@@ -32,6 +32,7 @@ import {
 	AccountSwitchOverlay,
 	Admonition,
 	Avatar,
+	Button,
 	commonMessages,
 	commonSettingsMessages,
 	ContentInstallModal,
@@ -42,6 +43,7 @@ import {
 	IconButton,
 	LoadingBar,
 	NotificationPanel,
+	NewModal,
 	PopupNotificationPanel,
 	provideModalBehavior,
 	provideModrinthClient,
@@ -1553,12 +1555,15 @@ const gameIsRunning = computed(() => activeGameInstanceIds.value.size > 0)
 const processEventRevision = ref(0)
 const sidebarAchievementsQuery = useQuery({
 	queryKey: ['minecraft-achievements', 'sidebar'],
-	queryFn: get_default_user_achievements,
+	queryFn: () =>
+		get_default_user_achievements(
+			activeGameInstanceIds.value.size > 0 ? activeGameInstanceIds.value : undefined,
+		),
 	enabled: computed(() => stateInitialized.value && hasMinecraftAccount.value),
 	staleTime: 0,
-	// Reading advancement files across every world every 5 seconds causes
-	// avoidable filesystem and CPU work while Minecraft is running.
-	refetchInterval: computed(() => (gameIsRunning.value ? 15_000 : false)),
+	// Only scan worlds for running instances, and poll less often to reduce file I/O.
+	refetchInterval: computed(() => (gameIsRunning.value ? 30_000 : false)),
+	refetchIntervalInBackground: false,
 })
 const latestSidebarAchievement = computed(() =>
 	sidebarAchievementsQuery.data.value?.achievements.find((achievement) => achievement.unlocked),
@@ -1991,6 +1996,22 @@ const updatePopupMessages = defineMessages({
 		id: 'app.update-popup.changelog',
 		defaultMessage: 'Changelog',
 	},
+	releaseNotesTitle: {
+		id: 'app.update-popup.release-notes-title',
+		defaultMessage: 'Novedades de FAKEDRINH v{version}',
+	},
+	releaseNotesUnavailable: {
+		id: 'app.update-popup.release-notes-unavailable',
+		defaultMessage: 'No se pudieron cargar las notas de esta versión. Puedes consultarlas en GitHub.',
+	},
+	releaseNotesLink: {
+		id: 'app.update-popup.release-notes-link',
+		defaultMessage: 'Ver en GitHub',
+	},
+	releaseNotesClose: {
+		id: 'app.update-popup.release-notes-close',
+		defaultMessage: 'Cerrar',
+	},
 })
 
 function clearDelayedUpdatePopup() {
@@ -2247,6 +2268,115 @@ setAppUpdateActions({
 	changelog: () => openUrl('https://modrinth.com/news/changelog?filter=app'),
 })
 
+const RELEASE_NOTES_SEEN_VERSION_KEY = 'fakedrinth-release-notes-seen-version'
+const releaseNotesModal = ref(null)
+const releaseNotesVersion = ref('')
+const releaseNotesBody = ref('')
+const releaseNotesUrl = ref('')
+const releaseNotesCheckStarted = ref(false)
+
+function markReleaseNotesSeen() {
+	if (!releaseNotesVersion.value) return
+	try {
+		localStorage.setItem(RELEASE_NOTES_SEEN_VERSION_KEY, releaseNotesVersion.value)
+	} catch (error) {
+		console.warn('Failed to save the seen FAKEDRINH release notes version:', error)
+	}
+}
+
+async function showReleaseNotesForCurrentVersion() {
+	if (releaseNotesCheckStarted.value) return
+	releaseNotesCheckStarted.value = true
+
+	try {
+		const version = await appVersion
+		if (localStorage.getItem(RELEASE_NOTES_SEEN_VERSION_KEY) === version) return
+
+		const tag = 'fakedrinth-v' + version
+		releaseNotesVersion.value = version
+		releaseNotesUrl.value =
+			'https://github.com/Stivencdlm26/LAUNCHER-MODIFICADO/releases/tag/' +
+			encodeURIComponent(tag)
+
+		try {
+			const response = await tauriFetch(
+				'https://api.github.com/repos/Stivencdlm26/LAUNCHER-MODIFICADO/releases/tags/' +
+					encodeURIComponent(tag),
+				{ headers: { Accept: 'application/vnd.github+json' } },
+			)
+			if (!response.ok) throw new Error('GitHub returned ' + response.status)
+			const release = await response.json()
+			let notes = typeof release.body === 'string' ? release.body.trim() : ''
+			const genericReleaseBody =
+				/actualización de fakedrinth/i.test(notes) &&
+				/descarga el instalador para actualizar/i.test(notes)
+			if (!notes || genericReleaseBody) {
+				notes = (await getAutomaticReleaseChanges(tag)) ?? notes
+			}
+			releaseNotesBody.value =
+				notes || formatMessage(updatePopupMessages.releaseNotesUnavailable)
+		} catch (error) {
+			console.warn('Failed to load FAKEDRINH release notes:', error)
+			releaseNotesBody.value = formatMessage(updatePopupMessages.releaseNotesUnavailable)
+		}
+
+		await nextTick()
+		releaseNotesModal.value?.show()
+	} catch (error) {
+		console.warn('Failed to check the FAKEDRINH release notes version:', error)
+	}
+}
+
+async function getAutomaticReleaseChanges(tag) {
+	try {
+		const releasesResponse = await tauriFetch(
+			'https://api.github.com/repos/Stivencdlm26/LAUNCHER-MODIFICADO/releases?per_page=100',
+			{ headers: { Accept: 'application/vnd.github+json' } },
+		)
+		if (!releasesResponse.ok) return null
+		const releases = await releasesResponse.json()
+		const currentReleaseIndex = releases.findIndex((release) => release.tag_name === tag)
+		const previousTag = releases[currentReleaseIndex + 1]?.tag_name
+		if (currentReleaseIndex < 0 || !previousTag) return null
+
+		const comparisonResponse = await tauriFetch(
+			'https://api.github.com/repos/Stivencdlm26/LAUNCHER-MODIFICADO/compare/' +
+				encodeURIComponent(previousTag) +
+				'...' +
+				encodeURIComponent(tag),
+			{ headers: { Accept: 'application/vnd.github+json' } },
+		)
+		if (!comparisonResponse.ok) return null
+		const comparison = await comparisonResponse.json()
+
+		const changes = [
+			...new Set(
+				(comparison.commits ?? [])
+					.map((item) => item.commit?.message?.split('\n')[0]?.trim())
+					.filter((message) => typeof message === 'string' && message.length > 0),
+			),
+		]
+		return changes.length
+			? '### Cambios de esta versión\n\n' + changes.map((change) => '- ' + change).join('\n')
+			: null
+	} catch (error) {
+		console.warn('Failed to build automatic FAKEDRINH release notes:', error)
+		return null
+	}
+}
+
+watch(
+	() => stateInitialized.value && !loading.pending.value,
+	(ready) => {
+		if (ready) void showReleaseNotesForCurrentVersion()
+	},
+	{ immediate: true },
+)
+
+function openReleaseNotes() {
+	if (releaseNotesUrl.value) void openUrl(releaseNotesUrl.value)
+}
+
 async function openModrinthProjectLinkInApp(parsed) {
 	const { slug, pathSuffix, url } = parsed
 	const loadToken = loading.begin()
@@ -2343,6 +2473,27 @@ provideAppUpdateDownloadProgress(appUpdateDownload)
 
 <template>
 	<TooltipDirective />
+	<NewModal
+		ref="releaseNotesModal"
+		:header="formatMessage(updatePopupMessages.releaseNotesTitle, { version: releaseNotesVersion })"
+		max-width="680px"
+		:on-hide="markReleaseNotesSeen"
+	>
+		<div
+			class="markdown-body max-h-[55vh] overflow-y-auto text-secondary"
+			v-html="renderString(releaseNotesBody)"
+		/>
+		<template #actions>
+			<div class="flex justify-end gap-2">
+				<Button type="outlined" @click="openReleaseNotes">
+					{{ formatMessage(updatePopupMessages.releaseNotesLink) }}
+				</Button>
+				<Button @click="releaseNotesModal?.hide()">
+					{{ formatMessage(updatePopupMessages.releaseNotesClose) }}
+				</Button>
+			</div>
+		</template>
+	</NewModal>
 	<SplashScreen v-if="!stateFailed" ref="splashScreen" data-tauri-drag-region />
 	<div id="teleports"></div>
 	<AccountSwitchOverlay :show="isSwitchingAccount" />

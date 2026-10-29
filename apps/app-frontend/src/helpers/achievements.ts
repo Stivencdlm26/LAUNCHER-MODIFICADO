@@ -386,7 +386,9 @@ function createLockedVanillaAchievements(): Map<string, LocalAchievement> {
 	)
 }
 
-export async function get_default_user_achievements(): Promise<LocalAchievements> {
+export async function get_default_user_achievements(
+	instanceIds?: Iterable<string>,
+): Promise<LocalAchievements> {
 	const userId = await get_default_user()
 	const accountList = await users()
 	const accounts = Array.isArray(accountList) ? accountList : []
@@ -399,7 +401,10 @@ export async function get_default_user_achievements(): Promise<LocalAchievements
 		}
 	}
 
-	const instances = await list()
+	const selectedInstanceIds = instanceIds === undefined ? null : new Set(instanceIds)
+	const instances = (await list()).filter(
+		(instance) => selectedInstanceIds === null || selectedInstanceIds.has(instance.id),
+	)
 	const worlds = (
 		await Promise.all(
 			instances.map(async (instance) => {

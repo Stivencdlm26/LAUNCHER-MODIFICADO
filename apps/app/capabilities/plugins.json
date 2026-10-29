@@ -41,6 +41,9 @@
 					"url": "https://api.purpurmc.org/*"
 				},
 				{
+					"url": "https://api.github.com/*"
+				},
+				{
 					"url": "http://localhost:8000/*"
 				},
 				{

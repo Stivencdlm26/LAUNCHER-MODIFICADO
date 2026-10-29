@@ -162,13 +162,21 @@ const showAction = computed(
 
 		<Button
 			v-if="showAction"
-			type="quiet"
-			:color="data.kind === 'modpack' ? undefined : 'green'"
+			:type="data.kind === 'modpack' && data.updateAvailable ? 'colored' : 'quiet'"
+			:color="data.kind === 'modpack' ? (data.updateAvailable ? 'brand' : undefined) : 'green'"
 			:disabled="disabled"
-			class=""
+			:class="
+				data.kind === 'modpack' && data.updateAvailable
+					? '!font-semibold !shadow-[0_0_0_2px_var(--color-brand-shadow),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!ring-4 focus-visible:!ring-brand-shadow'
+					: ''
+			"
 			@click="emit('primary-action', $event)"
 		>
 			<SpinnerIcon v-if="disabled" aria-hidden="true" class="animate-spin" />
+			<DownloadIcon
+				v-else-if="data.kind === 'modpack' && data.updateAvailable"
+				aria-hidden="true"
+			/>
 			<ArrowLeftRightIcon v-else-if="data.kind === 'modpack'" aria-hidden="true" />
 			<DownloadIcon v-else aria-hidden="true" />
 			<span>
@@ -176,7 +184,9 @@ const showAction = computed(
 					disabled
 						? (disabledText ?? formatMessage(messages.updating))
 						: data.kind === 'modpack'
-							? formatMessage(messages.switchVersion)
+							? formatMessage(
+									data.updateAvailable ? messages.updateAvailable : messages.switchVersion,
+								)
 							: formatMessage(messages.updateAvailable)
 				}}
 			</span>
