@@ -10,7 +10,6 @@ import type { CacheBehaviour } from '@/helpers/types'
 export type InstanceContentData = {
 	path: string
 	contentItems: ContentItem[] | null
-	modpack: InstanceContentModpackData | null
 }
 
 export type InstanceContentModpackData = {
@@ -24,16 +23,25 @@ export async function loadInstanceContentData(
 	cacheBehaviour?: CacheBehaviour,
 	onError?: (error: Error) => unknown,
 ): Promise<InstanceContentData> {
-	const [contentItems, modpackInfo] = await Promise.all([
-		get_content_items(path, cacheBehaviour).catch((error) => handleLoadError(error, onError)),
-		get_linked_modpack_info(path, cacheBehaviour).catch((error) => handleLoadError(error, onError)),
-	])
+	const contentItems = await get_content_items(path, cacheBehaviour).catch((error) =>
+		handleLoadError(error, onError),
+	)
 
 	return {
 		path,
 		contentItems: (contentItems as ContentItem[] | null | undefined) ?? null,
-		modpack: normalizeLinkedModpackInfo(modpackInfo as LinkedModpackInfo | null | undefined),
 	}
+}
+
+export async function loadInstanceLinkedModpackData(
+	path: string,
+	cacheBehaviour?: CacheBehaviour,
+	onError?: (error: Error) => unknown,
+): Promise<InstanceContentModpackData | null> {
+	const modpackInfo = await get_linked_modpack_info(path, cacheBehaviour).catch((error) =>
+		handleLoadError(error, onError),
+	)
+	return normalizeLinkedModpackInfo(modpackInfo as LinkedModpackInfo | null | undefined)
 }
 
 function handleLoadError(error: unknown, onError?: (error: Error) => unknown) {

@@ -305,17 +305,8 @@ const processesQuery = useQuery(
 )
 const playing = computed(() => (processesQuery.data.value?.length ?? 0) > 0)
 
-async function ensureCriticalContent(targetInstanceId: string) {
-	await queryClient.ensureQueryData(
-		instanceContentQueryOptions(targetInstanceId, (error) => handleError(toError(error))),
-	)
-}
-
 async function ensureCriticalInstanceData(targetInstanceId: string) {
-	await Promise.all([
-		queryClient.ensureQueryData(instanceDetailQueryOptions(targetInstanceId)),
-		ensureCriticalContent(targetInstanceId),
-	])
+	await queryClient.ensureQueryData(instanceDetailQueryOptions(targetInstanceId))
 }
 
 function isUnmanagedInstanceError(error: unknown) {
@@ -336,7 +327,6 @@ onBeforeRouteUpdate(async (to, from) => {
 
 	try {
 		await ensureCriticalInstanceData(targetInstanceId)
-		instanceId.value = targetInstanceId
 	} catch (error) {
 		if (isUnmanagedInstanceError(error)) return { path: '/' }
 		handleError(toError(error))

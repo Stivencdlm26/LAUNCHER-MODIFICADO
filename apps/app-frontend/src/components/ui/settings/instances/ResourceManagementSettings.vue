@@ -45,7 +45,7 @@ const messages = defineMessages({
 	debugInfoDescription: {
 		id: 'app.settings.resource-management.debug-info.description',
 		defaultMessage:
-			'Export app logs and diagnostic data to a ZIP file to share with Modrinth support.',
+			'Export app logs and diagnostic data to a ZIP file to share with FAKEDRINH support.',
 	},
 	exportDebugInfo: {
 		id: 'app.settings.resource-management.debug-info.export',
@@ -58,7 +58,7 @@ const messages = defineMessages({
 	appDirectoryDescription: {
 		id: 'app.settings.resource-management.app-directory.description',
 		defaultMessage:
-			'Where Modrinth App stores instances and other files. Changes take effect after restarting the app.',
+			'Where FAKEDRINH App stores instances and other files. Changes take effect after restarting the app.',
 	},
 	selectAppDirectory: {
 		id: 'app.settings.resource-management.app-directory.select',
@@ -87,7 +87,7 @@ const messages = defineMessages({
 	appCacheDescription: {
 		id: 'app.settings.resource-management.app-cache.description',
 		defaultMessage:
-			'Clear cached data and download it again from Modrinth. The app may load more slowly until the cache is rebuilt.',
+			'Clear cached data and download it again from FAKEDRINH. The app may load more slowly until the cache is rebuilt.',
 	},
 	maximumConcurrentDownloadsTitle: {
 		id: 'app.settings.resource-management.maximum-concurrent-downloads.title',

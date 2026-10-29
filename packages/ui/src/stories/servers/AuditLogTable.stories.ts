@@ -303,7 +303,7 @@ const actionLogResponse: Archon.Actions.v1.ActionLogResponse = {
 			action: 'modpack_changed',
 			metadata: {
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: 'project-modpack-001',
 					version_id: 'version-modpack-001',
 				},
@@ -314,7 +314,7 @@ const actionLogResponse: Archon.Actions.v1.ActionLogResponse = {
 			action: 'modpack_unlinked',
 			metadata: {
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: 'project-modpack-001',
 					version_id: 'version-modpack-001',
 				},

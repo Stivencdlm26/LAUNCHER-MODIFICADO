@@ -96,7 +96,7 @@ const showAction = computed(
 	() =>
 		props.showPrimaryAction &&
 		(props.data.kind === 'modpack'
-			? !!props.data.versionNumber
+			? !!props.data.versionNumber || !!props.data.updateAvailable
 			: props.data.updateAvailable || props.disabled),
 )
 </script>
@@ -162,12 +162,12 @@ const showAction = computed(
 
 		<Button
 			v-if="showAction"
-			:type="data.kind === 'modpack' && data.updateAvailable ? 'colored' : 'quiet'"
-			:color="data.kind === 'modpack' ? (data.updateAvailable ? 'brand' : undefined) : 'green'"
+			:type="data.updateAvailable ? 'colored' : data.kind === 'modpack' ? 'quiet' : 'colored'"
+			:color="data.kind === 'modpack' && !data.updateAvailable ? undefined : 'green'"
 			:disabled="disabled"
 			:class="
-				data.kind === 'modpack' && data.updateAvailable
-					? '!font-semibold !shadow-[0_0_0_2px_var(--color-brand-shadow),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!ring-4 focus-visible:!ring-brand-shadow'
+				data.updateAvailable
+					? 'modpack-update-button !font-semibold !shadow-[0_0_0_2px_var(--color-green),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!ring-4 focus-visible:!ring-green'
 					: ''
 			"
 			@click="emit('primary-action', $event)"

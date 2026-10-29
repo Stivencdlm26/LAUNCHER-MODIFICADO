@@ -525,7 +525,7 @@ export function createServerInstallContent(opts: {
 			await client.archon.content_v1.installContent(sid, wid, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: config.modpackSelection.value.projectId,
 					version_id: config.modpackSelection.value.versionId,
 				},

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { LoaderCircleIcon } from '@modrinth/assets'
+import { DownloadIcon, LoaderCircleIcon } from '@modrinth/assets'
 import {
 	Accordion,
+	Button,
 	defineMessages,
 	GAME_MODES,
 	type GameVersion,
@@ -25,11 +26,12 @@ import { useAppEvent } from '@/composables/use-app-event'
 import { useAppSettings } from '@/composables/use-app-settings.ts'
 import { handleSevereError } from '@/composables/use-error.js'
 import { trackEvent } from '@/helpers/analytics'
-import { kill, run } from '@/helpers/instance'
+import { get_linked_modpack_info, kill, run } from '@/helpers/instance'
 import { get_all } from '@/helpers/process'
 import { traceStartupStep } from '@/helpers/startup-debug'
 import { get_game_versions } from '@/helpers/tags'
 import type { GameInstance } from '@/helpers/types'
+import { useRouter } from 'vue-router'
 import {
 	getWorldIdentifier,
 	hasServerQuickPlaySupport,
@@ -41,11 +43,25 @@ import {
 	type WorldWithInstance,
 } from '@/helpers/worlds.ts'
 
-const { handleError } = injectNotificationManager()
+const { handleError, addNotification } = injectNotificationManager()
 const { formatMessage } = useVIntl()
+const router = useRouter()
 const messages = defineMessages({
 	jumpIn: { id: 'app.home.jump-back-in.title', defaultMessage: 'Jump in' },
 	resize: { id: 'app.home.jump-back-in.resize', defaultMessage: 'Drag to resize' },
+	updateModpack: { id: 'app.home.jump-back-in.update-modpack', defaultMessage: 'Actualizar' },
+	modpackUpdateTitle: {
+		id: 'app.home.jump-back-in.modpack-update-title',
+		defaultMessage: 'Actualización disponible',
+	},
+	modpackUpdateText: {
+		id: 'app.home.jump-back-in.modpack-update-text',
+		defaultMessage: 'Hay una nueva versión de {modpack}: {version}.',
+	},
+	openModpackUpdate: {
+		id: 'app.home.jump-back-in.open-modpack-update',
+		defaultMessage: 'Ver actualización',
+	},
 })
 
 const props = defineProps<{
@@ -229,6 +245,81 @@ const jumpBackInItems = computed<JumpBackInItem[]>(() => {
 		})
 		.slice(0, MAX_JUMP_BACK_IN)
 })
+
+const modpackUpdateInstances = computed(() => [
+	...new Map(
+		jumpBackInItems.value
+			.map((item) => item.instance)
+			.filter(
+				(instance) =>
+					instance.link?.type === 'modrinth_modpack' && instance.install_stage === 'installed',
+			)
+			.map((instance) => [instance.id, instance]),
+	).values(),
+])
+const modpackUpdateQueries = useQueries({
+	queries: computed(() =>
+		modpackUpdateInstances.value.map((instance) => ({
+			queryKey: ['home', 'modpack-update', instance.id, instance.link?.version_id],
+			queryFn: () => get_linked_modpack_info(instance.id, 'must_revalidate'),
+			staleTime: 60_000,
+			refetchOnWindowFocus: false,
+		})),
+	),
+})
+const modpackUpdateVersionIds = computed(() => {
+	const versions = new Map<string, string>()
+	modpackUpdateInstances.value.forEach((instance, index) => {
+		const info = modpackUpdateQueries.value[index]?.data
+		if (info?.has_update && info.update_version_id) {
+			versions.set(instance.id, info.update_version_id)
+		}
+	})
+	return versions
+})
+
+watch(
+	() =>
+		modpackUpdateQueries.value.map((query, index) => ({
+			instance: modpackUpdateInstances.value[index],
+			info: query.data,
+		})),
+	(updates) => {
+		for (const { instance, info } of updates) {
+			if (!instance || !info?.has_update || !info.update_version_id) continue
+			const notificationKey = `fakedrinth-modpack-update-seen:${instance.id}`
+			try {
+				if (localStorage.getItem(notificationKey) === info.update_version_id) continue
+				localStorage.setItem(notificationKey, info.update_version_id)
+			} catch (error) {
+				console.warn('Could not remember the modpack update notification:', error)
+			}
+
+			addNotification({
+				id: `${notificationKey}:${info.update_version_id}`,
+				type: 'info',
+				title: formatMessage(messages.modpackUpdateTitle),
+				text: formatMessage(messages.modpackUpdateText, {
+					modpack: info.project.title,
+					version: info.update_version?.version_number ?? '',
+				}),
+				buttons: [
+					{
+						label: formatMessage(messages.openModpackUpdate),
+						icon: DownloadIcon,
+						color: 'brand',
+						action: () =>
+							router.push({
+								path: `/instance/${encodeURIComponent(instance.id)}`,
+								query: { updateModpack: info.update_version_id },
+							}),
+					},
+				],
+			})
+		}
+	},
+	{ immediate: true },
+)
 
 function markInstancePlayed(item: InstanceJumpBackInItem) {
 	const lastPlayed = dayjs()
@@ -468,6 +559,7 @@ onUnmounted(() => {
 						:instance-id="item.instance.id"
 						:instance-name="item.instance.name"
 						:instance-icon="item.instance.icon_path"
+						:modpack-update-version-id="modpackUpdateVersionIds.get(item.instance.id)"
 						@refresh="() => (item.world.type === 'server' ? refreshServer(item.world.address) : {})"
 						@update="scheduleWorldsRefresh"
 						@play="
@@ -490,6 +582,7 @@ onUnmounted(() => {
 						:instance="item.instance"
 						:last_played="item.sort_time"
 						:newly-added="item.newly_added"
+						:modpack-update-version-id="modpackUpdateVersionIds.get(item.instance.id)"
 						@play="() => markInstancePlayed(item)"
 					/>
 				</div>

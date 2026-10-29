@@ -194,7 +194,7 @@ const modpack = computed(() => addonsQuery.data.value?.modpack ?? null)
 
 const modpackProjectId = computed(() => {
 	const spec = modpack.value?.spec
-	return spec?.platform === 'modrinth' ? spec.project_id : null
+	return spec?.platform === 'FAKEDRINH' ? spec.project_id : null
 })
 
 const modpackVersionsQuery = useQuery({
@@ -652,7 +652,7 @@ provideInstallationSettings({
 			}
 			return
 		}
-		if (modpack.value.spec.platform !== 'modrinth') return
+		if (modpack.value.spec.platform !== 'FAKEDRINH') return
 		debug(
 			'reinstallModpack: called, project:',
 			modpack.value.spec.project_id,
@@ -670,7 +670,7 @@ provideInstallationSettings({
 			await client.archon.content_v1.installContent(serverId, worldId.value!, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: modpack.value.spec.project_id,
 					version_id: modpack.value.spec.version_id,
 				},
@@ -783,7 +783,7 @@ provideInstallationSettings({
 			await client.archon.content_v1.installContent(serverId, worldId.value!, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: modpackProjectId.value,
 					version_id: version.id,
 				},
@@ -804,7 +804,7 @@ provideInstallationSettings({
 	updaterModalProps: computed(() => ({
 		isApp: serverSettings.isApp.value,
 		currentVersionId:
-			modpack.value?.spec.platform === 'modrinth' ? modpack.value.spec.version_id : '',
+			modpack.value?.spec.platform === 'FAKEDRINH' ? modpack.value.spec.version_id : '',
 		projectIconUrl: modpack.value?.icon_url ?? undefined,
 		projectName:
 			modpack.value?.title ?? modpackProjectId.value ?? formatMessage(commonMessages.modpackLabel),
@@ -814,7 +814,7 @@ provideInstallationSettings({
 
 	isServer: true,
 	isApp: serverSettings.isApp.value,
-	showModpackVersionActions: computed(() => modpack.value?.spec.platform === 'modrinth'),
+	showModpackVersionActions: computed(() => modpack.value?.spec.platform === 'FAKEDRINH'),
 	isLocalFile: computed(() => modpack.value?.spec.platform === 'local_file'),
 
 	lockPlatform: false,

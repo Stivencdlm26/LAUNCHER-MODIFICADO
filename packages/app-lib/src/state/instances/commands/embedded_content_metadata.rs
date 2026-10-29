@@ -494,30 +494,44 @@ pub(crate) async fn resolve_embedded_content_metadata(
     state: &State,
 ) -> crate::Result<HashMap<String, EmbeddedContentMetadata>> {
     let tracked = crate::state::instances::adapters::sqlite::content_rows::get_instance_files(&instance.id, &state.pool).await?;
-    let mut candidates = HashMap::new();
-    for (relative_path, file) in files {
-        if file.metadata.is_some()
-            || !matches!(
-                file.project_type,
-                ProjectType::Mod
-                    | ProjectType::DataPack
-                    | ProjectType::ResourcePack
-            )
-        {
-            continue;
-        }
-        let Some(tracked) = tracked
-            .iter()
-            .find(|tracked| &tracked.relative_path == relative_path)
-        else {
-            continue;
-        };
-        if let Ok(path) =
-            state.content_store.read_path(tracked, &instance.path).await
-        {
-            candidates.insert(file.hash.clone(), path);
-        }
-    }
+    let tracked_by_path = tracked
+        .iter()
+        .map(|file| (file.relative_path.as_str(), file))
+        .collect::<HashMap<_, _>>();
+    let read_candidates = files
+        .iter()
+        .filter(|(_, file)| {
+            file.metadata.is_none()
+                && matches!(
+                    file.project_type,
+                    ProjectType::Mod
+                        | ProjectType::DataPack
+                        | ProjectType::ResourcePack
+                )
+        })
+        .filter_map(|(relative_path, file)| {
+            tracked_by_path
+                .get(relative_path.as_str())
+                .map(|tracked| (file.hash.clone(), (*tracked).clone()))
+        })
+        .collect::<Vec<_>>();
+    let content_store = &state.content_store;
+    let instance_path = instance.path.clone();
+    let candidates = stream::iter(read_candidates)
+        .map(|(hash, tracked)| {
+            let instance_path = instance_path.clone();
+            async move {
+                content_store
+                    .read_path(&tracked, &instance_path)
+                    .await
+                    .ok()
+                    .map(|path| (hash, path))
+            }
+        })
+        .buffer_unordered(16)
+        .filter_map(std::future::ready)
+        .collect::<HashMap<_, _>>()
+        .await;
     if candidates.is_empty() {
         return Ok(HashMap::new());
     }

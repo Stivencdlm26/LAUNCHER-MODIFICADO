@@ -1,5 +1,21 @@
 <template>
 	<ReadyTransition :pending="loading">
+		<template #pending>
+			<div class="flex flex-col gap-3" role="status" aria-live="polite">
+				<div class="flex items-center gap-3 py-2 text-secondary">
+					<span
+						aria-hidden="true"
+						class="size-5 animate-spin rounded-full border-2 border-surface-5 border-t-brand"
+					/>
+					<span>{{ formatMessage(commonMessages.loadingLabel) }}</span>
+				</div>
+				<div
+					v-for="row in 4"
+					:key="row"
+					class="h-[74px] animate-pulse rounded-xl border border-solid border-surface-4 bg-surface-2"
+				/>
+			</div>
+		</template>
 		<ContentPageLayout :highlighted-item-id="highlightedItemId">
 			<template #modals>
 				<SyncedContentModal ref="syncedContentModal" />
@@ -155,7 +171,11 @@ import { highlightModInInstance } from '@/helpers/utils.js'
 import { injectContentInstall } from '@/providers/content-install'
 
 import { injectInstancePage } from '../instance-context'
-import { instanceContentQueryOptions, instanceKeys } from '../query-options'
+import {
+	instanceContentQueryOptions,
+	instanceKeys,
+	instanceLinkedModpackInfoQueryOptions,
+} from '../query-options'
 import { injectSharedInstance } from '../shared-instance-context'
 
 const messages = defineMessages({
@@ -244,6 +264,14 @@ const contentQuery = useQuery(
 		enabled: !!instancePage.instanceId.value,
 	})),
 )
+const linkedModpackInfoQuery = useQuery(
+	computed(() => ({
+		...instanceLinkedModpackInfoQueryOptions(instancePage.instanceId.value, (error) =>
+			handleError(toError(error)),
+		),
+		enabled: !!instancePage.instanceId.value,
+	})),
+)
 const loading = ref(contentQuery.data.value === undefined)
 const projects = ref<ContentItem[]>([])
 
@@ -308,6 +336,16 @@ const linkedModpackProject = ref<ManagedContentProject | null>(null)
 const linkedModpackVersion = ref<ManagedContentVersion | null>(null)
 const linkedModpackUpdateVersionId = ref<string | null>(null)
 const localImportedModpackUnlinked = ref(false)
+
+watch(
+	linkedModpackInfoQuery.data,
+	(data) => {
+		linkedModpackProject.value = data?.project ?? null
+		linkedModpackVersion.value = data?.version ?? null
+		linkedModpackUpdateVersionId.value = data?.updateVersionId ?? null
+	},
+	{ immediate: true },
+)
 
 const localImportedModpackProject = computed<ManagedContentProject | null>(() => {
 	const link = instance.value.link
@@ -1262,7 +1300,7 @@ watch(
 	},
 )
 
-async function handleModpackUpdate() {
+async function handleModpackUpdate(requestedVersionId?: string) {
 	if (!instance.value?.link?.project_id) return
 
 	const requestId = beginUpdateRequest()
@@ -1276,7 +1314,10 @@ async function handleModpackUpdate() {
 	await nextTick()
 
 	const initialVersionId =
-		linkedModpackUpdateVersionId.value ?? instance.value?.link?.version_id ?? undefined
+		requestedVersionId ??
+		linkedModpackUpdateVersionId.value ??
+		instance.value?.link?.version_id ??
+		undefined
 	debug('handleModpackUpdate: opening modpack updater modal', {
 		type: 'modpack',
 		initialVersionId,
@@ -1579,16 +1620,6 @@ function applyContentData(contentData: InstanceContentData) {
 		has_update: canUpdateProject(item),
 	}))
 
-	if (contentData.modpack) {
-		linkedModpackProject.value = contentData.modpack.project
-		linkedModpackVersion.value = contentData.modpack.version
-		linkedModpackUpdateVersionId.value = contentData.modpack.updateVersionId
-	} else {
-		linkedModpackProject.value = null
-		linkedModpackVersion.value = null
-		linkedModpackUpdateVersionId.value = null
-	}
-
 	loading.value = false
 	return true
 }
@@ -1786,6 +1817,29 @@ onMounted(() => {
 		})
 		.catch(handleError)
 })
+
+let handledAutoUpdateVersionId: string | undefined
+watch(
+	[() => route.query.updateModpack, loading],
+	async ([requestedVersionId, isLoading]) => {
+		if (
+			typeof requestedVersionId !== 'string' ||
+			!requestedVersionId ||
+			isLoading ||
+			requestedVersionId === handledAutoUpdateVersionId ||
+			instance.value?.link?.type !== 'modrinth_modpack'
+		) {
+			return
+		}
+
+		handledAutoUpdateVersionId = requestedVersionId
+		await handleModpackUpdate(requestedVersionId)
+		const query = { ...route.query }
+		delete query.updateModpack
+		await router.replace({ query })
+	},
+	{ immediate: true, flush: 'post' },
+)
 
 watch(
 	() => instance.value?.install_stage,

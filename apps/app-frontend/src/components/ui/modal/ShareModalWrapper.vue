@@ -10,7 +10,7 @@ defineProps({
 	},
 	shareTitle: {
 		type: String,
-		default: 'Modrinth',
+		default: 'FAKEDRINH',
 	},
 	shareText: {
 		type: String,

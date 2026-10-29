@@ -81,9 +81,9 @@ defineExpose({ show })
 		<CommandHistoryEditor
 			v-model:value="commandHistory"
 			lang="mcfunction"
-			theme="modrinth"
+			theme="FAKEDRINH"
 			:print-margin="false"
-			class="command-history-editor ace-modrinth"
+			class="command-history-editor ace-FAKEDRINH"
 			style="height: 420px; font-size: 0.875rem"
 		/>
 		<template #actions>

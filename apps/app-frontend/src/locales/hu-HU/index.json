@@ -78,7 +78,7 @@
     "message": "A Minecraft telepítése meghiúsult"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Nem sikerült elérni Modrinthot"
+    "message": "Nem sikerült elérni FAKEDRINHot"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Nincs írási jogosultság"
@@ -150,7 +150,7 @@
     "message": "Névcímke eltüntetése"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "A Modrinth App bezáródik a Minecraft indításakor"
+    "message": "A FAKEDRINH App bezáródik a Minecraft indításakor"
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Alkalmazás bezárása"
@@ -174,7 +174,7 @@
     "message": "Jobb oldalsáv elrejtése"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Biztonsági figyelmeztetést jelenít meg, mielőtt olyan Modrinth Csomagfájlt (.mrpack) telepítenél, amely nem a Modrinthról származik."
+    "message": "Biztonsági figyelmeztetést jelenít meg, mielőtt olyan FAKEDRINH Csomagfájlt (.mrpack) telepítenél, amely nem a FAKEDRINHról származik."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Figyelmeztetés ismeretlen modcsomagok telepítése előtt"
@@ -192,7 +192,7 @@
     "message": "Kezdőlap és tartalom"
   },
   "app.behavior-settings.refocus-on-game-close.description": {
-    "message": "Előtérbe hozza a Modrinth appot amikor a Minecraft bezáródik."
+    "message": "Előtérbe hozza a FAKEDRINH appot amikor a Minecraft bezáródik."
   },
   "app.behavior-settings.refocus-on-game-close.title": {
     "message": "Előtérbe hozás amikor a Minecraft bezáródik"
@@ -204,7 +204,7 @@
     "message": "Ezeket a működési beállításokat minden olyan eszközön alkalmazza, amelyen be vagy jelentkezve. Kapcsold ki ezt a beállítást, ha ezen az eszközön külön beállításokat szeretnél használni."
   },
   "app.behavior-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Jelentkezz be egy Modrinth-fiókba a beállítások szinkronizálásához."
+    "message": "Jelentkezz be egy FAKEDRINH-fiókba a beállítások szinkronizálásához."
   },
   "app.behavior-settings.sync-across-devices.title": {
     "message": "Beállítások szinkronizálása az eszközök között"
@@ -447,7 +447,7 @@
     "message": "Használd ezeket a funkcióbeállításokat minden olyan helyen, ahol be vagy jelentkezve. Kapcsold ki ezt, ha külön beállításokat szeretnél használni ezen az eszközön."
   },
   "app.features-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Jelentkezz be egy Modrinth-fiókba a beállítások szinkronizálásához."
+    "message": "Jelentkezz be egy FAKEDRINH-fiókba a beállítások szinkronizálásához."
   },
   "app.features-settings.sync-across-devices.title": {
     "message": "Funkciók szinkronizálása az eszközök között"
@@ -480,16 +480,16 @@
     "message": "Példány megtekintése"
   },
   "app.hosting.update-required.description": {
-    "message": "Frissítened kell, hogy használhasd a Modrinth Hostingot a Modrinth Appon keresztül"
+    "message": "Frissítened kell, hogy használhasd a FAKEDRINH Hostingot a FAKEDRINH Appon keresztül"
   },
   "app.hosting.update-required.download": {
     "message": "Letöltés a frissítéshez"
   },
   "app.hosting.update-required.rinthbot-alt": {
-    "message": "Izgatott Modrinth bot"
+    "message": "Izgatott FAKEDRINH bot"
   },
   "app.hosting.update-required.title": {
-    "message": "Frissítés szükséges a Modrinth Apphoz"
+    "message": "Frissítés szükséges a FAKEDRINH Apphoz"
   },
   "app.install.phase.downloading_content": {
     "message": "A tartalom letöltése..."
@@ -816,13 +816,13 @@
     "message": "Jelentkezz be mint"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Be kell jelentkezned a Modrinthba"
+    "message": "Be kell jelentkezned a FAKEDRINHba"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": ", hogy frissítéseket kapj ehhez a megosztott példányhoz."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Nem a megfelelő Modrinth-fiókot használod"
+    "message": "Nem a megfelelő FAKEDRINH-fiókot használod"
   },
   "app.instance.shortcut.created": {
     "message": "Parancsikon létrehozva"
@@ -1248,10 +1248,10 @@
     "message": "Telepítés"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Ezt a meghívót nem a Modrinth, hanem egy másik Modrinth-felhasználó hozta létre. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
+    "message": "Ezt a meghívót nem a FAKEDRINH, hanem egy másik FAKEDRINH-felhasználó hozta létre. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "Ezt a meghívót <creator>{username}</creator> készítette, nem pedig a Modrinth. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
+    "message": "Ezt a meghívót <creator>{username}</creator> készítette, nem pedig a FAKEDRINH. Csak olyan személyektől fogadd el a meghívásokat, akikben megbízol."
   },
   "app.modal.install-to-play.managed-content.modpack-header": {
     "message": "A modcsomag tartalma"
@@ -1284,7 +1284,7 @@
     "message": "Ha segítségre van szükséged, vedd fel a kapcsolatot a <support-link>támogatási csapatunkkal</support-link>. Hibajelentésekhez nyiss egy <github-link>GitHub-issue-t</github-link>."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Azok a fájlok, amelyek nincsenek közzétéve a Modrinthon, nincsenek ellenőrizve."
+    "message": "Azok a fájlok, amelyek nincsenek közzétéve a FAKEDRINHon, nincsenek ellenőrizve."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Megosztott példány"
@@ -1293,10 +1293,10 @@
     "message": "Megosztott példány tartalma"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Ez a megosztott példány olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a Modrinth-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
+    "message": "Ez a megosztott példány olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a FAKEDRINH-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Ez a szervermodcsomag olyan fájlokat tartalmaz, amelyeket nem tettek közzé a Modrinthen. Nyomatékosan javasoljuk, hogy csak megbízható forrásból származó fájlokat telepíts."
+    "message": "Ez a szervermodcsomag olyan fájlokat tartalmaz, amelyeket nem tettek közzé a FAKEDRINHen. Nyomatékosan javasoljuk, hogy csak megbízható forrásból származó fájlokat telepíts."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Figyelmeztetés ismeretlen fájlokról"
@@ -1317,7 +1317,7 @@
     "message": "Eltávolítva"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Ez a szervermodcsomag-frissítés olyan fájlokat tartalmaz, amelyek nem találhatók meg a Modrinthen. Erősen javasoljuk, hogy csak megbízható forrásokból telepíts fájlokat."
+    "message": "Ez a szervermodcsomag-frissítés olyan fájlokat tartalmaz, amelyek nem találhatók meg a FAKEDRINHen. Erősen javasoljuk, hogy csak megbízható forrásokból telepíts fájlokat."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Hozzáadva"
@@ -1326,7 +1326,7 @@
     "message": "Eltávolítva"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Ez a megosztott példányfrissítés olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a Modrinth-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
+    "message": "Ez a megosztott példányfrissítés olyan fájlokat tartalmaz, amelyek nincsenek közzétéve a FAKEDRINH-on. Határozottan javasoljuk, hogy kizárólag olyan forrásokból telepíts fájlokat, amelyekben megbízol."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Frissítés szükséges"
@@ -1347,7 +1347,7 @@
     "message": "Profil betöltése..."
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth fiók"
+    "message": "FAKEDRINH fiók"
   },
   "app.nav.remove-account": {
     "message": "Fiók eltávolítása"
@@ -1356,7 +1356,7 @@
     "message": "Képernyőképek"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Bejelentkezés a Modrinthba"
+    "message": "Bejelentkezés a FAKEDRINHba"
   },
   "app.nav.switch-account": {
     "message": "Fiókváltás"
@@ -1569,7 +1569,7 @@
     "message": "ZIP fájl exportálása"
   },
   "app.screenshots.selection.global-export-filename": {
-    "message": "Modrinth képernyőképek.zip"
+    "message": "FAKEDRINH képernyőképek.zip"
   },
   "app.screenshots.selection.instance-export-filename": {
     "message": "{instance} képernyőképek.zip"
@@ -1875,7 +1875,7 @@
     "message": "Pár példányod nem tudja ezt a beállítást alkalmazni"
   },
   "app.settings.game-options.compatibility.reason.launcher-controlled": {
-    "message": "Ezt a beállítást a Modrinth indítási beállításai kezelik."
+    "message": "Ezt a beállítást a FAKEDRINH indítási beállításai kezelik."
   },
   "app.settings.game-options.custom-value.placeholder": {
     "message": "Adj meg egy értéket"
@@ -2709,13 +2709,13 @@
     "message": "macOS"
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "A Modrinth App megjelenítése aktuális tevékenységként a Discordon. Ez nem érinti a modok által a példányokhoz hozzáadott Rich Presence-t. Az alkalmazás újraindítását igényli."
+    "message": "A FAKEDRINH App megjelenítése aktuális tevékenységként a Discordon. Ez nem érinti a modok által a példányokhoz hozzáadott Rich Presence-t. Az alkalmazás újraindítását igényli."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "A Modrinth névtelen használati és telemetriai adatokat gyűjt a felhasználói élmény javítása és személyre szabása érdekében. Ha kikapcsolod ezt a beállítást, leiratkozol erről, és a rendszer többé nem gyűjti az adataidat."
+    "message": "A FAKEDRINH névtelen használati és telemetriai adatokat gyűjt a felhasználói élmény javítása és személyre szabása érdekében. Ha kikapcsolod ezt a beállítást, leiratkozol erről, és a rendszer többé nem gyűjti az adataidat."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Telemetria"
@@ -2733,7 +2733,7 @@
     "message": "Törlöd az alkalmazás gyorsítótárát?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Letörli a gyorsítótárban tárolt adatokat, majd újra letölti azokat a Modrinthról. Az alkalmazás betöltése lassabb lehet, amíg a gyorsítótár újra nem települ."
+    "message": "Letörli a gyorsítótárban tárolt adatokat, majd újra letölti azokat a FAKEDRINHról. Az alkalmazás betöltése lassabb lehet, amíg a gyorsítótár újra nem települ."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Gyorsítótár törlése"
@@ -2754,7 +2754,7 @@
     "message": "Alkalmazáskönyvtár tallózása"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "A Modrinth App ebben a mappában tárolja a példányokat és az egyéb fájlokat. A módosítások az alkalmazás újraindítása után lépnek érvénybe."
+    "message": "A FAKEDRINH App ebben a mappában tárolja a példányokat és az egyéb fájlokat. A módosítások az alkalmazás újraindítása után lépnek érvénybe."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Új alkalmazáskönyvtár kiválasztása"
@@ -2940,7 +2940,7 @@
     "message": "Ezek a beállítások valahol máshol módosultak"
   },
   "app.settings.synced-options.game-settings.custom-empty": {
-    "message": "A modok által regisztrált beállítások itt fognak megjelenni amint a Modrinth érzékeli őket az egyik példányodban."
+    "message": "A modok által regisztrált beállítások itt fognak megjelenni amint a FAKEDRINH érzékeli őket az egyik példányodban."
   },
   "app.settings.synced-options.game-settings.description": {
     "message": "Használd ugyanazokat a játékbeállításokat az összes példányodban."
@@ -3228,13 +3228,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FAKEDRINH Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Ezeket a kinézeteket azért kaptad, mert a Pride-hónap során adományoztál a Modrinth Pride jótékonysági gyűjtéséhez."
+    "message": "Ezeket a kinézeteket azért kaptad, mert a Pride-hónap során adományoztál a FAKEDRINH Pride jótékonysági gyűjtéséhez."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -3270,10 +3270,10 @@
     "message": "Bekapcsolás"
   },
   "app.survey.body": {
-    "message": "Megosztanád velünk a tapasztalataidat a Modrinth App használatáról néhány kérdés megválaszolásával?"
+    "message": "Megosztanád velünk a tapasztalataidat a FAKEDRINH App használatáról néhány kérdés megválaszolásával?"
   },
   "app.survey.footer": {
-    "message": "A visszajelzésed közvetlenül a Modrinth csapatához kerül, és segít a jövőbeli frissítések alakításában!"
+    "message": "A visszajelzésed közvetlenül a FAKEDRINH csapatához kerül, és segít a jövőbeli frissítések alakításában!"
   },
   "app.survey.no-thanks": {
     "message": "Nem, köszönöm"
@@ -3282,7 +3282,7 @@
     "message": "Kérdőív kitöltése"
   },
   "app.survey.title": {
-    "message": "Hali, Modrinth-felhasználó!"
+    "message": "Hali, FAKEDRINH-felhasználó!"
   },
   "app.sync-instances-update.badge": {
     "message": "Új ebben a frissítésben"
@@ -3414,10 +3414,10 @@
     "message": "Szinkronizált erőforráscsomagok"
   },
   "app.update-popup.body.download-complete": {
-    "message": "A Modrinth App v{version} letöltése befejeződött. Válaszd a Frissítés lehetőséget a frissítéshez, vagy az alkalmazás bezárásakor automatikusan frissül."
+    "message": "A FAKEDRINH App v{version} letöltése befejeződött. Válaszd a Frissítés lehetőséget a frissítéshez, vagy az alkalmazás bezárásakor automatikusan frissül."
   },
   "app.update-popup.body.linux": {
-    "message": "A Modrinth App v{version} elérhető. A legújabb funkciókért és javításokért frissíts a csomagkezelőddel!"
+    "message": "A FAKEDRINH App v{version} elérhető. A legújabb funkciókért és javításokért frissíts a csomagkezelőddel!"
   },
   "app.update-popup.changelog": {
     "message": "Változásnapló"
@@ -3462,10 +3462,10 @@
     "message": "Nyomd meg az <shortcut>N</shortcut> billentyűt egy példány gyors létrehozásához"
   },
   "app.welcome-screen.title": {
-    "message": "Üdvözlünk a Modrinthon"
+    "message": "Üdvözlünk a FAKEDRINHon"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "pelda.modrinth.gg"
+    "message": "pelda.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Válassz egy lehetőséget"
@@ -3531,10 +3531,10 @@
     "message": "Más is lehet, mint a Minecraft felhasználóneve!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Barát Modrinth felhasználóneve..."
+    "message": "Barát FAKEDRINH felhasználóneve..."
   },
   "friends.add-friend.username.title": {
-    "message": "Mi a barátod Modrinth felhasználóneve?"
+    "message": "Mi a barátod FAKEDRINH felhasználóneve?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Vegyél fel barátokat</link>, hogy lásd mivel játszanak!"
@@ -3579,7 +3579,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Lépj be Modrinth fiókodba</link>, hogy felvehess barátokat és lásd mivel játszanak!"
+    "message": "<link>Lépj be FAKEDRINH fiókodba</link>, hogy felvehess barátokat és lásd mivel játszanak!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Összekapcsolt megosztott példány"
@@ -3600,7 +3600,7 @@
     "message": "Pédány megosztásának visszavonása"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Eltávolítja ezt a megosztott példányt a Modrinthból, és nem küld többé frissítéseket azoknak, akik használják. A helyi példányodat ez nem érinti."
+    "message": "Eltávolítja ezt a megosztott példányt a FAKEDRINHból, és nem küld többé frissítéseket azoknak, akik használják. A helyi példányodat ez nem érinti."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Közzététel visszavonása..."
@@ -3615,7 +3615,7 @@
     "message": "Megosztott példány leválasztása"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Ezzel a megosztott példány törlődik a Modrinth szervereiről. A Modrinth Appban az ezt használók többé nem kapnak frissítéseket, de a helyipéldány és annak tartalma továbbra is ezen az eszközön marad."
+    "message": "Ezzel a megosztott példány törlődik a FAKEDRINH szervereiről. A FAKEDRINH Appban az ezt használók többé nem kapnak frissítéseket, de a helyipéldány és annak tartalma továbbra is ezen az eszközön marad."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Visszavonod a megosztott példány megosztását"
@@ -3900,7 +3900,7 @@
     "message": "TNT"
   },
   "instance.icon-editor.symbol.wrenth-rinth": {
-    "message": "Modrinth csavarkulcs"
+    "message": "FAKEDRINH csavarkulcs"
   },
   "instance.icon-editor.symbol.zombie": {
     "message": "Zombi"
@@ -4464,7 +4464,7 @@
     "message": "Fiók létrehozása"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Ahhoz, hogy ezt a funkciót használhas, be kell jelentkeznie a Modrinth-fiókjába."
+    "message": "Ahhoz, hogy ezt a funkciót használhas, be kell jelentkeznie a FAKEDRINH-fiókjába."
   },
   "modal.modrinth-account-required.header": {
     "message": "Fiók szükséges"
@@ -4473,10 +4473,10 @@
     "message": "Böngésző megnyitása újra"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Jelentkezz be a Modrinthbe"
+    "message": "Jelentkezz be a FAKEDRINHbe"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Jelentkezz be egy Modrinth-fiókba"
+    "message": "Jelentkezz be egy FAKEDRINH-fiókba"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Bejelentkezés"

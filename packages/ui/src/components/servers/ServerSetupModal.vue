@@ -142,7 +142,7 @@ async function onFlowComplete(ctx: CreationFlowContextValue) {
 				{
 					content_variant: 'modpack',
 					spec: {
-						platform: 'modrinth',
+						platform: 'FAKEDRINH',
 						project_id: ctx.modpackSelection.value.projectId,
 						version_id: ctx.modpackSelection.value.versionId,
 					},

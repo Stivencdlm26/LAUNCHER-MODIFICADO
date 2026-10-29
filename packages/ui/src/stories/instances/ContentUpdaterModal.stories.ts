@@ -117,7 +117,7 @@ const sodiumVersions: Labrinth.Versions.v2.Version[] = [
 	},
 ]
 
-// Real version data from Modrinth API - Cobblemon modpack
+// Real version data from FAKEDRINH API - Cobblemon modpack
 const cobblemonVersions: Labrinth.Versions.v2.Version[] = [
 	{
 		id: 'DbQNxSJ0',

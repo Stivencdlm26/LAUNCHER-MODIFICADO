@@ -140,9 +140,9 @@ const failureSummaryMessages = defineMessages({
 		id: 'app.action-bar.install.summary.download-failed',
 		defaultMessage: "Download couldn't finish",
 	},
-	modrinthUnreachable: {
+	ModrinthUnreachable: {
 		id: 'app.action-bar.install.summary.modrinth-unreachable',
-		defaultMessage: "Couldn't reach Modrinth",
+		defaultMessage: "Couldn't reach FAKEDRINH",
 	},
 	packDownloadFailed: {
 		id: 'app.action-bar.install.summary.pack-download-failed',

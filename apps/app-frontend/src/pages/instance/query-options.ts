@@ -8,7 +8,10 @@ import {
 	list_screenshot_groups,
 	list_synced_screenshots,
 } from '@/helpers/instance'
-import { loadInstanceContentData } from '@/helpers/instance-content'
+import {
+	loadInstanceContentData,
+	loadInstanceLinkedModpackData,
+} from '@/helpers/instance-content'
 import { get_by_instance_id } from '@/helpers/process'
 import { refreshWorlds } from '@/helpers/worlds'
 
@@ -21,6 +24,8 @@ export const instanceKeys = {
 	contentSync: (instanceId: string) => [...instanceKeys.all, 'content-sync', instanceId] as const,
 	contentUpdateCheck: (instanceId: string) =>
 		[...instanceKeys.all, 'content-update-check', instanceId] as const,
+	linkedModpackInfo: (instanceId: string) =>
+		[...instanceKeys.all, 'linked-modpack-info', instanceId] as const,
 	rootPath: (instanceId: string) => [...instanceKeys.detail(instanceId), 'root-path'] as const,
 	files: (instanceId: string, path: string) =>
 		[...instanceKeys.detail(instanceId), 'files', path] as const,
@@ -117,6 +122,18 @@ export function instanceContentQueryOptions(
 		queryKey: instanceKeys.content(instanceId),
 		networkMode: 'always',
 		queryFn: () => loadInstanceContentData(instanceId, undefined, onError),
+		staleTime: 30_000,
+	})
+}
+
+export function instanceLinkedModpackInfoQueryOptions(
+	instanceId: string,
+	onError?: (error: Error) => unknown,
+) {
+	return queryOptions({
+		queryKey: instanceKeys.linkedModpackInfo(instanceId),
+		networkMode: 'always',
+		queryFn: () => loadInstanceLinkedModpackData(instanceId, undefined, onError),
 		staleTime: 30_000,
 	})
 }

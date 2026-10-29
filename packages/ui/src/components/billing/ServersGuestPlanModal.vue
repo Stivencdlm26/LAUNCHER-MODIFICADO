@@ -152,7 +152,7 @@ defineExpose({
 					<div class="mx-auto flex max-w-xl flex-col items-center gap-4 text-center">
 						<div class="flex flex-col gap-2">
 							<div class="font-semibold text-contrast">Sign in to continue your purchase</div>
-							<div class="">You need a Modrinth account to add your billing details.</div>
+							<div class="">You need a FAKEDRINH account to add your billing details.</div>
 						</div>
 						<Button type="colored" color="brand" class="mt-2" @click="continueToAuth">
 							Sign in or create an account

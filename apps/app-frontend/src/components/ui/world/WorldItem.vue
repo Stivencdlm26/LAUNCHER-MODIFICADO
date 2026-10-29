@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
 	ClipboardCopyIcon,
+	DownloadIcon,
 	EditIcon,
 	ExternalIcon,
 	EyeIcon,
@@ -107,6 +108,7 @@ const props = withDefaults(
 		instanceId?: string
 		instanceName?: string
 		instanceIcon?: string
+		modpackUpdateVersionId?: string
 		shortcutInstanceId?: string
 	}>(),
 	{
@@ -130,6 +132,7 @@ const props = withDefaults(
 		instanceId: undefined,
 		instanceName: undefined,
 		instanceIcon: undefined,
+		modpackUpdateVersionId: undefined,
 		shortcutInstanceId: undefined,
 	},
 )
@@ -242,6 +245,10 @@ const messages = defineMessages({
 	playWorld: {
 		id: 'instance.worlds.play_world',
 		defaultMessage: 'Play world',
+	},
+	updateModpack: {
+		id: 'app.home.jump-back-in.update-modpack',
+		defaultMessage: 'Actualizar',
 	},
 	worldInUse: {
 		id: 'instance.worlds.world_in_use',
@@ -641,6 +648,23 @@ function openContextMenu(event: MouseEvent) {
 					</template>
 				</div>
 				<div class="flex gap-1 justify-end smart-clickable:allow-pointer-events">
+					<Button
+						v-if="modpackUpdateVersionId && !showStop"
+						data-no-card-click
+						type="colored"
+						color="green"
+						class="modpack-update-button !font-semibold !shadow-[0_0_0_2px_var(--color-green),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!ring-4 focus-visible:!ring-green"
+						:disabled="playDisabled"
+						@click="
+							router.push({
+								path: `/instance/${encodeURIComponent(instanceId ?? '')}`,
+								query: { updateModpack: modpackUpdateVersionId },
+							})
+						"
+					>
+						<DownloadIcon aria-hidden="true" />
+						{{ formatMessage(messages.updateModpack) }}
+					</Button>
 					<Button
 						v-if="showPlayButton && showStop"
 						type="colored"

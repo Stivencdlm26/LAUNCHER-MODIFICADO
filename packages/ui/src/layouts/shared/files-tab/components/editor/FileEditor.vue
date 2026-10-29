@@ -22,11 +22,11 @@
 			v-if="!isEditingImage && !isLoading && props.editorComponent"
 			v-model:value="fileContent"
 			:lang="editorLanguage"
-			theme="modrinth"
+			theme="FAKEDRINH"
 			:readonly="isEditorReadOnly"
 			:print-margin="false"
 			:style="{ height: editorHeight, fontSize: '0.875rem' }"
-			class="ace-modrinth rounded-[20px]"
+			class="ace-FAKEDRINH rounded-[20px]"
 			@init="onEditorInit"
 		/>
 		<FileImageViewer v-else-if="isEditingImage && imagePreview" :image-blob="imagePreview" />

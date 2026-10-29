@@ -114,6 +114,19 @@ function applyPalette(value: CustomPalette) {
 		}
 		html.fakedrinth-palette .bg-bg-green { background-color: var(--color-green-bg) !important; }
 		html.fakedrinth-palette .bg-highlight-green { background-color: var(--color-green-highlight) !important; }
+		html.fakedrinth-palette .app-grid-layout [data-button].modpack-update-button {
+			--button-color: #15803d !important;
+			--_background-color: #15803d !important;
+			--_accent-color: #15803d !important;
+			background-color: #15803d !important;
+			color: #fff !important;
+			box-shadow: 0 0 0 2px #86efac, 0 2px 10px rgb(0 0 0 / 28%) !important;
+		}
+		html.fakedrinth-palette .app-grid-layout [data-button].modpack-update-button:hover { filter: brightness(1.1); }
+		html.fakedrinth-palette .app-grid-layout [data-button].modpack-update-button:focus-visible {
+			outline: 3px solid #bbf7d0;
+			outline-offset: 2px;
+		}
 		html.fakedrinth-palette .text-green,
 		html.fakedrinth-palette .text-brand-green,
 		html.fakedrinth-palette .border-green,

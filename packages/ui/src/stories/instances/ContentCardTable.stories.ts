@@ -557,7 +557,7 @@ export const WithCustomItemButtons: Story = {
 					</IconButton>
 				</template>
 				<template #itemButtonsRight="{ item }">
-					<IconButton type="quiet" label="View on Modrinth" v-tooltip="'View on Modrinth'" @click="console.log('View', item.id)">
+					<IconButton type="quiet" label="View on FAKEDRINH" v-tooltip="'View on FAKEDRINH'" @click="console.log('View', item.id)">
 						<EyeIcon class="size-5 text-secondary" />
 					</IconButton>
 					<IconButton type="quiet" label="Open folder" v-tooltip="'Open folder'" @click="console.log('Open folder', item.id)">
@@ -760,7 +760,7 @@ export const WithOverflowMenu: Story = {
 				@update:enabled="(id, val) => console.log('Toggle', id, val)"
 				@delete="(id) => console.log('Delete', id)"
 			>
-				<template #view>View on Modrinth</template>
+				<template #view>View on FAKEDRINH</template>
 				<template #folder>Open folder</template>
 				<template #remove>Remove</template>
 			</ContentCardTable>

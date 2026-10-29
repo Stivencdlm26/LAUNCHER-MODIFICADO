@@ -307,7 +307,7 @@ const { addPopupNotification } = popupNotificationManager
 
 const appVersion = getVersion()
 const tauriApiClient = new TauriModrinthClient({
-	userAgent: async () => `modrinth/theseus/${await appVersion} (support@modrinth.com)`,
+	userAgent: async () => `FAKEDRINH/theseus/${await appVersion} (support@FAKEDRINH.com)`,
 	labrinthBaseUrl: config.labrinthBaseUrl,
 	archonBaseUrl: config.archonBaseUrl,
 	sharedInstancesBaseUrl: config.sharedInstancesBaseUrl,
@@ -668,7 +668,7 @@ const messages = defineMessages({
 	},
 	modrinthAccount: {
 		id: 'app.nav.modrinth-account',
-		defaultMessage: 'Modrinth account',
+		defaultMessage: 'FAKEDRINH account',
 	},
 	viewProfile: {
 		id: 'app.nav.view-profile',
@@ -676,7 +676,7 @@ const messages = defineMessages({
 	},
 	signInToModrinthAccount: {
 		id: 'app.nav.sign-in-to-modrinth-account',
-		defaultMessage: 'Sign into Modrinth',
+		defaultMessage: 'Sign into FAKEDRINH',
 	},
 	loadingProfile: {
 		id: 'app.nav.loading-profile',
@@ -1977,12 +1977,12 @@ const updatePopupMessages = defineMessages({
 	},
 	downloadedBody: {
 		id: 'app.update-popup.body.download-complete',
-		defaultMessage: `Modrinth App v{version} has finished downloading. Reload to update now, or automatically when you close Modrinth App.`,
+		defaultMessage: `FAKEDRINH App v{version} has finished downloading. Reload to update now, or automatically when you close FAKEDRINH App.`,
 	},
 	linuxBody: {
 		id: 'app.update-popup.body.linux',
 		defaultMessage:
-			'Modrinth App v{version} is available. Use your package manager to update for the latest features and fixes!',
+			'FAKEDRINH App v{version} is available. Use your package manager to update for the latest features and fixes!',
 	},
 	reload: {
 		id: 'app.update-popup.reload',
@@ -2274,9 +2274,10 @@ const releaseNotesVersion = ref('')
 const releaseNotesBody = ref('')
 const releaseNotesUrl = ref('')
 const releaseNotesCheckStarted = ref(false)
+let releaseNotesCanBeMarkedSeen = false
 
 function markReleaseNotesSeen() {
-	if (!releaseNotesVersion.value) return
+	if (!releaseNotesVersion.value || !releaseNotesCanBeMarkedSeen) return
 	try {
 		localStorage.setItem(RELEASE_NOTES_SEEN_VERSION_KEY, releaseNotesVersion.value)
 	} catch (error) {
@@ -2287,6 +2288,7 @@ function markReleaseNotesSeen() {
 async function showReleaseNotesForCurrentVersion() {
 	if (releaseNotesCheckStarted.value) return
 	releaseNotesCheckStarted.value = true
+	releaseNotesCanBeMarkedSeen = false
 
 	try {
 		const version = await appVersion
@@ -2304,7 +2306,9 @@ async function showReleaseNotesForCurrentVersion() {
 					encodeURIComponent(tag),
 				{ headers: { Accept: 'application/vnd.github+json' } },
 			)
+			if (response.status === 404) return
 			if (!response.ok) throw new Error('GitHub returned ' + response.status)
+			releaseNotesCanBeMarkedSeen = true
 			const release = await response.json()
 			let notes = typeof release.body === 'string' ? release.body.trim() : ''
 			const genericReleaseBody =
@@ -2352,12 +2356,19 @@ async function getAutomaticReleaseChanges(tag) {
 		const changes = [
 			...new Set(
 				(comparison.commits ?? [])
-					.map((item) => item.commit?.message?.split('\n')[0]?.trim())
+					.map((item) => item.commit?.message?.trim())
 					.filter((message) => typeof message === 'string' && message.length > 0),
 			),
 		]
 		return changes.length
-			? '### Cambios de esta versión\n\n' + changes.map((change) => '- ' + change).join('\n')
+			? '### Cambios incluidos en esta versión\n\n' +
+					changes
+						.map((change) => {
+							const [title, ...details] = change.split('\n').map((line) => line.trim())
+							const description = details.filter(Boolean).join(' ')
+							return `- **${title}**${description ? `: ${description}` : ''}`
+						})
+						.join('\n')
 			: null
 	} catch (error) {
 		console.warn('Failed to build automatic FAKEDRINH release notes:', error)
@@ -2377,7 +2388,7 @@ function openReleaseNotes() {
 	if (releaseNotesUrl.value) void openUrl(releaseNotesUrl.value)
 }
 
-async function openModrinthProjectLinkInApp(parsed) {
+async function openFAKEDRINHProjectLinkInApp(parsed) {
 	const { slug, pathSuffix, url } = parsed
 	const loadToken = loading.begin()
 	try {
@@ -2416,7 +2427,7 @@ function handleClick(e) {
 				if (userPath) {
 					void router.push(userPath)
 				} else if (target.target !== '_blank' && parsed) {
-					void openModrinthProjectLinkInApp(parsed)
+					void openFAKEDRINHProjectLinkInApp(parsed)
 				} else {
 					openUrl(target.href)
 				}

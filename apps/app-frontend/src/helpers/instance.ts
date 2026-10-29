@@ -542,7 +542,7 @@ export async function remove_project(instanceId: string, projectPath: string): P
 	return await invoke('plugin:instance|instance_remove_project', { instanceId, projectPath })
 }
 
-// Update a managed Modrinth instance to a specific version
+// Update a managed FAKEDRINH instance to a specific version
 export async function update_managed_modrinth_version(
 	instanceId: string,
 	versionId: string,
@@ -553,7 +553,7 @@ export async function update_managed_modrinth_version(
 	})
 }
 
-// Repair a managed Modrinth instance
+// Repair a managed FAKEDRINH instance
 export async function update_repair_modrinth(instanceId: string): Promise<InstallJobSnapshot> {
 	return await invoke('plugin:instance|instance_repair_managed_modrinth', { instanceId })
 }

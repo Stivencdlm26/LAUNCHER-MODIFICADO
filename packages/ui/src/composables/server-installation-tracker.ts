@@ -71,7 +71,7 @@ function contentPlatform(modloader: string | null): ServerInstallationPlatform |
 function contentInstallationKey(content: Archon.Content.v1.Addons): ServerInstallationKey {
 	if (content.installing === 'modpack' || (content.error && content.modpack)) {
 		const spec = content.modpack?.spec
-		if (spec?.platform === 'modrinth') {
+		if (spec?.platform === 'FAKEDRINH') {
 			return {
 				type: 'modrinth_modpack',
 				project_id: spec.project_id,

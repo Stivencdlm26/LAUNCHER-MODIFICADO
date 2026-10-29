@@ -75,7 +75,7 @@
     "message": "Opsætning af Minecraft fejlede"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Kunne ikke få forbindelse til Modrinth"
+    "message": "Kunne ikke få forbindelse til FAKEDRINH"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Ingen tilladelse til at skrive"
@@ -147,7 +147,7 @@
     "message": "Gem nametag"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimér Modrinth App når Minecraft starter."
+    "message": "Minimér FAKEDRINH App når Minecraft starter."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Minimer app"
@@ -171,7 +171,7 @@
     "message": "Skjul højre sidebar"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Vis en sikkerhedsadvarsel, før du installerer en Modrinth Pack (.mrpack), der ikke er hostet på Modrinth."
+    "message": "Vis en sikkerhedsadvarsel, før du installerer en FAKEDRINH Pack (.mrpack), der ikke er hostet på FAKEDRINH."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Advar mig før jeg installere en ukendt modpacks"
@@ -195,7 +195,7 @@
     "message": "Brug disse adfærdsindstillinger overalt du er logget på. Slå dette fra for at holde separate indstillinger på denne enhed."
   },
   "app.behavior-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Log ind på en Modrinth-konto for at synkronisere indstillinger."
+    "message": "Log ind på en FAKEDRINH-konto for at synkronisere indstillinger."
   },
   "app.behavior-settings.sync-across-devices.title": {
     "message": "Synkroniser adfærd på tværs af enheder"
@@ -660,13 +660,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FAKEDRINH Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Du modtog disse skins for at donere til en Modrinth Pride indsamling imens der er Pride Month."
+    "message": "Du modtog disse skins for at donere til en FAKEDRINH Pride indsamling imens der er Pride Month."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -696,10 +696,10 @@
     "message": "Slå til"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} er færdig med at download. Genindlæs for at opdatere nu, eller automatisk når du lukker Modrinth App."
+    "message": "FAKEDRINH App v{version} er færdig med at download. Genindlæs for at opdatere nu, eller automatisk når du lukker FAKEDRINH App."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} er nu tilgængelig. Brug din pakke-manager til at opdatere for de nyeste features og fejlrettelser!"
+    "message": "FAKEDRINH App v{version} er nu tilgængelig. Brug din pakke-manager til at opdatere for de nyeste features og fejlrettelser!"
   },
   "app.update-popup.changelog": {
     "message": "Ændringslog"
@@ -723,7 +723,7 @@
     "message": "Version {version} var installeret med succes!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "eksemple.modrinth.gg"
+    "message": "eksemple.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Vælg en mulighed"
@@ -756,10 +756,10 @@
     "message": "Det er muligvis anderledes end deres Minecraft brugernavn!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Indskriv Modrinth brugernavn..."
+    "message": "Indskriv FAKEDRINH brugernavn..."
   },
   "friends.add-friend.username.title": {
-    "message": "Hvad er din vens Modrinth brugernavn?"
+    "message": "Hvad er din vens FAKEDRINH brugernavn?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Tilføj venner</link> for at se hvad de spiller!"
@@ -801,7 +801,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Log ind på en Modrinth konto</link> for at tilføje venner og se hvad de spiller!"
+    "message": "<link>Log ind på en FAKEDRINH konto</link> for at tilføje venner og se hvad de spiller!"
   },
   "instance.action.create-shortcut": {
     "message": "Opret genvej"
@@ -1119,10 +1119,10 @@
     "message": "Åbn browser igen"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Log ind på Modrinth"
+    "message": "Log ind på FAKEDRINH"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Log ind med en Modrinth konto"
+    "message": "Log ind med en FAKEDRINH konto"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Logger ind"

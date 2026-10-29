@@ -87,7 +87,7 @@ export interface InstallationSettingsContext {
 	/**
 	 * Disable addons that are incompatible with the target game version.
 	 * Fetches version metadata in bulk, disables any addon whose game_versions
-	 * doesn't include the target, plus any custom (non-Modrinth) content.
+	 * doesn't include the target, plus any custom (non-FAKEDRINH) content.
 	 */
 	disableIncompatibleContent?: (targetGameVersion: string) => Promise<void>
 

@@ -285,9 +285,9 @@ export function useServerPanelSync(options: UseServerPanelSyncOptions) {
 		if (!modpack || modpack.spec === 'CurseForge') return null
 
 		const spec: Archon.Content.v1.ModpackSpec =
-			'Modrinth' in modpack.spec
+			'FAKEDRINH' in modpack.spec
 				? {
-						platform: 'modrinth',
+						platform: 'FAKEDRINH',
 						project_id: modpack.spec.Modrinth.project_id,
 						version_id: modpack.spec.Modrinth.version_id,
 					}

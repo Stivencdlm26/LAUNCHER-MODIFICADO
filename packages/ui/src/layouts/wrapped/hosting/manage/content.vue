@@ -205,7 +205,7 @@ const contentActionBusyMessage = computed(() => {
 
 const modpackProjectId = computed(() => {
 	const spec = contentQuery.data.value?.modpack?.spec
-	return spec?.platform === 'modrinth' ? spec.project_id : null
+	return spec?.platform === 'FAKEDRINH' ? spec.project_id : null
 })
 
 const modpackVersionsQuery = useQuery({
@@ -233,7 +233,7 @@ function sortVersionsByPublishedDate(versions: Labrinth.Versions.v2.Version[]) {
 
 const currentModpackVersionId = computed(() => {
 	const spec = contentQuery.data.value?.modpack?.spec
-	return spec?.platform === 'modrinth' ? spec.version_id : null
+	return spec?.platform === 'FAKEDRINH' ? spec.version_id : null
 })
 
 const newestModpackUpdateVersion = computed(() => {
@@ -288,7 +288,7 @@ const managedContent = computed<ManagedContentData | null>(() => {
 			summary,
 			versionNumber: isLocal ? undefined : (mp.version_number ?? undefined),
 			versionLink:
-				projectId && mp.spec.platform === 'modrinth'
+				projectId && mp.spec.platform === 'FAKEDRINH'
 					? `/project/${project?.slug ?? projectId}/version/${mp.spec.version_id}`
 					: undefined,
 			updatedAt: isLocal ? undefined : (mp.date_published ?? undefined),
@@ -1031,7 +1031,7 @@ async function handleSwitchVersion(item: ContentItem) {
 async function handleModpackUpdate() {
 	if (setupActionDisabled.value) return
 	const mp = contentQuery.data.value?.modpack
-	if (!mp || mp.spec.platform !== 'modrinth') return
+	if (!mp || mp.spec.platform !== 'FAKEDRINH') return
 
 	updatingModpack.value = true
 	updatingProject.value = null
@@ -1089,7 +1089,7 @@ function handleModalUpdate(selectedVersion: Labrinth.Versions.v2.Version, event?
 		pendingModpackUpdateVersion.value = selectedVersion
 
 		const mpSpec = contentQuery.data.value?.modpack?.spec
-		const currentVersionId = mpSpec?.platform === 'modrinth' ? mpSpec.version_id : undefined
+		const currentVersionId = mpSpec?.platform === 'FAKEDRINH' ? mpSpec.version_id : undefined
 		const currentVersion = updatingProjectVersions.value.find((v) => v.id === currentVersionId)
 		isModpackUpdateDowngrade.value = currentVersion
 			? new Date(selectedVersion.date_published) < new Date(currentVersion.date_published)
@@ -1135,11 +1135,11 @@ async function performUpdate(selectedVersion: Labrinth.Versions.v2.Version) {
 	try {
 		if (updatingModpack.value) {
 			const mp = contentQuery.data.value?.modpack
-			if (!mp || mp.spec.platform !== 'modrinth') return
+			if (!mp || mp.spec.platform !== 'FAKEDRINH') return
 			await client.archon.content_v1.installContent(serverId, worldId.value!, {
 				content_variant: 'modpack',
 				spec: {
-					platform: 'modrinth',
+					platform: 'FAKEDRINH',
 					project_id: mp.spec.project_id,
 					version_id: selectedVersion.id,
 				},
@@ -1300,7 +1300,7 @@ provideContentManager({
 					:current-loader="currentLoader"
 					:current-version-id="
 						updatingModpack
-							? contentQuery.data.value?.modpack?.spec.platform === 'modrinth'
+							? contentQuery.data.value?.modpack?.spec.platform === 'FAKEDRINH'
 								? contentQuery.data.value.modpack.spec.version_id
 								: ''
 							: (updatingProject?.version?.id ?? '')

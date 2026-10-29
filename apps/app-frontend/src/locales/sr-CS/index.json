@@ -75,7 +75,7 @@
     "message": "Podešavanje Minecrafta nije uspelo"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Nije bilo moguće povezati se sa Modrinth-om"
+    "message": "Nije bilo moguće povezati se sa FAKEDRINH-om"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Nema dozvole za pisanje"
@@ -144,7 +144,7 @@
     "message": "Sakrij ime"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Smanji Modrinth App kada se Minecraft pokrene."
+    "message": "Smanji FAKEDRINH App kada se Minecraft pokrene."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Smanji aplikaciju"
@@ -540,7 +540,7 @@
     "message": "Instaliraj"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Ovu pozivnicu je kreirao drugi korisnik Modrintha, a ne sam Modrinth. Prihvataj pozivnice samo od osoba kojima veruješ."
+    "message": "Ovu pozivnicu je kreirao drugi korisnik FAKEDRINHa, a ne sam FAKEDRINH. Prihvataj pozivnice samo od osoba kojima veruješ."
   },
   "app.modal.install-to-play.mod-count": {
     "message": "{count, plural, one {# mod} other {# modova}}"
@@ -549,7 +549,7 @@
     "message": "Deljena instanca"
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Ovaj modpack servera sadrži datoteke koje nisu postavljene na Modrinth-u. Preporučujemo da instaliraš datoteke samo iz izvora kojima veruješ."
+    "message": "Ovaj modpack servera sadrži datoteke koje nisu postavljene na FAKEDRINH-u. Preporučujemo da instaliraš datoteke samo iz izvora kojima veruješ."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Upozorenje nepoznatih datoteka"
@@ -717,13 +717,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Ponos"
+    "message": "FAKEDRINH Ponos"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Dobio si ove skinove za donaciju za prikupljanje sredstava Modrinth Ponos tokom Meseca ponosa."
+    "message": "Dobio si ove skinove za donaciju za prikupljanje sredstava FAKEDRINH Ponos tokom Meseca ponosa."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -747,10 +747,10 @@
     "message": "Selektor skina"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Preuzimanje Modrinth aplikacije v{version} je završeno. Ponovo učitaj da bi ažurirao sada ili automatski kada zatvoriš Modrinth aplikaciju."
+    "message": "Preuzimanje FAKEDRINH aplikacije v{version} je završeno. Ponovo učitaj da bi ažurirao sada ili automatski kada zatvoriš FAKEDRINH aplikaciju."
   },
   "app.update-popup.body.linux": {
-    "message": "Dostupna je Modrinth aplikacija v{version}. Koristi menadžer paketa da bi ažurirao za najnovije funkcije i ispravke!"
+    "message": "Dostupna je FAKEDRINH aplikacija v{version}. Koristi menadžer paketa da bi ažurirao za najnovije funkcije i ispravke!"
   },
   "app.update-popup.changelog": {
     "message": "Spisak promena"
@@ -774,7 +774,7 @@
     "message": "Verzija {version} je uspešno instalirana!"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "primer.modrinth.gg"
+    "message": "primer.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Izaberi opciju"
@@ -804,10 +804,10 @@
     "message": "Možda se razlikuje od njihovog korisničkog imena za Minecraft!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Unesite korisničko ime za Modrinthu..."
+    "message": "Unesite korisničko ime za FAKEDRINHu..."
   },
   "friends.add-friend.username.title": {
-    "message": "Koje je korisničko ime tvog prijatelja u Modrinthu?"
+    "message": "Koje je korisničko ime tvog prijatelja u FAKEDRINHu?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Dodaj prijatelje</link> da vidiš šta igraju!"
@@ -849,7 +849,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Prijavi se na Modrinth račun</link> da bi dodao prijatelje i vidio šta igraju!"
+    "message": "<link>Prijavi se na FAKEDRINH račun</link> da bi dodao prijatelje i vidio šta igraju!"
   },
   "instance.add-server.add-and-play": {
     "message": "Dodaj i igraj"

@@ -75,7 +75,7 @@
     "message": "Minecraftのセットアップに失敗しました"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Modrinthに接続できませんでした"
+    "message": "FAKEDRINHに接続できませんでした"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "書き込み権限がありません"
@@ -147,7 +147,7 @@
     "message": "ネームタグを非表示にする"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minecraftを起動したときにModrinth Appを最小化します。"
+    "message": "Minecraftを起動したときにFAKEDRINH Appを最小化します。"
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "ランチャーを最小化"
@@ -171,7 +171,7 @@
     "message": "右のサイドバーを隠す"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Modrinth以外でホストされているModrinthパック（.mrpack）をインストールする前に、安全警告を表示します。"
+    "message": "FAKEDRINH以外でホストされているFAKEDRINHパック（.mrpack）をインストールする前に、安全警告を表示します。"
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "不明なModパックのインストール前に警告する"
@@ -189,7 +189,7 @@
     "message": "ホームとコンテンツ"
   },
   "app.behavior-settings.refocus-on-game-close.description": {
-    "message": "Minecraftが終了したときに、Modrinth Appを前面に表示します。"
+    "message": "Minecraftが終了したときに、FAKEDRINH Appを前面に表示します。"
   },
   "app.behavior-settings.refocus-on-game-close.title": {
     "message": "Minecraftが閉じられたときにアプリをフォーカスする"
@@ -201,7 +201,7 @@
     "message": "ログイン中のすべての端末で同じ設定を使用します。オフにすると、端末ごとに個別の設定を使用できます。"
   },
   "app.behavior-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "設定を同期するには、Modrinthアカウントにログインしてください。"
+    "message": "設定を同期するには、FAKEDRINHアカウントにログインしてください。"
   },
   "app.behavior-settings.sync-across-devices.title": {
     "message": "端末間での設定の同期"
@@ -441,7 +441,7 @@
     "message": "サインインされているすべてのデバイスでこれらの機能はすべて共有されます。デバイスごとに設定した場合はこの機能をオフにしてください。"
   },
   "app.features-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "設定を同期するには、Modrinthアカウントにログインしてください。"
+    "message": "設定を同期するには、FAKEDRINHアカウントにログインしてください。"
   },
   "app.features-settings.sync-across-devices.title": {
     "message": "デバイス間での同期機能を同期する"
@@ -474,16 +474,16 @@
     "message": "インスタンスを表示"
   },
   "app.hosting.update-required.description": {
-    "message": "Modrinth Hostingを利用するには、Modrinth Appを更新してください"
+    "message": "FAKEDRINH Hostingを利用するには、FAKEDRINH Appを更新してください"
   },
   "app.hosting.update-required.download": {
     "message": "ダウンロードして更新"
   },
   "app.hosting.update-required.rinthbot-alt": {
-    "message": "ワクワクしているModrinth Bot"
+    "message": "ワクワクしているFAKEDRINH Bot"
   },
   "app.hosting.update-required.title": {
-    "message": "Modrinth Appの更新が必要です"
+    "message": "FAKEDRINH Appの更新が必要です"
   },
   "app.install.phase.downloading_content": {
     "message": "コンテンツをダウンロード中"
@@ -810,13 +810,13 @@
     "message": "このアカウントでサインインすることで"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Modrinthへのサインインが必要です"
+    "message": "FAKEDRINHへのサインインが必要です"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "インスタンスのアップデートを受け取ることができます。"
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Modrinthのアカウントが間違っています"
+    "message": "FAKEDRINHのアカウントが間違っています"
   },
   "app.instance.shortcut.created": {
     "message": "ショートカットを作成しました"
@@ -1242,10 +1242,10 @@
     "message": "インストール"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "この招待は他のModrinthユーザーによって作成されたものであり、Modrinth公式のものではありません。信頼できる人からの招待のみ承諾してください。"
+    "message": "この招待は他のFAKEDRINHユーザーによって作成されたものであり、FAKEDRINH公式のものではありません。信頼できる人からの招待のみ承諾してください。"
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "この招待はModrinthではなく<creator>{username}</creator>によって作成されました。信頼できる人物からの招待のみ受諾してください。"
+    "message": "この招待はFAKEDRINHではなく<creator>{username}</creator>によって作成されました。信頼できる人物からの招待のみ受諾してください。"
   },
   "app.modal.install-to-play.managed-content.modpack-header": {
     "message": "Modパックのコンテンツ"
@@ -1278,7 +1278,7 @@
     "message": "サポートに関するお問い合わせは、<support-link>サポートチーム</support-link>までご連絡ください。バグの報告は、<github-link>GitHubのIssue</github-link>を作成してください。"
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "追加するファイルはModrinthの認証を受けていません。"
+    "message": "追加するファイルはFAKEDRINHの認証を受けていません。"
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "共有インスタンス"
@@ -1287,10 +1287,10 @@
     "message": "共有インスタンスの内容"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "この共有インスタンスには、Modrinthで公開されていないファイルが含まれています。信頼できる提供元からのファイルのみをインストールすることを強くお勧めします。"
+    "message": "この共有インスタンスには、FAKEDRINHで公開されていないファイルが含まれています。信頼できる提供元からのファイルのみをインストールすることを強くお勧めします。"
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "このサーバーModパックには、Modrinthに公開されていないファイルが含まれています。信頼できるソースからのファイルのみをインストールすることを強く推奨します。"
+    "message": "このサーバーModパックには、FAKEDRINHに公開されていないファイルが含まれています。信頼できるソースからのファイルのみをインストールすることを強く推奨します。"
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "不明なファイルの警告"
@@ -1311,7 +1311,7 @@
     "message": "削除されました"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "このサーバーModパックのアップデートには、Modrinthに公開されていないファイルが含まれています。信頼できるソースからのファイルのみをインストールすることを強く推奨します。"
+    "message": "このサーバーModパックのアップデートには、FAKEDRINHに公開されていないファイルが含まれています。信頼できるソースからのファイルのみをインストールすることを強く推奨します。"
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "追加済み"
@@ -1320,7 +1320,7 @@
     "message": "削除済み"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "この共有インスタンスのアップデートには、Modrinthで公開されていないファイルが含まれています。信頼できる提供元からのファイルのみをインストールすることを強くお勧めします。"
+    "message": "この共有インスタンスのアップデートには、FAKEDRINHで公開されていないファイルが含まれています。信頼できる提供元からのファイルのみをインストールすることを強くお勧めします。"
   },
   "app.modal.update-to-play.update-required": {
     "message": "更新が必要です"
@@ -1341,7 +1341,7 @@
     "message": "プロフィールを読み込み中…"
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinthアカウント"
+    "message": "FAKEDRINHアカウント"
   },
   "app.nav.remove-account": {
     "message": "アカウントを削除"
@@ -1350,7 +1350,7 @@
     "message": "スクリーンショット"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Modrinthへサインイン"
+    "message": "FAKEDRINHへサインイン"
   },
   "app.nav.switch-account": {
     "message": "アカウントの切り替え"
@@ -1563,7 +1563,7 @@
     "message": "ZIPをエクスポート"
   },
   "app.screenshots.selection.global-export-filename": {
-    "message": "Modrinth screenshots.zip"
+    "message": "FAKEDRINH screenshots.zip"
   },
   "app.screenshots.selection.instance-export-filename": {
     "message": "{instance} screenshots.zip"
@@ -2109,13 +2109,13 @@
     "message": "macOS"
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Discordの現在のプレイ中に Modrinth App を表示します。これはModによってインスタンスに追加されるRich Presenceには影響しません。適用にはアプリの再起動が必要です。"
+    "message": "Discordの現在のプレイ中に FAKEDRINH App を表示します。これはModによってインスタンスに追加されるRich Presenceには影響しません。適用にはアプリの再起動が必要です。"
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinthはユーザー体験の向上および最適化のために、匿名化されたアナリティクスと利用データを収集しています。このオプションをオフにすることで無効化（オプトアウト）され、以降データの収集は行われません。"
+    "message": "FAKEDRINHはユーザー体験の向上および最適化のために、匿名化されたアナリティクスと利用データを収集しています。このオプションをオフにすることで無効化（オプトアウト）され、以降データの収集は行われません。"
   },
   "app.settings.privacy.telemetry.title": {
     "message": "テレメトリ"
@@ -2133,7 +2133,7 @@
     "message": "アプリのキャッシュを破棄しますか？"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "キャッシュデータを消去し、Modrinthから再ダウンロードします。キャッシュが再構築されるまで、アプリの読み込みが遅くなる場合があります。"
+    "message": "キャッシュデータを消去し、FAKEDRINHから再ダウンロードします。キャッシュが再構築されるまで、アプリの読み込みが遅くなる場合があります。"
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "キャッシュを破棄"
@@ -2154,7 +2154,7 @@
     "message": "アプリのディレクトリを参照"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Modrinth Appがインスタンスやその他のファイルを保存する場所です。変更はアプリの再起動後に反映されます。"
+    "message": "FAKEDRINH Appがインスタンスやその他のファイルを保存する場所です。変更はアプリの再起動後に反映されます。"
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "新しいアプリディレクトリを選択"
@@ -2403,13 +2403,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth プライド"
+    "message": "FAKEDRINH プライド"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "これらのスキンは、プライド月間中にModrinthのプライド募金活動に寄付したことで獲得したものです。"
+    "message": "これらのスキンは、プライド月間中にFAKEDRINHのプライド募金活動に寄付したことで獲得したものです。"
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "マウント・オブ・メイヘム"
@@ -2442,10 +2442,10 @@
     "message": "オンに切り替え"
   },
   "app.survey.body": {
-    "message": "Modrinth App の使用感についての簡単なアンケートにご協力いただけますか？"
+    "message": "FAKEDRINH App の使用感についての簡単なアンケートにご協力いただけますか？"
   },
   "app.survey.footer": {
-    "message": "このフィードバックはModrinthチームに直接届けられ、今後のアップデートの改善に役立てられます！"
+    "message": "このフィードバックはFAKEDRINHチームに直接届けられ、今後のアップデートの改善に役立てられます！"
   },
   "app.survey.no-thanks": {
     "message": "結構です"
@@ -2454,16 +2454,16 @@
     "message": "アンケートに回答"
   },
   "app.survey.title": {
-    "message": "Modrinthユーザーのみなさん、こんにちは！"
+    "message": "FAKEDRINHユーザーのみなさん、こんにちは！"
   },
   "app.sync-instances-update.skip": {
     "message": "スキップ"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} のダウンロードが完了しました。今すぐ更新するには再読み込みするか、Modrinth Appを閉じる際に自動更新されます。"
+    "message": "FAKEDRINH App v{version} のダウンロードが完了しました。今すぐ更新するには再読み込みするか、FAKEDRINH Appを閉じる際に自動更新されます。"
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} が利用可能です。最新の機能と修正プログラムを入手するには、パッケージマネージャーを使用して更新してください！"
+    "message": "FAKEDRINH App v{version} が利用可能です。最新の機能と修正プログラムを入手するには、パッケージマネージャーを使用して更新してください！"
   },
   "app.update-popup.changelog": {
     "message": "更新履歴"
@@ -2508,10 +2508,10 @@
     "message": "<shortcut>N</shortcut>を押してインスタンスをクイック作成"
   },
   "app.welcome-screen.title": {
-    "message": "Modrinthへようこそ"
+    "message": "FAKEDRINHへようこそ"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "オプションを選択"
@@ -2577,10 +2577,10 @@
     "message": "これはMinecraftのユーザー名とは異なる可能性があります！"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Modrinthユーザー名を入力…"
+    "message": "FAKEDRINHユーザー名を入力…"
   },
   "friends.add-friend.username.title": {
-    "message": "あなたのフレンドのModrinthユーザー名は何ですか？"
+    "message": "あなたのフレンドのFAKEDRINHユーザー名は何ですか？"
   },
   "friends.add-friends-to-share": {
     "message": "<link>友達を追加</link>して、彼らが何をしているか見てみよう！"
@@ -2625,7 +2625,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Modrinthアカウントにサインイン</link>して友達を追加し、彼らがプレイしているゲームをチェックしよう！"
+    "message": "<link>FAKEDRINHアカウントにサインイン</link>して友達を追加し、彼らがプレイしているゲームをチェックしよう！"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "リンク済の共有インスタンス"
@@ -2646,7 +2646,7 @@
     "message": "共有インスタンスを非公開にする"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "この共有インスタンスをModrinthから削除し、使用者へのアップデート送信を停止します。ローカルのインスタンスには影響しません。"
+    "message": "この共有インスタンスをFAKEDRINHから削除し、使用者へのアップデート送信を停止します。ローカルのインスタンスには影響しません。"
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "非公開に設定中…"
@@ -2661,7 +2661,7 @@
     "message": "共有インスタンスのリンクを解除"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Modrinthのサーバーからこの共有インスタンスを削除します。Modrinthアプリでこれを使用しているユーザーへのアップデート配信は停止しますが、ローカルのインスタンスとそのコンテンツはこのデバイスに残ります。"
+    "message": "FAKEDRINHのサーバーからこの共有インスタンスを削除します。FAKEDRINHアプリでこれを使用しているユーザーへのアップデート配信は停止しますが、ローカルのインスタンスとそのコンテンツはこのデバイスに残ります。"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "共有インスタンスの非公開化"
@@ -2943,7 +2943,7 @@
     "message": "TNT"
   },
   "instance.icon-editor.symbol.wrenth-rinth": {
-    "message": "Modrinthのレンチ"
+    "message": "FAKEDRINHのレンチ"
   },
   "instance.icon-editor.symbol.zombie": {
     "message": "ゾンビ"
@@ -3468,7 +3468,7 @@
     "message": "アカウントを作成"
   },
   "modal.modrinth-account-required.description": {
-    "message": "この機能を利用するには、Modrinthアカウントにログインする必要があります。"
+    "message": "この機能を利用するには、FAKEDRINHアカウントにログインする必要があります。"
   },
   "modal.modrinth-account-required.header": {
     "message": "アカウントが必要です"
@@ -3477,10 +3477,10 @@
     "message": "もう一度ブラウザを開く"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Modrinthへサインイン"
+    "message": "FAKEDRINHへサインイン"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Modrinthアカウントにサインインしてください"
+    "message": "FAKEDRINHアカウントにサインインしてください"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "サインイン"

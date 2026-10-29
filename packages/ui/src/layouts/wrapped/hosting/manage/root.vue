@@ -59,7 +59,7 @@
 	>
 		<ErrorInformationCard
 			title="An error occured."
-			description="Please contact Modrinth Support."
+			description="Please contact FAKEDRINH Support."
 			:icon="TransferIcon"
 			icon-color="orange"
 			:error-details="generalErrorDetails"
@@ -167,7 +167,7 @@
 									tooltip="Copy server address"
 									:action="copyServerAddress"
 								>
-									{{ serverData.net.domain }}.modrinth.gg
+									{{ serverData.net.domain }}.FAKEDRINH.gg
 								</PageHeaderMetadataItem>
 								<PageHeaderMetadataItem v-if="showServerUptime" :icon="TimerIcon">
 									{{ formattedUptime }}

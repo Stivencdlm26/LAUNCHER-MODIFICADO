@@ -103,7 +103,7 @@ const { canSetup, permissionDeniedMessage } = useServerPermissions()
 const messages = defineMessages({
 	welcomeTitle: {
 		id: 'servers.setup.onboarding.welcome.title',
-		defaultMessage: 'Welcome to Modrinth Hosting',
+		defaultMessage: 'Welcome to FAKEDRINH Hosting',
 	},
 	welcomeDescription: {
 		id: 'servers.setup.onboarding.welcome.description',
@@ -144,7 +144,7 @@ const messages = defineMessages({
 	chooseWhatToPlayDescription: {
 		id: 'servers.setup.onboarding.step.choose.description',
 		defaultMessage:
-			'Pick your favorite modpack from Modrinth, or choose a loader and add the mods you want.',
+			'Pick your favorite modpack from FAKEDRINH, or choose a loader and add the mods you want.',
 	},
 	configureWorldTitle: {
 		id: 'servers.setup.onboarding.step.configure-world.title',
@@ -330,7 +330,7 @@ const onCreate = async (config: CreationFlowContextValue) => {
 		request = {
 			content_variant: 'modpack',
 			spec: {
-				platform: 'modrinth',
+				platform: 'FAKEDRINH',
 				project_id: config.modpackSelection.value.projectId,
 				version_id: config.modpackSelection.value.versionId,
 			},

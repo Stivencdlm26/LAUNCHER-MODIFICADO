@@ -78,7 +78,7 @@
     "message": "Nastavení Minecraftu se nezdařilo"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Nepodařilo se připojit k Modrinth"
+    "message": "Nepodařilo se připojit k FAKEDRINH"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Nemáte oprávnění k zápisu"
@@ -150,7 +150,7 @@
     "message": "Skrýt jmenovku"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimalizovat Modrinth aplikaci při spuštění Minecraftu."
+    "message": "Minimalizovat FAKEDRINH aplikaci při spuštění Minecraftu."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "Minimalizovat aplikaci"
@@ -174,7 +174,7 @@
     "message": "Skrýt pravý postranní panel"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Zobrazit bezpečnostní varování před instalací Modrinth Pack (.mrpack), který není hostován v Modrinth."
+    "message": "Zobrazit bezpečnostní varování před instalací FAKEDRINH Pack (.mrpack), který není hostován v FAKEDRINH."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Upozorni mě před instalací neznámých modpacků"
@@ -192,7 +192,7 @@
     "message": "Domovská stránka a kontent"
   },
   "app.behavior-settings.refocus-on-game-close.description": {
-    "message": "Zobrazit Modrinth App na popředí po opuštění Minecraftu."
+    "message": "Zobrazit FAKEDRINH App na popředí po opuštění Minecraftu."
   },
   "app.behavior-settings.refocus-on-game-close.title": {
     "message": "Přenést aplikaci na popředí po opuštění Minecraftu"
@@ -204,7 +204,7 @@
     "message": "Používejte toto nastavení všude, kde jste přihlášeni. Vypněte ho, pokud chcete různé nastavení na různých zařízeních."
   },
   "app.behavior-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Přihlašte se do vašeho Modrinth účtu aby jste si mohli synchronizovat nastavení."
+    "message": "Přihlašte se do vašeho FAKEDRINH účtu aby jste si mohli synchronizovat nastavení."
   },
   "app.behavior-settings.sync-across-devices.title": {
     "message": "Synchronizovat nastavení mezi různými zařízeními"
@@ -429,16 +429,16 @@
     "message": "Zobrazit instanci"
   },
   "app.hosting.update-required.description": {
-    "message": "Musíte aktualizovat Modrinth Hosting přes Modrinth App"
+    "message": "Musíte aktualizovat FAKEDRINH Hosting přes FAKEDRINH App"
   },
   "app.hosting.update-required.download": {
     "message": "Stáhnout novou aktualizaci"
   },
   "app.hosting.update-required.rinthbot-alt": {
-    "message": "Nadšený Modrinth Bot"
+    "message": "Nadšený FAKEDRINH Bot"
   },
   "app.hosting.update-required.title": {
-    "message": "Modrinth App potřebuje být aktualizovaná"
+    "message": "FAKEDRINH App potřebuje být aktualizovaná"
   },
   "app.install.phase.downloading_content": {
     "message": "Stahování obsahu"
@@ -762,13 +762,13 @@
     "message": "Přihlásit se jako"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Musíte se přihlásit do Modrinthu"
+    "message": "Musíte se přihlásit do FAKEDRINHu"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "dostávat aktualizace pro tuto sdílenou instanci."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Používate nesprávný Modrinth účet"
+    "message": "Používate nesprávný FAKEDRINH účet"
   },
   "app.instance.shortcut.created": {
     "message": "Zkratka vytvořena"
@@ -1185,10 +1185,10 @@
     "message": "Společný obsah instance"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Tato sdílená instance obsahuje soubory, které nejsou publikované na Modrinthu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
+    "message": "Tato sdílená instance obsahuje soubory, které nejsou publikované na FAKEDRINHu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Tento serverový modpack obsahuje soubory, které nejsou publikované na Modrinthu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
+    "message": "Tento serverový modpack obsahuje soubory, které nejsou publikované na FAKEDRINHu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Upozornění na neznámý soubor"
@@ -1209,7 +1209,7 @@
     "message": "Odstraněno"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Tato aktualizace serverového modpacku obsahuje soubory, které nejsou publikované na Modrinthu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
+    "message": "Tato aktualizace serverového modpacku obsahuje soubory, které nejsou publikované na FAKEDRINHu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Přidáno"
@@ -1218,7 +1218,7 @@
     "message": "Odstraněno"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Tato aktualizace sdílené instance obsahuje soubory, které nejsou publikované na Modrinthu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
+    "message": "Tato aktualizace sdílené instance obsahuje soubory, které nejsou publikované na FAKEDRINHu. Silně doporučujeme instalovat pouze soubory ze zdroje, kterému důveřujete."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Je vyžadována aktualizace"
@@ -1239,7 +1239,7 @@
     "message": "Načítání profilu..."
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth účet"
+    "message": "FAKEDRINH účet"
   },
   "app.nav.remove-account": {
     "message": "Odebrat účet"
@@ -1248,7 +1248,7 @@
     "message": "Screenshoty"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Přihlásit se do Modrinth"
+    "message": "Přihlásit se do FAKEDRINH"
   },
   "app.nav.switch-account": {
     "message": "Změnit účet"
@@ -1446,7 +1446,7 @@
     "message": "Exportovat ZIP"
   },
   "app.screenshots.selection.global-export-filename": {
-    "message": "Modrinth screenshots.zip"
+    "message": "FAKEDRINH screenshots.zip"
   },
   "app.screenshots.selection.instance-export-filename": {
     "message": "{instance} screenshots.zip"
@@ -1752,13 +1752,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FAKEDRINH Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Tyto skiny jsi obdržel za přispění do sbírky Modrinth Pride behěm Pride měsíce."
+    "message": "Tyto skiny jsi obdržel za přispění do sbírky FAKEDRINH Pride behěm Pride měsíce."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -1785,10 +1785,10 @@
     "message": "Výběr skinu"
   },
   "app.survey.body": {
-    "message": "Mohli byste prosím odpovědět na pár otázek ohledně vašich zkušeností s Modrinth App?"
+    "message": "Mohli byste prosím odpovědět na pár otázek ohledně vašich zkušeností s FAKEDRINH App?"
   },
   "app.survey.footer": {
-    "message": "Tato zpětná vazba půjde přímo k týmu Modrinthu a pomůže při budoucích aktualizacích!"
+    "message": "Tato zpětná vazba půjde přímo k týmu FAKEDRINHu a pomůže při budoucích aktualizacích!"
   },
   "app.survey.no-thanks": {
     "message": "Ne, děkuji"
@@ -1797,13 +1797,13 @@
     "message": "Zapoj se do ankety"
   },
   "app.survey.title": {
-    "message": "Ahoj Modrinth uživateli!"
+    "message": "Ahoj FAKEDRINH uživateli!"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Stahování Modrinth App v{version} bylo dokončeno. Aktualizujte ji znovunačtením nebo se automaticky aktualizuje po zavření."
+    "message": "Stahování FAKEDRINH App v{version} bylo dokončeno. Aktualizujte ji znovunačtením nebo se automaticky aktualizuje po zavření."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} je k dispozici. Aktualizujte ji pomocí svého správce balíčků, abyste získali nejnovější funkce a opravy!"
+    "message": "FAKEDRINH App v{version} je k dispozici. Aktualizujte ji pomocí svého správce balíčků, abyste získali nejnovější funkce a opravy!"
   },
   "app.update-popup.changelog": {
     "message": "Seznam změn"
@@ -1848,10 +1848,10 @@
     "message": "Stiskněte <shortcut>N</shortcut> pro rychlé vytvoření instance"
   },
   "app.welcome-screen.title": {
-    "message": "Vítejte v Modrinthu"
+    "message": "Vítejte v FAKEDRINHu"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "priklad.modrinth.gg"
+    "message": "priklad.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Vybrat možnost"
@@ -1890,10 +1890,10 @@
     "message": "Může se lišit od jejich Minecraft přezdívky!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Zadej přezdívku na Modrinthu..."
+    "message": "Zadej přezdívku na FAKEDRINHu..."
   },
   "friends.add-friend.username.title": {
-    "message": "Jaká je přezdívka tvého přítele na Modrinthu?"
+    "message": "Jaká je přezdívka tvého přítele na FAKEDRINHu?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Přidej si přátele</link>, abys viděl, co hrají!"
@@ -1938,7 +1938,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Přihlas se k Modrinth účtu</link>, abys mohl přidávat přátele a vidět, co hrají!"
+    "message": "<link>Přihlas se k FAKEDRINH účtu</link>, abys mohl přidávat přátele a vidět, co hrají!"
   },
   "installation-settings.shared-instance.unlinking-button": {
     "message": "Odpojování..."
@@ -2211,7 +2211,7 @@
     "message": "Dynamit (TNT)"
   },
   "instance.icon-editor.symbol.wrenth-rinth": {
-    "message": "Modrinth klíč"
+    "message": "FAKEDRINH klíč"
   },
   "instance.icon-editor.symbol.zombie": {
     "message": "Zombie"
@@ -2532,10 +2532,10 @@
     "message": "Znovu otevřít prohlížeč"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Přihlásit se do Modrinth"
+    "message": "Přihlásit se do FAKEDRINH"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Přihlaste se k Modrinth účtu"
+    "message": "Přihlaste se k FAKEDRINH účtu"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Přihlášení"

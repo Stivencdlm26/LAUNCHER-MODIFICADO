@@ -19,25 +19,17 @@ export function useStickyObserver(target: Ref<HTMLElement | null | undefined>, l
 	watch(
 		target,
 		(el, oldEl) => {
-			debug('watch fired, el:', el, 'oldEl:', oldEl)
+			debug('watch fired', { hasElement: !!el, hadPreviousElement: !!oldEl })
 			observer?.disconnect()
 			sentinel?.remove()
 			observer = null
 			sentinel = null
 
 			if (el) {
-				debug(
-					'setting up sentinel, parent:',
-					el.parentElement,
-					'parentClasses:',
-					el.parentElement?.className,
-				)
-				debug('el classes:', el.className)
-				debug('el computed overflow:', getComputedStyle(el).overflow)
-				debug(
-					'parent computed overflow:',
-					el.parentElement ? getComputedStyle(el.parentElement).overflow : 'no parent',
-				)
+				debug('setting up sentinel', {
+					elementClasses: el.className,
+					parentClasses: el.parentElement?.className,
+				})
 
 				sentinel = document.createElement('div')
 				sentinel.style.height = '0'

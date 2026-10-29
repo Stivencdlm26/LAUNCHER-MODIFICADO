@@ -132,7 +132,7 @@ const services = [
 	},
 	{
 		icon: ModrinthIcon,
-		keywords: ['modrinth', 'mod rinth', 'modrith', 'mr'],
+		keywords: ['FAKEDRINH', 'mod rinth', 'modrith', 'mr'],
 	},
 	{
 		icon: TwitterIcon,

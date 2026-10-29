@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+	DownloadIcon,
 	EyeIcon,
 	FolderOpenIcon,
 	MoreVerticalIcon,
@@ -57,6 +58,7 @@ const props = defineProps<{
 	instance: GameInstance
 	last_played: Dayjs
 	newlyAdded?: boolean
+	modpackUpdateVersionId?: string
 }>()
 
 const messages = defineMessages({
@@ -87,6 +89,10 @@ const messages = defineMessages({
 	instanceActions: {
 		id: 'app.home.jump-back-in.actions.label',
 		defaultMessage: 'Instance actions',
+	},
+	updateModpack: {
+		id: 'app.home.jump-back-in.update-modpack',
+		defaultMessage: 'Actualizar',
 	},
 })
 
@@ -168,6 +174,15 @@ const showStop = computed(() => playing.value && !loading.value)
 const playDisabled = computed(
 	() => props.instance.quarantined || playing.value || loading.value || installing.value,
 )
+
+const openModpackUpdate = async (event: MouseEvent) => {
+	event.stopPropagation()
+	if (!props.modpackUpdateVersionId || playDisabled.value) return
+	await router.push({
+		path: `/instance/${encodeURIComponent(props.instance.id)}`,
+		query: { updateModpack: props.modpackUpdateVersionId },
+	})
+}
 
 const seeInstance = async () => {
 	if (installing.value) return
@@ -281,6 +296,17 @@ function openContextMenu(event: MouseEvent) {
 					</div>
 				</div>
 				<div data-no-card-click class="flex gap-1 justify-end smart-clickable:allow-pointer-events">
+					<Button
+						v-if="modpackUpdateVersionId && !showStop"
+						type="colored"
+						color="green"
+						class="modpack-update-button !font-semibold !shadow-[0_0_0_2px_var(--color-green),0_2px_10px_rgba(0,0,0,0.28)] hover:!brightness-110 focus-visible:!ring-4 focus-visible:!ring-green"
+						:disabled="playDisabled"
+						@click="openModpackUpdate"
+					>
+						<DownloadIcon aria-hidden="true" />
+						{{ formatMessage(messages.updateModpack) }}
+					</Button>
 					<Button v-if="showStop" type="colored" color="red" @click="stop">
 						<StopCircleIcon aria-hidden="true" />
 						{{ formatMessage(commonMessages.stopButton) }}

@@ -459,15 +459,15 @@ async function handleShare() {
 </script>
 
 <style>
-.modrinth-console-fullscreen-active .intercom-lightweight-app,
-.modrinth-console-fullscreen-active .intercom-lightweight-app-launcher,
-.modrinth-console-fullscreen-active .intercom-lightweight-app-messenger,
-.modrinth-console-fullscreen-active .intercom-launcher-frame,
-.modrinth-console-fullscreen-active .intercom-messenger-frame,
-.modrinth-console-fullscreen-active #intercom-container,
-.modrinth-console-fullscreen-active #intercom-frame,
-.modrinth-console-fullscreen-active iframe[name='intercom-launcher-frame'],
-.modrinth-console-fullscreen-active iframe[name='intercom-messenger-frame'] {
+.FAKEDRINH-console-fullscreen-active .intercom-lightweight-app,
+.FAKEDRINH-console-fullscreen-active .intercom-lightweight-app-launcher,
+.FAKEDRINH-console-fullscreen-active .intercom-lightweight-app-messenger,
+.FAKEDRINH-console-fullscreen-active .intercom-launcher-frame,
+.FAKEDRINH-console-fullscreen-active .intercom-messenger-frame,
+.FAKEDRINH-console-fullscreen-active #intercom-container,
+.FAKEDRINH-console-fullscreen-active #intercom-frame,
+.FAKEDRINH-console-fullscreen-active iframe[name='intercom-launcher-frame'],
+.FAKEDRINH-console-fullscreen-active iframe[name='intercom-messenger-frame'] {
 	z-index: 14 !important;
 }
 

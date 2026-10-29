@@ -30,7 +30,13 @@ export function setupOnboardingChecklistProvider(
 		hasLoggedIntoMinecraft: computed(() => checklist.value?.has_logged_into_minecraft ?? false),
 		hasLoggedIntoModrinth: computed(() => checklist.value?.has_logged_into_modrinth ?? false),
 		isReady: computed(() => checklist.value !== undefined),
-		showChecklist: computed(() => checklist.value?.show_checklist ?? false),
+		// This checklist currently displays only the first-instance task. Hide it as soon as
+		// that visible task is complete instead of waiting for hidden account-login tasks.
+		showChecklist: computed(
+			() =>
+				(checklist.value?.show_checklist ?? false) &&
+				!(checklist.value?.has_created_instance ?? false),
+		),
 	}
 
 	provideOnboardingChecklist(context)

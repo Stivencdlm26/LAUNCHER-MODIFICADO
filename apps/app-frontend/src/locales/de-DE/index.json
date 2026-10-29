@@ -78,7 +78,7 @@
     "message": "Einrichtung von Minecraft ist fehlgeschlagen"
   },
   "app.action-bar.install.summary.modrinth-unreachable": {
-    "message": "Modrinth konnte nicht erreicht werden"
+    "message": "FAKEDRINH konnte nicht erreicht werden"
   },
   "app.action-bar.install.summary.no-write-permission": {
     "message": "Keine Berechtigung zum Schreiben"
@@ -150,7 +150,7 @@
     "message": "Namensschild ausblenden"
   },
   "app.appearance-settings.minimize-launcher.description": {
-    "message": "Minimiere die Modrinth App, wenn Minecraft startet."
+    "message": "Minimiere die FAKEDRINH App, wenn Minecraft startet."
   },
   "app.appearance-settings.minimize-launcher.title": {
     "message": "App minimieren"
@@ -174,7 +174,7 @@
     "message": "Rechte Seitenleiste ausblenden"
   },
   "app.appearance-settings.unknown-pack-warning.description": {
-    "message": "Sicherheitswarnung vor der Installation eines Modrinth-Packs (.mrpack) anzeigen, das nicht auf Modrinth gehostet wird."
+    "message": "Sicherheitswarnung vor der Installation eines FAKEDRINH-Packs (.mrpack) anzeigen, das nicht auf FAKEDRINH gehostet wird."
   },
   "app.appearance-settings.unknown-pack-warning.title": {
     "message": "Warne mich, bevor unbekannte Modpacks installiert werden"
@@ -192,7 +192,7 @@
     "message": "Startseite & Inhalte"
   },
   "app.behavior-settings.refocus-on-game-close.description": {
-    "message": "Bringe die Modrinth App in den Vordergrund, wenn Minecraft beendet wird."
+    "message": "Bringe die FAKEDRINH App in den Vordergrund, wenn Minecraft beendet wird."
   },
   "app.behavior-settings.refocus-on-game-close.title": {
     "message": "App neu fokussieren, wenn Minecraft geschlossen wird"
@@ -204,7 +204,7 @@
     "message": "Diese Verhaltenseinstellungen werden überall verwendet, wo du angemeldet bist. Deaktiviere diese Option, um auf diesem Gerät separate Einstellungen beizubehalten."
   },
   "app.behavior-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Melde dich bei einem Modrinth-Konto an, um die Einstellungen zu synchronisieren."
+    "message": "Melde dich bei einem FAKEDRINH-Konto an, um die Einstellungen zu synchronisieren."
   },
   "app.behavior-settings.sync-across-devices.title": {
     "message": "Verhalten zwischen Geräten synchronisieren"
@@ -447,7 +447,7 @@
     "message": "Verwende diese Funktionseinstellungen auf allen Geräten, auf denen du angemeldet bist. Deaktiviere diese Option, um die Einstellungen auf diesem Gerät getrennt zu halten."
   },
   "app.features-settings.sync-across-devices.signed-out-tooltip": {
-    "message": "Melde dich bei einem Modrinth-Konto an, um Einstellungen zu synchronisieren."
+    "message": "Melde dich bei einem FAKEDRINH-Konto an, um Einstellungen zu synchronisieren."
   },
   "app.features-settings.sync-across-devices.title": {
     "message": "Synchronisiere Funktionen über mehrere Geräte"
@@ -480,16 +480,16 @@
     "message": "Instanz anzeigen"
   },
   "app.hosting.update-required.description": {
-    "message": "Du musst aktualisieren, um Modrinth Hosting durch die Modrinth App zu verwenden"
+    "message": "Du musst aktualisieren, um FAKEDRINH Hosting durch die FAKEDRINH App zu verwenden"
   },
   "app.hosting.update-required.download": {
     "message": "Zum Aktualisieren herunterladen"
   },
   "app.hosting.update-required.rinthbot-alt": {
-    "message": "Begeisterter Modrinth-Bot"
+    "message": "Begeisterter FAKEDRINH-Bot"
   },
   "app.hosting.update-required.title": {
-    "message": "Update der Modrinth App erforderlich"
+    "message": "Update der FAKEDRINH App erforderlich"
   },
   "app.install.phase.downloading_content": {
     "message": "Inhalte werden heruntergeladen"
@@ -816,13 +816,13 @@
     "message": "Anmelden als"
   },
   "app.instance.shared-instance-wrong-account.signed-out-header": {
-    "message": "Du musst dich bei Modrinth anmelden"
+    "message": "Du musst dich bei FAKEDRINH anmelden"
   },
   "app.instance.shared-instance-wrong-account.user-admonition-body-v2": {
     "message": "um Updates für diese geteilte Instanz zu erhalten."
   },
   "app.instance.shared-instance-wrong-account.warning-header": {
-    "message": "Du nutzt das falsche Modrinth-Konto"
+    "message": "Du nutzt das falsche FAKEDRINH-Konto"
   },
   "app.instance.shortcut.created": {
     "message": "Verknüpfung erstellt"
@@ -1248,10 +1248,10 @@
     "message": "Installieren"
   },
   "app.modal.install-to-play.invite-warning": {
-    "message": "Diese Einladung wurde von einem anderen Modrinth-Nutzer erstellt, nicht von Modrinth. Nimm nur Einladungen von Personen an, denen du vertraust."
+    "message": "Diese Einladung wurde von einem anderen FAKEDRINH-Nutzer erstellt, nicht von FAKEDRINH. Nimm nur Einladungen von Personen an, denen du vertraust."
   },
   "app.modal.install-to-play.invite-warning-with-creator": {
-    "message": "Diese Einladung wurde von <creator>{username}</creator> erstellt, nicht von Modrinth. Akzeptierte nur Einladungen von Leuten, denen du vertraust."
+    "message": "Diese Einladung wurde von <creator>{username}</creator> erstellt, nicht von FAKEDRINH. Akzeptierte nur Einladungen von Leuten, denen du vertraust."
   },
   "app.modal.install-to-play.managed-content.modpack-header": {
     "message": "Inhalte des Modpacks"
@@ -1284,7 +1284,7 @@
     "message": "Wende dich bei Supportanfragen bitte an unser <support-link>Support-Team</support-link>. Um Fehler zu melden, öffne bitte ein <github-link>Issue auf GitHub</github-link>."
   },
   "app.modal.install-to-play.reviewed-files": {
-    "message": "Dateien, die nicht auf Modrinth veröffentlicht werden, werden nicht überprüft."
+    "message": "Dateien, die nicht auf FAKEDRINH veröffentlicht werden, werden nicht überprüft."
   },
   "app.modal.install-to-play.shared-instance": {
     "message": "Geteilte Instanz"
@@ -1293,10 +1293,10 @@
     "message": "Inhalte der geteilten Instanz"
   },
   "app.modal.install-to-play.shared-instance-unknown-files-description": {
-    "message": "Diese geteilte Instanz enthält Dateien, die nicht auf Modrinth veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
+    "message": "Diese geteilte Instanz enthält Dateien, die nicht auf FAKEDRINH veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
   },
   "app.modal.install-to-play.unknown-files-description": {
-    "message": "Dieses Server-Modpack enthält Dateien, die nicht auf Modrinth veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
+    "message": "Dieses Server-Modpack enthält Dateien, die nicht auf FAKEDRINH veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
   },
   "app.modal.install-to-play.unknown-files-warning": {
     "message": "Warnung vor unbekannten Dateien"
@@ -1317,7 +1317,7 @@
     "message": "Entfernt"
   },
   "app.modal.update-to-play.server-modpack-unknown-files-description": {
-    "message": "Dieses Update eines Server-Modpacks enthält Dateien, die nicht auf Modrinth veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
+    "message": "Dieses Update eines Server-Modpacks enthält Dateien, die nicht auf FAKEDRINH veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
   },
   "app.modal.update-to-play.shared-instance-added-label": {
     "message": "Hinzugefügt"
@@ -1326,7 +1326,7 @@
     "message": "Entfernt"
   },
   "app.modal.update-to-play.shared-instance-unknown-files-description": {
-    "message": "Dieses Update einer geteilten Instanz enthält Dateien, die nicht auf Modrinth veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
+    "message": "Dieses Update einer geteilten Instanz enthält Dateien, die nicht auf FAKEDRINH veröffentlicht sind. Wir empfehlen dringend, nur Dateien aus vertrauenswürdigen Quellen zu installieren."
   },
   "app.modal.update-to-play.update-required": {
     "message": "Aktualisierung erforderlich"
@@ -1347,7 +1347,7 @@
     "message": "Profil wird geladen..."
   },
   "app.nav.modrinth-account": {
-    "message": "Modrinth-Konto"
+    "message": "FAKEDRINH-Konto"
   },
   "app.nav.remove-account": {
     "message": "Konto entfernen"
@@ -1356,7 +1356,7 @@
     "message": "Screenshots"
   },
   "app.nav.sign-in-to-modrinth-account": {
-    "message": "Bei Modrinth anmelden"
+    "message": "Bei FAKEDRINH anmelden"
   },
   "app.nav.switch-account": {
     "message": "Konto wechseln"
@@ -1569,7 +1569,7 @@
     "message": "ZIP exportieren"
   },
   "app.screenshots.selection.global-export-filename": {
-    "message": "Screenshots aus Modrinth.zip"
+    "message": "Screenshots aus FAKEDRINH.zip"
   },
   "app.screenshots.selection.instance-export-filename": {
     "message": "Screenshots aus {instance}.zip"
@@ -1875,7 +1875,7 @@
     "message": "Einige deiner Instanzen können diese Einstellung nicht verwenden"
   },
   "app.settings.game-options.compatibility.reason.launcher-controlled": {
-    "message": "Diese Einstellung wird über die Startoptionen von Modrinth verwaltet."
+    "message": "Diese Einstellung wird über die Startoptionen von FAKEDRINH verwaltet."
   },
   "app.settings.game-options.custom-value.placeholder": {
     "message": "Wert eingeben"
@@ -2709,13 +2709,13 @@
     "message": "macOS"
   },
   "app.settings.privacy.discord-rich-presence.description": {
-    "message": "Zeige Modrinth App als deine aktuelle Aktivität auf Discord. Dies betrifft nicht Rich Presence die von Mods zu Instanzen hinzugefügt wird. Benötigt einen Neustart der App."
+    "message": "Zeige FAKEDRINH App als deine aktuelle Aktivität auf Discord. Dies betrifft nicht Rich Presence die von Mods zu Instanzen hinzugefügt wird. Benötigt einen Neustart der App."
   },
   "app.settings.privacy.discord-rich-presence.title": {
     "message": "Discord Rich Presence"
   },
   "app.settings.privacy.telemetry.description": {
-    "message": "Modrinth sammelt anonymisierte Analyse- und Nutzungsdaten, um unsere Nutzererfahrung zu verbessern und deine Erfahrung anzupassen. Wenn du diese Option deaktivierst, entscheidest du dich dagegen und deine Daten werden nicht mehr gesammelt."
+    "message": "FAKEDRINH sammelt anonymisierte Analyse- und Nutzungsdaten, um unsere Nutzererfahrung zu verbessern und deine Erfahrung anzupassen. Wenn du diese Option deaktivierst, entscheidest du dich dagegen und deine Daten werden nicht mehr gesammelt."
   },
   "app.settings.privacy.telemetry.title": {
     "message": "Telemetrie"
@@ -2733,7 +2733,7 @@
     "message": "App-Cache leeren?"
   },
   "app.settings.resource-management.app-cache.description": {
-    "message": "Gespeicherte Cache-Daten löschen und sie neu von Modrinth herunterladen. Die App könnte langsamer laden, bis der Cache neu aufgebaut wurde."
+    "message": "Gespeicherte Cache-Daten löschen und sie neu von FAKEDRINH herunterladen. Die App könnte langsamer laden, bis der Cache neu aufgebaut wurde."
   },
   "app.settings.resource-management.app-cache.purge": {
     "message": "Cache leeren"
@@ -2754,7 +2754,7 @@
     "message": "Nach einem App-Verzeichnis suchen"
   },
   "app.settings.resource-management.app-directory.description": {
-    "message": "Wo Modrinth App Instanzen und andere Dateien speichert. Änderungen werden nach dem Neustarten der App angewendet."
+    "message": "Wo FAKEDRINH App Instanzen und andere Dateien speichert. Änderungen werden nach dem Neustarten der App angewendet."
   },
   "app.settings.resource-management.app-directory.select": {
     "message": "Neues App-Verzeichnis auswählen"
@@ -2940,7 +2940,7 @@
     "message": "Diese Einstellungen haben sich woanders geändert"
   },
   "app.settings.synced-options.game-settings.custom-empty": {
-    "message": "Einstellungen, die durch Mods hinzugefügt wurden, werden hier angezeigt, sobald Modrinth sie in einer deiner Instanzen findet."
+    "message": "Einstellungen, die durch Mods hinzugefügt wurden, werden hier angezeigt, sobald FAKEDRINH sie in einer deiner Instanzen findet."
   },
   "app.settings.synced-options.game-settings.description": {
     "message": "Verwende dieselben Spieloptionen für alle deine Instanzen."
@@ -3228,13 +3228,13 @@
     "message": "MINECON Earth 2017"
   },
   "app.skins.section.modrinth": {
-    "message": "Modrinth"
+    "message": "FAKEDRINH"
   },
   "app.skins.section.modrinth-pride": {
-    "message": "Modrinth Pride"
+    "message": "FAKEDRINH Pride"
   },
   "app.skins.section.modrinth-pride.tooltip": {
-    "message": "Du hast diese Skins erhalten, da du während des Pride-Monats für eine Modrinth-Pride-Spendenaktion gespendet hast."
+    "message": "Du hast diese Skins erhalten, da du während des Pride-Monats für eine FAKEDRINH-Pride-Spendenaktion gespendet hast."
   },
   "app.skins.section.mounts-of-mayhem": {
     "message": "Mounts of Mayhem"
@@ -3270,10 +3270,10 @@
     "message": "Aktivieren"
   },
   "app.survey.body": {
-    "message": "Könntest du ein paar Fragen über deine Erfahrung mit Modrinth App beantworten?"
+    "message": "Könntest du ein paar Fragen über deine Erfahrung mit FAKEDRINH App beantworten?"
   },
   "app.survey.footer": {
-    "message": "Das Feedback geht direkt an das Modrinth-Team und wird helfen, zukünftige Updates zu gestalten!"
+    "message": "Das Feedback geht direkt an das FAKEDRINH-Team und wird helfen, zukünftige Updates zu gestalten!"
   },
   "app.survey.no-thanks": {
     "message": "Nein danke"
@@ -3282,7 +3282,7 @@
     "message": "An Umfrage teilnehmen"
   },
   "app.survey.title": {
-    "message": "Hey, Modrinth Nutzer!"
+    "message": "Hey, FAKEDRINH Nutzer!"
   },
   "app.sync-instances-update.badge": {
     "message": "Neu in diesem Update"
@@ -3414,10 +3414,10 @@
     "message": "Synchronisierte Ressourcenpakete"
   },
   "app.update-popup.body.download-complete": {
-    "message": "Modrinth App v{version} wurde heruntergeladen. Jetzt neu laden, um sofort zu aktualisieren, oder beim Schließen der Modrinth-App automatisch aktualisieren."
+    "message": "FAKEDRINH App v{version} wurde heruntergeladen. Jetzt neu laden, um sofort zu aktualisieren, oder beim Schließen der FAKEDRINH-App automatisch aktualisieren."
   },
   "app.update-popup.body.linux": {
-    "message": "Modrinth App v{version} ist verfügbar. Verwende deinen Paketmanager, um die neuesten Funktionen und Fehlerbehebungen zu installieren!"
+    "message": "FAKEDRINH App v{version} ist verfügbar. Verwende deinen Paketmanager, um die neuesten Funktionen und Fehlerbehebungen zu installieren!"
   },
   "app.update-popup.changelog": {
     "message": "Änderungen"
@@ -3462,10 +3462,10 @@
     "message": "Drücke <shortcut>N</shortcut>, um schnell eine Instanz zu erstellen"
   },
   "app.welcome-screen.title": {
-    "message": "Willkommen bei Modrinth"
+    "message": "Willkommen bei FAKEDRINH"
   },
   "app.world.server-modal.placeholder-address": {
-    "message": "example.modrinth.gg"
+    "message": "example.FAKEDRINH.gg"
   },
   "app.world.server-modal.select-an-option": {
     "message": "Wähle eine Option"
@@ -3531,10 +3531,10 @@
     "message": "Er kann vom Minecraft-Nutzernamen abweichen!"
   },
   "friends.add-friend.username.placeholder": {
-    "message": "Modrinth-Benutzernamen eingeben..."
+    "message": "FAKEDRINH-Benutzernamen eingeben..."
   },
   "friends.add-friend.username.title": {
-    "message": "Wie lautet der Modrinth-Benutzername deines Freundes?"
+    "message": "Wie lautet der FAKEDRINH-Benutzername deines Freundes?"
   },
   "friends.add-friends-to-share": {
     "message": "<link>Freunde hinzufügen</link>, um zu sehen, was sie spielen!"
@@ -3579,7 +3579,7 @@
     "message": "{title} - {count}"
   },
   "friends.sign-in-to-add-friends": {
-    "message": "<link>Melde dich bei einem Modrinth-Konto an</link>, um Freunde hinzuzufügen und zu sehen, was sie gerade spielen!"
+    "message": "<link>Melde dich bei einem FAKEDRINH-Konto an</link>, um Freunde hinzuzufügen und zu sehen, was sie gerade spielen!"
   },
   "installation-settings.shared-instance.linked-title": {
     "message": "Verknüpfte geteilte Instanz"
@@ -3600,7 +3600,7 @@
     "message": "Geteilte Instanz zurückziehen"
   },
   "installation-settings.shared-instance.unpublish-description": {
-    "message": "Entferne diese geteilte Instanz von Modrinth und sende keine Updates mehr an Personen, die sie nutzen. Deine lokale Instanz ist davon nicht betroffen."
+    "message": "Entferne diese geteilte Instanz von FAKEDRINH und sende keine Updates mehr an Personen, die sie nutzen. Deine lokale Instanz ist davon nicht betroffen."
   },
   "installation-settings.shared-instance.unpublishing-button": {
     "message": "Wird zurückgezogen..."
@@ -3615,7 +3615,7 @@
     "message": "Geteilte Instanz trennen"
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-body": {
-    "message": "Dadurch wird die geteilte Instanz von den Servern von Modrinth gelöscht. Personen, die diese in der Modrinth-App nutzen, erhalten keine Updates mehr, aber deine lokale Instanz und dessen Inhalte bleiben auf diesem Gerät erhalten."
+    "message": "Dadurch wird die geteilte Instanz von den Servern von FAKEDRINH gelöscht. Personen, die diese in der FAKEDRINH-App nutzen, erhalten keine Updates mehr, aber deine lokale Instanz und dessen Inhalte bleiben auf diesem Gerät erhalten."
   },
   "installation-settings.unpublish-shared-instance.modal.admonition-header": {
     "message": "Geteilte Instanz zurückziehen"
@@ -3900,7 +3900,7 @@
     "message": "TNT"
   },
   "instance.icon-editor.symbol.wrenth-rinth": {
-    "message": "Modrinth-Schlüssel"
+    "message": "FAKEDRINH-Schlüssel"
   },
   "instance.icon-editor.symbol.zombie": {
     "message": "Zombie"
@@ -4464,7 +4464,7 @@
     "message": "Ein Konto erstellen"
   },
   "modal.modrinth-account-required.description": {
-    "message": "Du musst dich bei deinem Modrinth-Konto anmelden, bevor du diese Funktion nutzen kannst."
+    "message": "Du musst dich bei deinem FAKEDRINH-Konto anmelden, bevor du diese Funktion nutzen kannst."
   },
   "modal.modrinth-account-required.header": {
     "message": "Konto erforderlich"
@@ -4473,10 +4473,10 @@
     "message": "Browser erneut öffnen"
   },
   "modal.modrinth-account-required.sign-in-button": {
-    "message": "Bei Modrinth anmelden"
+    "message": "Bei FAKEDRINH anmelden"
   },
   "modal.modrinth-account-required.sign-in-heading": {
-    "message": "Bei einem Modrinth-Konto anmelden"
+    "message": "Bei einem FAKEDRINH-Konto anmelden"
   },
   "modal.modrinth-account-required.signing-in-header": {
     "message": "Anmelden"

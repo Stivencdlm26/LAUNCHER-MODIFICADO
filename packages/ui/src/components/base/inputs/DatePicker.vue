@@ -1,7 +1,7 @@
 <template>
 	<div
 		ref="wrapperRef"
-		class="modrinth-date-picker relative inline-flex items-center"
+		class="FAKEDRINH-date-picker relative inline-flex items-center"
 		:class="[
 			wrapperClass,
 			calendarOnly ? 'calendar-only' : '',
@@ -393,7 +393,7 @@ function syncMultiMonthSelects(instance = picker.value) {
 		const displayedYear = displayedMonthDate.getFullYear()
 		const displayedMonth = displayedMonthDate.getMonth()
 		const monthSelect = document.createElement('select')
-		monthSelect.className = 'flatpickr-monthDropdown-months modrinth-monthDropdown-months'
+		monthSelect.className = 'flatpickr-monthDropdown-months FAKEDRINH-monthDropdown-months'
 		monthSelect.setAttribute('aria-label', instance.l10n.monthAriaLabel)
 		monthSelect.tabIndex = -1
 
