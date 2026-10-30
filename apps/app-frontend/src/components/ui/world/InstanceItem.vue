@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+	CheckCircleIcon,
 	DownloadIcon,
 	EyeIcon,
 	FolderOpenIcon,
@@ -59,6 +60,7 @@ const props = defineProps<{
 	last_played: Dayjs
 	newlyAdded?: boolean
 	modpackUpdateVersionId?: string
+	modpackUpToDate?: boolean
 }>()
 
 const messages = defineMessages({
@@ -93,6 +95,10 @@ const messages = defineMessages({
 	updateModpack: {
 		id: 'app.home.jump-back-in.update-modpack',
 		defaultMessage: 'Actualizar',
+	},
+	modpackUpToDate: {
+		id: 'app.home.jump-back-in.modpack-up-to-date',
+		defaultMessage: 'Modpack actualizado',
 	},
 })
 
@@ -296,6 +302,13 @@ function openContextMenu(event: MouseEvent) {
 					</div>
 				</div>
 				<div data-no-card-click class="flex gap-1 justify-end smart-clickable:allow-pointer-events">
+					<span
+						v-if="modpackUpToDate && !modpackUpdateVersionId && !showStop"
+						class="modpack-up-to-date flex items-center gap-1 whitespace-nowrap px-2 text-sm font-medium text-green"
+					>
+						<CheckCircleIcon aria-hidden="true" class="h-4 w-4 shrink-0" />
+						{{ formatMessage(messages.modpackUpToDate) }}
+					</span>
 					<Button
 						v-if="modpackUpdateVersionId && !showStop"
 						type="colored"

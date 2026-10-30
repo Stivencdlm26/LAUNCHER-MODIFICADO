@@ -50,6 +50,10 @@ const messages = defineMessages({
 	jumpIn: { id: 'app.home.jump-back-in.title', defaultMessage: 'Jump in' },
 	resize: { id: 'app.home.jump-back-in.resize', defaultMessage: 'Drag to resize' },
 	updateModpack: { id: 'app.home.jump-back-in.update-modpack', defaultMessage: 'Actualizar' },
+	modpackUpToDate: {
+		id: 'app.home.jump-back-in.modpack-up-to-date',
+		defaultMessage: 'Modpack actualizado',
+	},
 	modpackUpdateTitle: {
 		id: 'app.home.jump-back-in.modpack-update-title',
 		defaultMessage: 'Actualización disponible',
@@ -276,6 +280,15 @@ const modpackUpdateVersionIds = computed(() => {
 		}
 	})
 	return versions
+})
+
+const modpackUpToDateInstanceIds = computed(() => {
+	const ids = new Set<string>()
+	modpackUpdateInstances.value.forEach((instance, index) => {
+		const info = modpackUpdateQueries.value[index]?.data
+		if (info && !info.has_update) ids.add(instance.id)
+	})
+	return ids
 })
 
 watch(
@@ -560,6 +573,7 @@ onUnmounted(() => {
 						:instance-name="item.instance.name"
 						:instance-icon="item.instance.icon_path"
 						:modpack-update-version-id="modpackUpdateVersionIds.get(item.instance.id)"
+						:modpack-up-to-date="modpackUpToDateInstanceIds.has(item.instance.id)"
 						@refresh="() => (item.world.type === 'server' ? refreshServer(item.world.address) : {})"
 						@update="scheduleWorldsRefresh"
 						@play="
@@ -583,6 +597,7 @@ onUnmounted(() => {
 						:last_played="item.sort_time"
 						:newly-added="item.newly_added"
 						:modpack-update-version-id="modpackUpdateVersionIds.get(item.instance.id)"
+						:modpack-up-to-date="modpackUpToDateInstanceIds.has(item.instance.id)"
 						@play="() => markInstancePlayed(item)"
 					/>
 				</div>

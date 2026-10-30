@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+	CheckCircleIcon,
 	ClipboardCopyIcon,
 	DownloadIcon,
 	EditIcon,
@@ -109,6 +110,7 @@ const props = withDefaults(
 		instanceName?: string
 		instanceIcon?: string
 		modpackUpdateVersionId?: string
+		modpackUpToDate?: boolean
 		shortcutInstanceId?: string
 	}>(),
 	{
@@ -133,6 +135,7 @@ const props = withDefaults(
 		instanceName: undefined,
 		instanceIcon: undefined,
 		modpackUpdateVersionId: undefined,
+		modpackUpToDate: false,
 		shortcutInstanceId: undefined,
 	},
 )
@@ -249,6 +252,10 @@ const messages = defineMessages({
 	updateModpack: {
 		id: 'app.home.jump-back-in.update-modpack',
 		defaultMessage: 'Actualizar',
+	},
+	modpackUpToDate: {
+		id: 'app.home.jump-back-in.modpack-up-to-date',
+		defaultMessage: 'Modpack actualizado',
 	},
 	worldInUse: {
 		id: 'instance.worlds.world_in_use',
@@ -648,6 +655,13 @@ function openContextMenu(event: MouseEvent) {
 					</template>
 				</div>
 				<div class="flex gap-1 justify-end smart-clickable:allow-pointer-events">
+					<span
+						v-if="modpackUpToDate && !modpackUpdateVersionId && !showStop"
+						class="modpack-up-to-date flex items-center gap-1 whitespace-nowrap px-2 text-sm font-medium text-green"
+					>
+						<CheckCircleIcon aria-hidden="true" class="h-4 w-4 shrink-0" />
+						{{ formatMessage(messages.modpackUpToDate) }}
+					</span>
 					<Button
 						v-if="modpackUpdateVersionId && !showStop"
 						data-no-card-click
